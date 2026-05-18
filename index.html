@@ -78,7 +78,6 @@
     }
     .btn-primary:hover { background: var(--steel); transform: translateY(-2px); }
 
-    /* TAGLINE — 50% larger: 1.2rem → 1.8rem */
     .hero-tagline {
       margin-top: 28px; font-family: 'Cormorant Garamond', serif; font-style: italic;
       font-size: 1.8rem; color: var(--gold); letter-spacing: 0.05em;
@@ -88,7 +87,7 @@
     /* SHARED SECTION ELEMENTS */
     .section-rule { width: 48px; height: 2px; background: var(--gold); margin: 0 auto 40px; }
     .section-label {
-      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+      font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 500;
       letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
     }
     .section-heading {
@@ -120,11 +119,11 @@
       content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       width: 800px; height: 800px; background: radial-gradient(ellipse, rgba(79,120,184,0.2) 0%, transparent 65%); pointer-events: none;
     }
-    .founding-label { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .founding-label { font-size: 1.05rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
     .founding-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--white); max-width: 700px; margin: 0 auto 44px; line-height: 1.25; }
     .founding-rule { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 44px; opacity: 0.6; }
     .founding-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.15rem, 2vw, 1.55rem); color: var(--bluemist); max-width: 680px; margin: 0 auto 28px; line-height: 1.75; }
-    .founding-attribution { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.06em; color: var(--bluemist); }
+    .founding-attribution { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.06em; }
     .founding-attribution a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(245,166,35,0.35); transition: color 0.2s, border-color 0.2s; }
     .founding-attribution a:hover { color: var(--white); border-color: rgba(255,255,255,0.5); }
     .founding-marks { margin-top: 56px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
@@ -171,7 +170,6 @@
       #hero { padding: 120px 24px 72px; }
       #problem, #card-copy, #founding, #signup { padding: 80px 24px; }
       footer { padding: 32px 24px; flex-direction: column; text-align: center; }
-      .hero-tagline { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -279,7 +277,7 @@
     </div>
     <p class="signup-success" id="signup-success">
       Thank you.<br>
-      <span style="font-size:1rem;font-style:normal;font-family:'DM Sans',sans-serif;color:var(--midgray);">Check your inbox — the General Concept Brief is on its way.</span>
+      <span style="font-size:1rem;font-style:normal;font-family:'DM Sans',sans-serif;color:var(--midgray);">Check your inbox — a confirmation link is on its way.</span>
     </p>
     <p class="signup-error" id="signup-error">Something went wrong. Please try again or email joe@aurios.io directly.</p>
     <p class="signup-nda reveal">Already have an NDA? <a href="#">Sign in →</a></p>
@@ -287,12 +285,11 @@
 </section>
 
 <footer>
-  <div class="footer-copy">© 2026 Martin Productions · Houston, Texas</div>
+  <div class="footer-copy">© 2026 AuriOS.IO</div>
   <div class="footer-marks">AuriOS™ · Auri™ · The Intelligence Superhighway™ · Your AI Is YOU™</div>
 </footer>
 
 <script>
-  // ── Reveal animation ──────────────────────────────────────────
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -304,13 +301,10 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // ── Signup ────────────────────────────────────────────────────
-  const WORKER_URL = "https://aurios-mailer.joe-a3a.workers.dev";
-
   async function handleSignup() {
-    const name    = document.getElementById('input-name').value.trim();
-    const email   = document.getElementById('input-email').value.trim();
-    const btn     = document.getElementById('submit-btn');
+    const name  = document.getElementById('input-name').value.trim();
+    const email = document.getElementById('input-email').value.trim();
+    const btn   = document.getElementById('submit-btn');
     const errorEl = document.getElementById('signup-error');
 
     if (!email || !email.includes('@')) {
@@ -318,26 +312,30 @@
       return;
     }
 
-    btn.disabled    = true;
+    btn.disabled = true;
     btn.textContent = 'Sending...';
     errorEl.style.display = 'none';
 
     try {
-      const response = await fetch(WORKER_URL, {
-        method:  'POST',
+      const response = await fetch('https://aurios-auth.joe-a3a.workers.dev/auth/signup', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ name, email })
+        body: JSON.stringify({ name, email })
       });
       const data = await response.json();
-
-      if (data.ok) {
+      if (data.success) {
         document.getElementById('signup-form').style.display = 'none';
         document.getElementById('signup-success').style.display = 'block';
+        document.getElementById('signup-success').innerHTML = `
+          Thank you.<br>
+          <span style="font-size:1rem;font-style:normal;font-family:'DM Sans',sans-serif;color:var(--midgray);">
+            Check your inbox — a confirmation link is on its way.
+          </span>`;
       } else {
-        throw new Error('Send failed');
+        throw new Error('Signup failed');
       }
     } catch (err) {
-      btn.disabled    = false;
+      btn.disabled = false;
       btn.textContent = 'Request Access';
       errorEl.style.display = 'block';
     }
