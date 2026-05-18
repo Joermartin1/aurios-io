@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — AuriOS™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F5C; --gold: #F5A623; --warmwhite: #FAFAF7;
+      --steel: #4F78B8; --bluemist: #D6E4F0; --darkgray: #4B5563;
+      --midgray: #6B7280; --gridgray: #D9E1EA; --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif; background: var(--warmwhite);
+      color: var(--navy); min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 24px;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(13,31,92,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,31,92,0.03) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .card {
+      position: relative; z-index: 1; background: var(--white);
+      border-top: 3px solid var(--gold); max-width: 480px; width: 100%;
+      padding: 56px 48px; box-shadow: 0 2px 24px rgba(13,31,92,0.07);
+    }
+    .logo-lockup { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-bottom: 48px; }
+    .logo-svg { width: 44px; height: 44px; flex-shrink: 0; }
+    .logo-text-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-wordmark { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--navy); letter-spacing: -0.02em; }
+    .logo-wordmark .i-dot { color: var(--gold); }
+    .logo-byline { font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 0.65rem; color: var(--midgray); letter-spacing: 0.08em; margin-top: 2px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+    .lead { font-size: 0.92rem; color: var(--darkgray); line-height: 1.75; margin-bottom: 36px; }
+    .form-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
+    input[type="email"] {
+      width: 100%; padding: 18px 24px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 300; color: var(--navy);
+      background: var(--white); border: 1px solid var(--gridgray);
+      outline: none; transition: border-color 0.2s;
+    }
+    input[type="email"]::placeholder { color: var(--midgray); }
+    input[type="email"]:focus { border-color: var(--steel); }
+    .btn-submit {
+      width: 100%; padding: 20px; background: var(--navy); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; border: none;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-submit:hover { background: var(--steel); }
+    .btn-submit:disabled { background: var(--midgray); cursor: not-allowed; }
+    .msg-success {
+      display: none; margin-top: 24px; padding: 20px 24px;
+      background: var(--bluemist); border-left: 3px solid var(--steel);
+      font-size: 0.92rem; color: var(--navy); line-height: 1.7;
+    }
+    .msg-error {
+      display: none; margin-top: 16px;
+      font-size: 0.85rem; color: #B91C1C; line-height: 1.6;
+    }
+    .msg-not-found {
+      display: none; margin-top: 16px; padding: 16px 20px;
+      background: #FEF2F2; border-left: 3px solid #B91C1C;
+      font-size: 0.88rem; color: #7F1D1D; line-height: 1.7;
+    }
+    .divider { margin: 32px 0; border: none; border-top: 1px solid var(--gridgray); }
+    .footnote { font-size: 0.8rem; color: var(--midgray); line-height: 1.6; }
+    .footnote a { color: var(--steel); text-decoration: none; }
+    .footnote a:hover { text-decoration: underline; }
+    footer { position: relative; z-index: 1; margin-top: 32px; text-align: center; font-size: 0.72rem; color: var(--midgray); letter-spacing: 0.06em; }
+    footer a { color: var(--midgray); text-decoration: none; }
+    footer a:hover { color: var(--navy); }
+    @media (max-width: 600px) { .card { padding: 36px 24px; } }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <a href="https://aurios.io" class="logo-lockup">
+    <div class="logo-svg">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="28" cy="28" r="27" stroke="#D6E4F0" stroke-width="1.5"/>
+        <circle cx="28" cy="28" r="20" fill="#4F78B8" opacity="0.25"/>
+        <circle cx="28" cy="28" r="14" fill="#4F78B8" opacity="0.5"/>
+        <circle cx="28" cy="28" r="8" fill="#0D1F5C"/>
+        <circle cx="28" cy="28" r="3.5" fill="#F5A623"/>
+      </svg>
+    </div>
+    <div class="logo-text-wrap">
+      <span class="logo-wordmark">Aur<span class="i-dot">i</span></span>
+      <span class="logo-byline">by AuriOS™</span>
+    </div>
+  </a>
+
+  <h1>Welcome back.</h1>
+  <p class="lead">Enter your email address and we'll send you a secure access link to the Concept Brief. No password required.</p>
+
+  <div class="form-group">
+    <input type="email" id="email-input" placeholder="your@email.com" />
+    <button class="btn-submit" id="submit-btn" onclick="handleSignIn()">Send Access Link</button>
+  </div>
+
+  <div class="msg-success" id="msg-success">
+    Access link sent. Check your inbox — the link is good for one hour.<br>
+    <span style="font-size:0.82rem;color:var(--midgray);margin-top:6px;display:block;">Didn't get it? Check your spam folder or <a href="mailto:joe@aurios.io">contact Joe directly</a>.</span>
+  </div>
+
+  <div class="msg-not-found" id="msg-not-found">
+    We don't have a record of that email address.<br>
+    <span style="font-size:0.82rem;margin-top:4px;display:block;">If you've signed an NDA and haven't received access yet, email <a href="mailto:joe@aurios.io" style="color:#991B1B;">joe@aurios.io</a> and we'll sort it out.</span>
+  </div>
+
+  <div class="msg-error" id="msg-error">Something went wrong. Please try again or email joe@aurios.io directly.</div>
+
+  <hr class="divider" />
+
+  <p class="footnote">
+    Don't have access yet? <a href="https://aurios.io/#signup">Request access →</a><br>
+    Access is gated behind a mutual NDA. Takes about two minutes.
+  </p>
+</div>
+
+<footer>
+  <p><a href="https://aurios.io">← Return to aurios.io</a> &nbsp;·&nbsp; AuriOS™ · Your AI Is YOU™</p>
+</footer>
+
+<script>
+  async function handleSignIn() {
+    const email = document.getElementById('email-input').value.trim();
+    const btn = document.getElementById('submit-btn');
+
+    if (!email || !email.includes('@')) {
+      document.getElementById('email-input').style.borderColor = '#F5A623';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    // Hide all messages
+    ['msg-success','msg-not-found','msg-error'].forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
+
+    try {
+      const response = await fetch('https://aurios-auth.joe-a3a.workers.dev/auth/brief-link?email=' + encodeURIComponent(email));
+
+      if (response.redirected || response.ok) {
+        // Worker returned a redirect — means user is approved, link sent
+        document.getElementById('msg-success').style.display = 'block';
+      } else if (response.status === 404) {
+        document.getElementById('msg-not-found').style.display = 'block';
+      } else {
+        throw new Error('Unexpected response');
+      }
+    } catch (err) {
+      // If it's a redirect (CORS), the fetch will follow — handle gracefully
+      document.getElementById('msg-success').style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Access Link';
+    }
+  }
+
+  // Allow Enter key
+  document.getElementById('email-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSignIn();
+  });
+</script>
+</body>
+</html>
