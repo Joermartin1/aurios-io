@@ -146,25 +146,23 @@
     btn.disabled = true;
     btn.textContent = 'Sending...';
 
-    // Hide all messages
     ['msg-success','msg-not-found','msg-error'].forEach(id => {
       document.getElementById(id).style.display = 'none';
     });
 
     try {
       const response = await fetch('https://aurios-auth.joe-a3a.workers.dev/auth/brief-link?email=' + encodeURIComponent(email));
+      const data = await response.json();
 
-      if (response.redirected || response.ok) {
-        // Worker returned a redirect — means user is approved, link sent
+      if (data.success) {
         document.getElementById('msg-success').style.display = 'block';
-      } else if (response.status === 404) {
+      } else if (data.error === 'not_found') {
         document.getElementById('msg-not-found').style.display = 'block';
       } else {
-        throw new Error('Unexpected response');
+        document.getElementById('msg-error').style.display = 'block';
       }
     } catch (err) {
-      // If it's a redirect (CORS), the fetch will follow — handle gracefully
-      document.getElementById('msg-success').style.display = 'block';
+      document.getElementById('msg-error').style.display = 'block';
     } finally {
       btn.disabled = false;
       btn.textContent = 'Send Access Link';
