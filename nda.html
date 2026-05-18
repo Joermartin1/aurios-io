@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDA — AuriOS™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:      #0D1F5C;
+      --gold:      #F5A623;
+      --warmwhite: #FAFAF7;
+      --steel:     #4F78B8;
+      --bluemist:  #D6E4F0;
+      --darkgray:  #4B5563;
+      --midgray:   #6B7280;
+      --gridgray:  #D9E1EA;
+      --white:     #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warmwhite);
+      color: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    /* subtle grid background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(13,31,92,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,31,92,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative; z-index: 1;
+      background: var(--white);
+      border-top: 3px solid var(--gold);
+      max-width: 560px;
+      width: 100%;
+      padding: 56px 48px;
+      box-shadow: 0 2px 24px rgba(13,31,92,0.07);
+    }
+
+    /* Logo */
+    .logo-lockup {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; margin-bottom: 48px;
+    }
+    .logo-svg { width: 44px; height: 44px; flex-shrink: 0; }
+    .logo-text-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-wordmark {
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 1.6rem; color: var(--navy); letter-spacing: -0.02em;
+    }
+    .logo-wordmark .i-dot { color: var(--gold); }
+    .logo-byline {
+      font-family: 'DM Sans', sans-serif; font-weight: 300;
+      font-size: 0.65rem; color: var(--midgray);
+      letter-spacing: 0.08em; margin-top: 2px;
+    }
+
+    /* Step indicator */
+    .steps {
+      display: flex; gap: 0; margin-bottom: 40px;
+      border-bottom: 1px solid var(--gridgray);
+      padding-bottom: 24px;
+    }
+    .step {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+      font-size: 0.72rem; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--gridgray);
+    }
+    .step.done { color: var(--steel); }
+    .step.active { color: var(--navy); }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 500;
+      border: 1.5px solid var(--gridgray); color: var(--gridgray);
+    }
+    .step.done .step-num {
+      background: var(--steel); border-color: var(--steel); color: white;
+    }
+    .step.active .step-num {
+      background: var(--navy); border-color: var(--navy); color: white;
+    }
+    .step-connector {
+      flex: 0.3; height: 1.5px; background: var(--gridgray);
+      align-self: center; margin-bottom: 22px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400;
+      color: var(--navy); line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 0.95rem; color: var(--darkgray);
+      line-height: 1.75; margin-bottom: 32px;
+    }
+
+    /* NDA info box */
+    .nda-box {
+      background: var(--warmwhite);
+      border-left: 3px solid var(--gold);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+    .nda-box p {
+      font-size: 0.88rem; color: var(--darkgray);
+      line-height: 1.7;
+    }
+    .nda-box strong { color: var(--navy); }
+
+    /* Download button */
+    .btn-download {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--navy); color: white;
+      text-decoration: none; padding: 18px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 24px;
+    }
+    .btn-download:hover { background: #162878; transform: translateY(-1px); }
+    .btn-download .btn-label { display: flex; align-items: center; gap: 12px; }
+    .btn-download .btn-meta {
+      font-size: 0.72rem; font-weight: 300;
+      letter-spacing: 0.06em; opacity: 0.6;
+    }
+
+    /* Return instructions */
+    .return-instructions {
+      background: var(--bluemist);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+    .return-instructions p {
+      font-size: 0.88rem; color: var(--navy); line-height: 1.7;
+    }
+    .return-instructions .email-link {
+      color: var(--steel); font-weight: 500; text-decoration: none;
+    }
+    .return-instructions .email-link:hover { text-decoration: underline; }
+
+    /* What happens next */
+    .next-steps { margin-bottom: 0; }
+    .next-steps h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--midgray); margin-bottom: 16px;
+    }
+    .next-list { list-style: none; }
+    .next-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.88rem; color: var(--darkgray);
+      line-height: 1.6; padding: 8px 0;
+      border-bottom: 1px solid var(--gridgray);
+    }
+    .next-list li:last-child { border-bottom: none; }
+    .next-list .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--gold);
+      font-weight: 600; flex-shrink: 0; margin-top: 1px;
+    }
+
+    footer {
+      position: relative; z-index: 1;
+      margin-top: 32px;
+      text-align: center;
+      font-size: 0.72rem; color: var(--midgray);
+      letter-spacing: 0.06em;
+    }
+    footer a { color: var(--midgray); text-decoration: none; }
+    footer a:hover { color: var(--navy); }
+
+    /* Download icon SVG inline */
+    .dl-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    @media (max-width: 600px) {
+      .card { padding: 36px 24px; }
+      h1 { font-size: 1.6rem; }
+      .steps { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+  <a href="https://aurios.io" class="logo-lockup">
+    <div class="logo-svg">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="28" cy="28" r="27" stroke="#D6E4F0" stroke-width="1.5"/>
+        <circle cx="28" cy="28" r="20" fill="#4F78B8" opacity="0.25"/>
+        <circle cx="28" cy="28" r="14" fill="#4F78B8" opacity="0.5"/>
+        <circle cx="28" cy="28" r="8" fill="#0D1F5C"/>
+        <circle cx="28" cy="28" r="3.5" fill="#F5A623"/>
+      </svg>
+    </div>
+    <div class="logo-text-wrap">
+      <span class="logo-wordmark">Aur<span class="i-dot">i</span></span>
+      <span class="logo-byline">by AuriOS™</span>
+    </div>
+  </a>
+
+  <!-- Step indicator -->
+  <div class="steps">
+    <div class="step done">
+      <div class="step-num">✓</div>
+      <span>Request</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step done">
+      <div class="step-num">✓</div>
+      <span>Verify</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step active">
+      <div class="step-num">3</div>
+      <span>NDA</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <span>Access</span>
+    </div>
+  </div>
+
+  <h1>One more step.</h1>
+
+  <p class="lead">
+    The AuriOS™ Concept Brief is shared under a mutual non-disclosure agreement.
+    Download the NDA below, sign it, and return it to us — access follows promptly.
+  </p>
+
+  <div class="nda-box">
+    <p>
+      <strong>What you're signing:</strong> A standard mutual NDA protecting both parties.
+      AuriOS™ keeps your identity and interest confidential. You keep the Brief contents
+      confidential. No obligations, no commitments — just a handshake before we open the door.
+    </p>
+  </div>
+
+  <!-- Download button -->
+  <a href="https://aurios.io/AuriOS_NDA.pdf" download="AuriOS_NDA.pdf" class="btn-download">
+    <span class="btn-label">
+      <svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download NDA — AuriOS_NDA.pdf
+    </span>
+    <span class="btn-meta">PDF · Sign &amp; Return</span>
+  </a>
+
+  <!-- Return instructions -->
+  <div class="return-instructions">
+    <p>
+      Sign the NDA and email it to
+      <a href="mailto:joe@aurios.io?subject=Signed NDA — AuriOS™" class="email-link">joe@aurios.io</a>
+      with subject line <strong>"Signed NDA — AuriOS™"</strong>.
+      You'll receive your access link within a few hours.
+    </p>
+  </div>
+
+  <!-- What happens next -->
+  <div class="next-steps">
+    <h3>What happens next</h3>
+    <ul class="next-list">
+      <li>
+        <span class="num">1</span>
+        <span>Download and sign the NDA — digital signature or printed and scanned both accepted.</span>
+      </li>
+      <li>
+        <span class="num">2</span>
+        <span>Email it to joe@aurios.io. Joe reviews personally — typically within a few hours.</span>
+      </li>
+      <li>
+        <span class="num">3</span>
+        <span>You receive a personal access link to the AuriOS™ Concept Brief.</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p><a href="https://aurios.io">← Return to aurios.io</a> &nbsp;·&nbsp; AuriOS™ · Your AI Is YOU™</p>
+</footer>
+
+<script>
+  // Pre-fill email context if passed in URL
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get('email');
+  if (email) {
+    const link = document.querySelector('.return-instructions a');
+    if (link) {
+      link.href = `mailto:joe@aurios.io?subject=Signed NDA — AuriOS™&body=Hi Joe,%0A%0APlease find my signed NDA attached.%0A%0A— ${email}`;
+    }
+  }
+</script>
+
+</body>
+</html>
