@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDA Received — AuriOS™</title>
+  <link rel="icon" type="image/png" href="/auri-logo-small.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F5C; --gold: #F5A623; --warmwhite: #FAFAF7;
+      --steel: #4F78B8; --bluemist: #D6E4F0; --darkgray: #4B5563;
+      --midgray: #6B7280; --gridgray: #D9E1EA; --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif; background: var(--warmwhite);
+      color: var(--navy); min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 24px;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(13,31,92,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,31,92,0.03) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+
+    .card {
+      position: relative; z-index: 1; background: var(--white);
+      border-top: 3px solid var(--gold); max-width: 520px; width: 100%;
+      padding: 56px 48px; box-shadow: 0 2px 24px rgba(13,31,92,0.07);
+      text-align: center;
+    }
+
+    .logo { margin-bottom: 40px; }
+    .logo img { height: 48px; width: auto; }
+
+    /* Step indicator — all done */
+    .steps {
+      display: flex; gap: 0; margin-bottom: 44px;
+      border-bottom: 1px solid var(--gridgray); padding-bottom: 24px;
+    }
+    .step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--steel); }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 500; background: var(--steel); border-color: var(--steel); color: white; }
+    .step.active .step-num { background: var(--gold); border-color: var(--gold); color: white; }
+    .step.active { color: var(--navy); }
+    .step-connector { flex: 0.3; height: 1.5px; background: var(--steel); align-self: center; margin-bottom: 22px; }
+
+    /* Check mark */
+    .check-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--navy); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .check-circle svg { width: 32px; height: 32px; }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
+      font-weight: 400; color: var(--navy); line-height: 1.2; margin-bottom: 16px;
+    }
+
+    .lead { font-size: 0.95rem; color: var(--darkgray); line-height: 1.8; margin-bottom: 36px; }
+
+    /* What happens next */
+    .next-list { list-style: none; text-align: left; margin-bottom: 36px; }
+    .next-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 0.88rem; color: var(--darkgray); line-height: 1.65;
+      padding: 12px 0; border-bottom: 1px solid var(--gridgray);
+    }
+    .next-list li:last-child { border-bottom: none; }
+    .next-num {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      color: var(--gold); font-weight: 600; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Quote */
+    .quote-block {
+      border-left: 3px solid var(--gold); padding: 16px 20px;
+      margin-bottom: 36px; background: var(--warmwhite); text-align: left;
+    }
+    .quote-block p {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.1rem; color: var(--navy); line-height: 1.65;
+    }
+
+    .btn-home {
+      display: inline-block; background: var(--navy); color: white;
+      padding: 16px 40px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
+      text-decoration: none; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn-home:hover { background: var(--steel); }
+
+    footer {
+      position: relative; z-index: 1; margin-top: 32px;
+      text-align: center; font-size: 0.72rem; color: var(--midgray); letter-spacing: 0.06em;
+    }
+    footer a { color: var(--midgray); text-decoration: none; }
+    footer a:hover { color: var(--navy); }
+
+    @media (max-width: 600px) {
+      .card { padding: 36px 24px; }
+      h1 { font-size: 1.8rem; }
+      .steps { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo">
+    <img src="https://aurios.io/auri-logo-primary.png" alt="Auri by AuriOS™" />
+  </div>
+
+  <!-- Steps — all complete -->
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">✓</div>
+      <span>Request</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <span>Verify</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <span>NDA</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step active">
+      <div class="step-num">4</div>
+      <span>Access</span>
+    </div>
+  </div>
+
+  <!-- Check -->
+  <div class="check-circle">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 16L13 23L26 9" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <h1>NDA received.<br>You're almost in.</h1>
+
+  <p class="lead">Your signed NDA has been submitted. Joe reviews personally and you'll receive your access link to the AuriOS™ Concept Brief within a few hours.</p>
+
+  <ul class="next-list">
+    <li>
+      <span class="next-num">✓</span>
+      <span>Your NDA has been signed and submitted — Documenso has notified Joe automatically.</span>
+    </li>
+    <li>
+      <span class="next-num">2</span>
+      <span>Joe reviews personally — typically within a few hours. Watch your inbox.</span>
+    </li>
+    <li>
+      <span class="next-num">3</span>
+      <span>You receive a personal access link to the AuriOS™ Concept Brief. That link is yours — it does not expire.</span>
+    </li>
+  </ul>
+
+  <div class="quote-block">
+    <p>Every AI you have ever used forgot you the moment you closed the window. We built what was missing.</p>
+  </div>
+
+  <a href="https://aurios.io" class="btn-home">Return to aurios.io</a>
+
+</div>
+
+<footer>
+  <p>AuriOS™ · The Intelligence Superhighway™ · Your AI Is YOU™</p>
+  <p style="margin-top:6px;"><a href="https://aurios.io">aurios.io</a></p>
+</footer>
+
+</body>
+</html>
