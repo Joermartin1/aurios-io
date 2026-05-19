@@ -110,23 +110,25 @@
     .feature-title { font-size: 0.9rem; font-weight: 500; color: var(--navy); margin-bottom: 8px; }
     .feature-body { font-size: 0.85rem; font-weight: 300; color: var(--darkgray); line-height: 1.7; }
 
-    /* Founding Circle */
+    /* Founding benefits */
     .founding-benefits { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
     .benefit-row { display: flex; align-items: flex-start; gap: 16px; padding: 20px 24px; background: rgba(79,120,184,0.1); border-left: 3px solid var(--steel); }
-    .benefit-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
-    .benefit-text { font-size: 0.92rem; color: var(--bluemist); line-height: 1.7; }
-    .benefit-text strong { color: var(--white); }
+    .benefit-marker { font-size: 1rem; font-weight: 500; color: var(--gold); flex-shrink: 0; margin-top: 2px; line-height: 1.7; min-width: 20px; }
+    .benefit-text { font-size: 0.92rem; color: var(--white); line-height: 1.7; }
+    .benefit-text strong { color: var(--white); font-weight: 500; }
 
-    /* Retire list */
+    /* Retire block */
     .retire-block { margin-top: 28px; padding: 24px 28px; background: rgba(13,31,92,0.4); border: 1px solid rgba(245,166,35,0.3); }
     .retire-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
     .retire-list { display: flex; flex-wrap: wrap; gap: 10px; }
-    .retire-tag { font-size: 0.82rem; color: rgba(214,228,240,0.6); padding: 6px 14px; border: 1px solid rgba(214,228,240,0.2); text-decoration: line-through; text-decoration-color: rgba(245,166,35,0.5); }
+    .retire-tag { font-size: 0.82rem; color: rgba(214,228,240,0.85); padding: 6px 14px; border: 1px solid rgba(214,228,240,0.3); text-decoration: line-through; text-decoration-color: rgba(245,166,35,0.6); }
 
     /* Verticals */
-    .verticals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 24px; }
-    .vertical-tag { padding: 10px 16px; border: 1px solid rgba(214,228,240,0.2); font-size: 0.8rem; color: rgba(214,228,240,0.7); line-height: 1.4; }
-    .vertical-tag.forming { color: rgba(245,166,35,0.8); border-color: rgba(245,166,35,0.3); }
+    .verticals-group { margin-top: 32px; }
+    .verticals-group-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; margin-top: 24px; }
+    .verticals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+    .vertical-tag { padding: 10px 16px; border: 1px solid rgba(214,228,240,0.25); font-size: 0.8rem; color: rgba(214,228,240,0.9); line-height: 1.4; }
+    .vertical-tag.forming { color: var(--gold); border-color: rgba(245,166,35,0.4); }
 
     /* CTA */
     .brief-cta { text-align: center; padding: 80px 40px; border-top: 1px solid var(--gridgray); }
@@ -209,18 +211,17 @@
     <p class="body">That is Auri™. Your personal AI. Not a product you rent by the month from a company whose business model depends on your data. Not a chatbot that resets every session. A permanent, private intelligence that belongs to you — trained on your life, your work, your memory, and nothing else.</p>
     <p class="body">The system that makes this possible is AuriOS™. AuriOS™ ingests the full record of your life — documents, photographs, emails, voice, video, professional history, medical records, financial decisions — and makes all of it available to Auri™ in real time, every session, without starting over. Every conversation builds on every conversation before it. Every answer gets sharper because the context behind it gets richer.</p>
     <p class="body">This is not how any current AI works. It is how all AI should have worked from the beginning.</p>
-
+    <p class="body">But technology alone does not solve the ownership problem. Every AI system that remembers you today stores that memory somewhere — on their servers, under their terms, subject to their decisions. The question is not whether AI can remember you. The question is who controls what it remembers.</p>
     <div class="pull-quote">
-      <p>Think of your memory as living in a safe deposit box in a bank owned and governed by you and your peers. That bank is Custos Aurium™.</p>
+      <p>The answer is Custos Aurum™ — the Guardian.</p>
     </div>
-
-    <p class="body">Your memory lives in <strong>Custos Aurium™</strong> (KOOS-toss AW-ree-um) — the Keeper. Not a corporate server. Not a platform that can be acquired, pivoted, or monetized against your interests. A cooperative institution owned by its Members, governed democratically, structurally incapable of being turned against the people it serves.</p>
-    <p class="body">Custos Aurium is the governing cooperative. <strong>MEIL™</strong> — the Memory Entity Infrastructure Layer — is the professional infrastructure Custos owns and operates. <strong>AuriOS™</strong> is the hired operator of MEIL on behalf of Custos. AuriOS can be profitable, can grow, can be acquired. None of those events change Member rights, because those rights are held by Custos — not by AuriOS.</p>
-    <p class="body" style="font-style:italic;color:var(--navy);">Safe enough for your embarrassing memories. Because Custos answers to you, not to us.</p>
-    <p class="body" style="margin-top:16px;">Your personal home within Custos lives at <a href="http://YourAI.Host" target="_blank" style="color:var(--steel);text-decoration:none;border-bottom:1px solid rgba(79,120,184,0.3);">YourAI.Host</a>.</p>
+    <p class="body">Think of it as a bank. Not a bank that holds your money — a bank that holds your memory. A cooperative institution owned and governed by its Members, built with one purpose: to make sure your most personal records are held by a structure that answers to you, not to us.</p>
+    <p class="body">Custos Aurum is designed to hold what you would never share — the private decisions, the sensitive records, the memories you want preserved but protected. It answers to its Members. Not to investors. Not to a platform with changing policies. Not to us. The things you would not want seen are exactly what Custos Aurum was built to protect.</p>
+    <p class="body">Custos Aurum is the governing cooperative. The infrastructure it owns and operates is run by AuriOS™ as its hired operator. AuriOS can be profitable, can grow, can be acquired. None of those events change Member rights, because those rights are held by Custos Aurum — not by AuriOS.</p>
+    <p class="body">Your personal home within Custos lives at <a href="http://YourAI.Host" target="_blank" style="color:var(--steel);text-decoration:none;border-bottom:1px solid rgba(79,120,184,0.3);">YourAI.Host</a>.</p>
   </div>
 
-  <!-- Auri Makes Current Work Better -->
+  <!-- What Changes Day One -->
   <div class="section">
     <p class="section-label">What Changes Day One</p>
     <h2 class="section-h2">Auri doesn't just remember your past. It makes your current work better — in real time.</h2>
@@ -230,7 +231,6 @@
       <p>The answer is better because the context is complete. The work is faster because the setup is already done.</p>
     </div>
     <p class="body">On top of that, Auri doesn't lock you to one AI model. A routing intelligence selects the best available model for each query — across every major AI provider — and applies your full context before the question leaves your device. You shouldn't have to know which AI to ask. Auri handles that.</p>
-
     <div class="feature-grid">
       <div class="feature-card">
         <div class="feature-num">01</div>
@@ -240,7 +240,7 @@
       <div class="feature-card">
         <div class="feature-num">02</div>
         <div class="feature-title">Your Ownership</div>
-        <p class="feature-body">Held in Custos Aurium — the cooperative you govern. Portable if you choose to move. Cannot be sold or used against you.</p>
+        <p class="feature-body">Held in Custos Aurum — the cooperative you govern. Portable if you choose to move. Cannot be sold or used against you.</p>
       </div>
       <div class="feature-card">
         <div class="feature-num">03</div>
@@ -269,7 +269,7 @@
     <p class="body">This is not a feature. It is the reason the system exists.</p>
   </div>
 
-  <!-- Thirty Year Parallel -->
+  <!-- Thirty-Year Parallel -->
   <div class="section-dark">
     <div class="section-dark-inner">
       <p class="section-label">The Thirty-Year Parallel</p>
@@ -289,8 +289,8 @@
     <p class="section-label">What Makes It Different</p>
     <h2 class="section-h2">Every major AI company is building toward the same destination. The difference is who owns what they build.</h2>
     <p class="body">Their model is a service. Your memory feeds their system, improves their product, and lives on their infrastructure. You are the input. You are not the owner.</p>
-    <p class="body">AuriOS™ is governed by a different principle — one written into the architecture before the first line of code. Your memory belongs to you. It is held in Custos Aurium, a structure you control, governed by an organization you have a voice in, protected by a legal and technical framework designed with one purpose: to make sure it can never be any other way.</p>
-    <p class="body"><strong>This is not a privacy policy. Privacy policies change. This is a governance structure.</strong> A nonprofit Custos Aurium, led by its members, with ownership and control distributed to the people whose memory it holds. The entity exists to serve its members. It cannot be acquired, pivoted, or monetized against their interests. That protection is not a feature. It is the foundation.</p>
+    <p class="body">AuriOS™ is governed by a different principle — one written into the architecture before the first line of code. Your memory belongs to you. It is held in Custos Aurum, a structure you control, governed by an organization you have a voice in, protected by a legal and technical framework designed with one purpose: to make sure it can never be any other way.</p>
+    <p class="body"><strong>This is not a privacy policy. Privacy policies change. This is a governance structure.</strong> Custos Aurum is a nonprofit cooperative, led by its members, with ownership and control distributed to the people whose memory it holds. The entity exists to serve its members. It cannot be acquired, pivoted, or monetized against their interests. That protection is not a feature. It is the foundation.</p>
     <p class="body">Every other AI company is building an intelligence that knows you and belongs to them. AuriOS™ is building one that knows you and belongs to you.</p>
   </div>
 
@@ -301,63 +301,107 @@
       <h2 class="section-h2">This is not an advisory board. It is not an investment round. It is a founding.</h2>
       <p class="body">The Founding Circle is the small group of people who will be in the room when the standards are set, the architecture is established, and the direction is chosen — before the system reaches scale, before the data accumulates, and before the decisions that define it become difficult to change.</p>
       <p class="body">Founding Circle members contribute what they know. A lawyer contributes legal intelligence. A doctor contributes medical domain expertise. A banker contributes financial judgment. An engineer contributes technical architecture thinking. Each member shapes the system in the domain they understand best.</p>
-      <p class="body">But the Founding Circle is not advisory. <strong>We want people who will actually use Auri as their primary AI tool</strong> — replace their current subscriptions, work with it daily, and give us honest feedback from inside their domain. That is what makes a Founder, not a seat at a table.</p>
+      <p class="body">But the Founding Circle is not advisory. <strong style="color:var(--white);">We want people who will actually use Auri as their primary AI tool</strong> — replace their current subscriptions, work with it daily, and give us honest feedback from inside their domain. That is what makes a Founder, not a seat at a table.</p>
 
       <div class="founding-benefits">
         <div class="benefit-row">
-          <span class="benefit-icon">📋</span>
+          <span class="benefit-marker">—</span>
           <span class="benefit-text"><strong>Documented founding role</strong> — a permanent historical record in the Founding Circle, by domain. Cannot be replicated once filled.</span>
         </div>
         <div class="benefit-row">
-          <span class="benefit-icon">🗳</span>
-          <span class="benefit-text"><strong>Governance rights in Custos Aurium</strong> — one Member, one vote. You help set the rules of the institution that holds your memory.</span>
+          <span class="benefit-marker">—</span>
+          <span class="benefit-text"><strong>Governance rights in Custos Aurum</strong> — one Member, one vote. You help set the rules of the institution that holds your memory.</span>
         </div>
         <div class="benefit-row">
-          <span class="benefit-icon">🔒</span>
+          <span class="benefit-marker">—</span>
           <span class="benefit-text"><strong>Founding pricing locked for life</strong> — whatever the commercial rate becomes, your founding membership rate is permanent.</span>
         </div>
         <div class="benefit-row">
-          <span class="benefit-icon">⚙️</span>
+          <span class="benefit-marker">—</span>
           <span class="benefit-text"><strong>Access to the IP development process</strong> — the conversations where the most consequential decisions are being made, before they are made.</span>
         </div>
         <div class="benefit-row">
-          <span class="benefit-icon">✦</span>
+          <span class="benefit-marker">—</span>
           <span class="benefit-text"><strong>Auri™ at no cost during the founding period</strong> — no usage limits while we build together. You work with Auri, we learn from your domain.</span>
         </div>
       </div>
 
       <div class="retire-block">
-        <p class="retire-label">What Founding Circle members retire</p>
+        <p class="retire-label">The last chatbot subscription you will ever need</p>
         <div class="retire-list">
           <span class="retire-tag">ChatGPT</span>
           <span class="retire-tag">Microsoft Copilot</span>
-          <span class="retire-tag">Claude</span>
           <span class="retire-tag">Gemini</span>
           <span class="retire-tag">Perplexity</span>
           <span class="retire-tag">GitHub Copilot</span>
         </div>
-        <p style="font-size:0.8rem;color:rgba(214,228,240,0.5);margin-top:14px;line-height:1.6;">You work with Auri instead. Your feedback shapes what it becomes for your entire sector.</p>
+        <p style="font-size:0.82rem;color:rgba(214,228,240,0.85);margin-top:14px;line-height:1.7;">Auri replaces your daily chatbot use — not the foundation models powering them. Those models work for Auri now. You just stop paying for them separately.</p>
       </div>
 
-      <p class="body" style="margin-top:36px;"><strong>We are actively expanding the Founding Circle</strong> — adding new verticals, new domain roles, and new categories as the architecture develops. We are also taking suggestions. If your expertise or background belongs in this project and you don't see your domain listed, say so. The Founding Circle is being shaped by the people in it.</p>
+      <p class="body" style="margin-top:36px;"><strong style="color:var(--white);">We are actively expanding the Founding Circle</strong> — adding new verticals, new domain roles, and new categories as the architecture develops. If your expertise belongs in this project and you don't see your domain listed, say so. The Founding Circle is being shaped by the people in it.</p>
 
-      <div class="verticals-grid" style="margin-top:24px;">
-        <div class="vertical-tag">Legal & IP</div>
-        <div class="vertical-tag">Medical Informatics</div>
-        <div class="vertical-tag">Financial Services</div>
-        <div class="vertical-tag">Technology Architecture</div>
-        <div class="vertical-tag">Data & Memory</div>
-        <div class="vertical-tag">Security & Privacy</div>
-        <div class="vertical-tag">Healthcare Systems</div>
-        <div class="vertical-tag">Real Estate</div>
-        <div class="vertical-tag">Education</div>
-        <div class="vertical-tag">Energy & Renewables</div>
-        <div class="vertical-tag">Regulatory Affairs</div>
-        <div class="vertical-tag">Governance & Public Interest</div>
-        <div class="vertical-tag">Media & Communications</div>
-        <div class="vertical-tag">Home Automation</div>
-        <div class="vertical-tag">Longevity</div>
-        <div class="vertical-tag forming">Your domain → suggest it</div>
+      <div class="verticals-group">
+
+        <p class="verticals-group-label">Governance &amp; Legal</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Legal &amp; IP</div>
+          <div class="vertical-tag">Regulatory Affairs</div>
+          <div class="vertical-tag">Governance &amp; Public Interest</div>
+          <div class="vertical-tag">Ethics &amp; Trust</div>
+        </div>
+
+        <p class="verticals-group-label">Medicine &amp; Health</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Medical Informatics</div>
+          <div class="vertical-tag">Healthcare Systems</div>
+          <div class="vertical-tag">Longevity</div>
+          <div class="vertical-tag">Mental Health</div>
+          <div class="vertical-tag">Veterinary</div>
+        </div>
+
+        <p class="verticals-group-label">Technology &amp; Infrastructure</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Technology Architecture</div>
+          <div class="vertical-tag">Data &amp; Memory</div>
+          <div class="vertical-tag">Security &amp; Privacy</div>
+          <div class="vertical-tag">Home Automation</div>
+          <div class="vertical-tag">API &amp; Developer Ecosystem</div>
+        </div>
+
+        <p class="verticals-group-label">Finance &amp; Business</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Financial Services</div>
+          <div class="vertical-tag">Banking</div>
+          <div class="vertical-tag">Enterprise Development</div>
+        </div>
+
+        <p class="verticals-group-label">Real World &amp; Physical</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Real Estate</div>
+          <div class="vertical-tag">Energy &amp; Renewables</div>
+          <div class="vertical-tag">Agriculture</div>
+          <div class="vertical-tag">Transportation</div>
+        </div>
+
+        <p class="verticals-group-label">Human Development</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Education</div>
+          <div class="vertical-tag">Family Systems</div>
+          <div class="vertical-tag">Early Childhood</div>
+          <div class="vertical-tag">Elder Care</div>
+        </div>
+
+        <p class="verticals-group-label">Creative &amp; Media</p>
+        <div class="verticals-grid">
+          <div class="vertical-tag">Media &amp; Communications</div>
+          <div class="vertical-tag">Creative Arts</div>
+          <div class="vertical-tag">Publishing</div>
+        </div>
+
+        <div class="verticals-grid" style="margin-top:12px;">
+          <div class="vertical-tag forming">Your domain → suggest it</div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -372,7 +416,7 @@
 
   <footer class="brief-footer">
     <span class="brief-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Not for external distribution</span>
-    <span class="brief-footer-marks">AuriOS™ · Auri™ · Custos Aurium™ · The Intelligence Superhighway™ · Your AI Is YOU™</span>
+    <span class="brief-footer-marks">AuriOS™ · Auri™ · Custos Aurum™ · The Intelligence Superhighway™ · Your AI Is YOU™</span>
   </footer>
 
 </div>
