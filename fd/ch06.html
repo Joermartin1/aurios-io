@@ -206,76 +206,52 @@
     <div class="hero-chapter-num">06</div>
     <p class="hero-part-label">Part Three — How It Works</p>
     <h1 class="hero-title">Chapter 6 — <em>Memory</em></h1>
-    <p class="hero-subtitle">Why AI has no memory by default, what the industry has tried, where it falls short, and how AuriOS™ builds the memory system that should have existed from the beginning.</p>
+    <p class="hero-subtitle">Every AI product you have used before AuriOS™ forgot you the moment you closed the window. This chapter covers why that is, what the industry has tried, where it falls short, and how AuriOS™ builds the memory system that should have existed from the beginning.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <h2>6A — Memory in AI: What Exists and What Falls Short</h2>
-    <h3>Why AI Has No Memory By Default</h3>
-    <p>LLMs are stateless by design. Each API call is independent. The model receives a context window and returns a response. No persistence between calls. This is a deliberate architectural choice — statelessness makes models simpler to operate and easier to scale. The major providers have responded to the obvious problem, but their solutions reflect their interests as much as the user's.</p>
+    <p><em>Every AI product you have used before AuriOS™ forgot you the moment you closed the window. This chapter covers why that is, what the industry has tried, where it falls short, and how AuriOS™ builds the memory system that should have existed from the beginning.</em></p>
+
+    <h2>6A — Memory in AI: Why AI Has No Memory By Default</h2>
+    <p>LLMs are stateless by design. Each API call is independent. The model receives a context window and returns a response. No persistence between calls. This is a deliberate architectural choice — statelessness makes models simpler to operate and easier to scale. For consumer products, this created an obvious problem. The major providers have responded, but their solutions reflect their interests as much as the user's.</p>
     <div class="feature-list">
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>ChatGPT Memory</strong> — Short declarative statements extracted and prepended to future sessions. Small memory file. Automatic extraction with no user input about what matters. Strong for high-level context, completely inadequate for technical detail.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Gemini Memory</strong> — Tied to Google account history. Platform-owned, interest-conflicted, limited in depth.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Claude Projects</strong> — Session-level document uploads. Closer to the right model but not searchable across full history.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>MemGPT / Letta</strong> — Academic system. Proved agent-driven memory management works. Not a consumer product.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Mem0</strong> — Y Combinator startup providing memory as a managed API. Correct architecture, wrong location — your most intimate data on a startup's servers.</span>
-      </div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>ChatGPT Memory</strong> — Short declarative statements extracted and prepended to future sessions. Small memory file. Automatic extraction with no user input about what matters. Strong for high-level context, completely inadequate for technical detail.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Gemini Memory</strong> — Tied to Google account history. Platform-owned, interest-conflicted, limited in depth.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Claude Projects</strong> — Session-level document uploads. Closer to the right model but not searchable across full history.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>MemGPT / Letta</strong> — Academic system. Modeled AI memory on OS paging — the AI pages data in and out of its context window. Proved agent-driven memory management works. Not a consumer product.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Mem0</strong> — Y Combinator startup providing memory as a managed API. Correct architecture, wrong location — your most intimate data on a startup's servers.</span></div>
     </div>
     <div class="pull-quote"><p>The direction is right. The execution, everywhere else, falls short.</p></div>
 
-    <h2>6B — AuriOS™ Memory: The System That Should Have Existed</h2>
-    <h3>Three Tiers — How Memory Is Organized</h3>
-    <div class="feature-list">
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>L1 Hot Tier</strong> — Your curated memory store. The facts, decisions, preferences, and details you have explicitly approved for immediate recall. Always searched on every query. FTS5 keyword search for fast, deterministic retrieval. This is top-of-mind memory — the things Auri™ reaches for first without effort or delay. The L1 tier is what makes Auri™ feel like it knows you from the first word of a new session.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>L2 Warm Tier</strong> — Semi-curated topic summaries and project ledgers. Organized by domain and project rather than individual facts. When you need context that goes deeper than a single record but does not require searching the full raw corpus, L2 provides it. Think for a bit — it is there, but it requires a moment to surface. Planned and under active development.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>L3 Cold Tier</strong> — Your complete raw corpus. Every conversation preserved intact, going back as far as your ingestion history reaches. The full record of everything — not summarized, not extracted, not filtered. Every decision, every specification, every exchange. Where the details live. The pipes to retrieve it fully are being built.</span>
-      </div>
-    </div>
+    <h2>6B — AuriOS™ Memory — The System That Should Have Existed</h2>
+    <p>The industry solutions covered in 6A share a common limitation: they are built around what is convenient for a platform to store, not what is meaningful to a person. Short declarative statements. Session-level uploads. Platform-owned data. Interest-conflicted governance. The direction is right. The execution, everywhere else, falls short.</p>
+    <p>AuriOS™ builds memory the way it should have been built from the beginning — complete, owned, searchable, and permanent.</p>
 
-    <h3>Custos Aurum™ — The Cooperative Infrastructure</h3>
+    <h3>Three Tiers — How Memory Is Organized</h3>
+    <p>AuriOS™ organizes your memory in three tiers, each serving a distinct purpose and operating at a different speed.</p>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>L1 Hot Tier</strong> — Your curated memory store. The facts, decisions, preferences, and details you have explicitly approved for immediate recall. Always searched on every query. FTS5 keyword search for fast, deterministic retrieval. This is top-of-mind memory — the things Auri™ reaches for first without effort or delay. The L1 tier is what makes Auri™ feel like it knows you from the first word of a new session.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>L2 Warm Tier</strong> — Semi-curated topic summaries and project ledgers. Organized by domain and project rather than individual facts. When you need context that goes deeper than a single record but does not require searching the full raw corpus, L2 provides it. Think for a bit — it is there, but it requires a moment to surface. This tier is planned and under active development.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>L3 Cold Tier</strong> — Your complete raw corpus. Every conversation preserved intact, going back as far as your ingestion history reaches. The full record of everything — not summarized, not extracted, not filtered. Every decision, every specification, every exchange. Not yet fully searchable by meaning, but stored and waiting. Where the details live. Relax and let it come. The pipes to retrieve it fully are being built.</span></div>
+    </div>
+    <p>The three tiers work together. A query first searches L1 for immediate recall. If relevant context exists at the project level, L2 surfaces it. When the answer requires deep retrieval from the full historical record, L3 is searched. The result is a memory system that is simultaneously fast, organized, and complete.</p>
+
+    <h2>Custos Aurum™ — The Cooperative Infrastructure</h2>
     <p>Custos Aurum™ is the primary production instance of your memory store — the professional cooperative infrastructure that keeps your memory available wherever you are, on whatever device you are using.</p>
-    <p>Custos Aurum™ is not a corporate server. It is not owned by AuriOS™. It is cooperative infrastructure owned and governed by Members through Custos Aurum — the non-profit democratic organization described in Chapter 16. The distinction matters: every other memory product stores your data on a platform's servers, subject to that platform's terms and business interests. Custos Aurum™ stores your data on infrastructure you own, subject to governance standards you vote on.</p>
+    <p>Custos Aurum™ is not a corporate server. It is not owned by AuriOS™. It is cooperative infrastructure owned and governed by Members through the Memory Entity — the non-profit democratic organization described in Chapter 16. When you are on the road, Custos Aurum™ processes your queries with 99.999% uptime. When you are at your PC, local processes handle queries for speed. Real-time sync keeps both current. There is no single point of failure, and there is no moment at which your memory is unavailable to you.</p>
+    <p>The distinction matters: every other memory product stores your data on a platform's servers, subject to that platform's terms and business interests. Custos Aurum™ stores your data on infrastructure you own, subject to governance standards you vote on. This is not a policy AuriOS™ can change unilaterally. It is the architectural foundation of the entire system.</p>
 
     <h3>Real-Time Session Storage™</h3>
     <p>Every Ask Auri™ query and every response is written to Custos Aurum™ as it happens. Not at the end of the session. Not summarized into a short declarative statement. The full exchange, in real time, preserved intact.</p>
-    <p>This is the feature that permanently ends the chatbot problem. Every session is persistent. Every conversation builds on all previous conversations. You never rebuild context. You never re-explain your project. You pick up exactly where you stopped, as if no time has passed.</p>
+    <p>This is the feature that permanently ends the chatbot problem. Every session is persistent. Every conversation builds on all previous conversations. The version of you that Auri™ talks to tomorrow knows everything that happened today — and last month, and last year, as far back as your memory goes. You never rebuild context. You never re-explain your project. You pick up exactly where you stopped, as if no time has passed.</p>
+    <div class="pull-quote"><p>Real-Time Session Storage™ is Priority Build Item number one. It is the foundation on which everything else depends.</p></div>
 
     <h3>The Ingestion Pipeline</h3>
+    <p>Your memory does not appear in Custos Aurum™ automatically. It is built deliberately, through an ingestion pipeline that ensures the quality and accuracy of what gets stored.</p>
     <div class="feature-list">
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Candidates</strong> — When AuriOS™ processes a source, it extracts memory facts and stores them as candidates with status pending. Candidates are not yet part of your active memory. They are waiting for your review.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Promoted Memory</strong> — When you approve a candidate, it is written to the memory table with status active. You decide what your AI knows about you. Nothing is promoted without your explicit authorization.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Grounded Extraction</strong> — The anti-hallucination rule that governs the entire pipeline. A candidate may only be created if its title words exist verbatim in the source material. The pipeline cannot invent facts. Every record in your memory store is traceable to the exact source it came from.</span>
-      </div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Candidates</strong> — When AuriOS™ processes a source — a conversation, a document, an email archive — it extracts memory facts and stores them as candidates with status pending. Candidates are not yet part of your active memory. They are waiting for your review.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Promoted Memory</strong> — When you approve a candidate, it is written to the memory table with status active. It becomes available for retrieval and injection into future queries. You decide what your AI knows about you. Nothing is promoted without your explicit authorization.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Grounded Extraction</strong> — The anti-hallucination rule that governs the entire pipeline. A candidate may only be created if its title words exist verbatim in the source material. The pipeline cannot invent facts. It cannot summarize its way into a false memory. Every record in your memory store is traceable to the exact source it came from. This is the architectural guarantee that your memory is yours — accurate, verifiable, and grounded in what you actually said and did.</span></div>
     </div></div>
   <div class="chapter-nav-footer"><a href="/fd/ch05.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 5 — Large Language Models</span></a><a href="/fd/ch07.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 7 — Semantic Search and Retrieval</span></a></div>
   
