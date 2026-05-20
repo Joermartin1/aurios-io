@@ -134,7 +134,10 @@
   <a href="https://aurios.io" class="nav-logo">
     <img src="https://aurios.io/auri-logo-primary.png" alt="Auri by AuriOS™" />
   </a>
-  <span class="nav-doc-title">Founding Document</span>
+  <div style="display:flex;align-items:center;gap:8px;margin-left:16px;">
+    <a href="https://aurios.io/brief.html" style="font-size:0.72rem;font-weight:500;color:rgba(245,166,35,0.7);text-decoration:none;padding:4px 10px;border:1px solid rgba(245,166,35,0.25);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Concept Brief</a>
+    <a href="/fd/index.html" style="font-size:0.72rem;font-weight:600;color:var(--white);text-decoration:none;padding:4px 10px;background:rgba(79,120,184,0.3);border:1px solid rgba(79,120,184,0.55);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Cover &amp; ToC</a>
+  </div>
   <span class="nav-chapter-title" id="nav-chapter-title"></span>
   <div class="nav-right">
     <span class="nav-badge">NDA Confidential</span>
@@ -206,22 +209,63 @@
     <div class="hero-chapter-num">11</div>
     <p class="hero-part-label">Part Four — The Vision</p>
     <h1 class="hero-title">Chapter 11 — <em>AuriOS: The Complete System</em></h1>
-    <p class="hero-subtitle">Every layer of the system — from the Member interface through orchestration, memory, partner AIs, agents, and Custos Aurum™ governance.</p>
+    <p class="hero-subtitle">Everything described in Chapters 3 through 10 lives somewhere in this architecture. This chapter maps the complete system — every component, its current build status, and the roadmap to completion.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <p>Full chapter content from the Founding Document. See PDF for complete text.</p>
-  </div>
-  <div class="chapter-nav-footer">
-    <a href="/fd/ch10.html" class="chapter-nav-btn prev">
-      <span class="direction">← Previous</span>
-      <span class="chapter-name">Chapter 10 — The Intelligence Superhighway™ and the AISP™ Model</span>
-    </a>
-    <a href="/fd/ch12.html" class="chapter-nav-btn next">
-      <span class="direction">Next →</span>
-      <span class="chapter-name">Chapter 12 — The Business of AuriOS™</span>
-    </a>
-  </div>
+    <p>Everything described in Chapters 3 through 10 lives somewhere in this architecture. The Member interface. The orchestration layer. The memory tiers. The Partner AIs. The agents. The governance foundation. This chapter maps the complete system — every component, its current build status, and the roadmap to completion.</p>
+    <p>The AuriOS™ Complete System diagram below is the master reference. The sections that follow walk through each layer in detail.</p>
+
+    <div class="graphic-block">
+      <img src="https://aurios.io/images/aurios-complete-picture.png" alt="AuriOS™ — The Complete System" loading="lazy" style="max-width:100%;width:100%;height:auto;display:block;" />
+      <p class="graphic-caption">The AuriOS™ Complete System. Member → Ask Auri™ → Auri™ Orchestration → Partner AIs + Custos Aurum™ → Agents + Outside World → Memory Entity governance.</p>
+    </div>
+
+    <h2>11.1 The Master Architecture Diagram</h2>
+    <p>The AuriOS™ Complete System diagram above maps every major component and its current build status. LIVE components are in production. IN PROGRESS components are actively being built. PLANNED components are designed and sequenced. The architecture is complete. The build is underway.</p>
+    <p>The data flow runs top to bottom: the Member interacts through Ask Auri™, which passes queries to the Auri™ Orchestration Layer, which draws on Memory and Partner AIs to assemble a response, while Agents extend the system's reach into the outside world. The Memory Entity sits at the foundation — not as a technical component but as the governance infrastructure that makes the entire system trustworthy.</p>
+
+    <h2>11.2 Component Inventory</h2>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Interface Layer</strong> — Ask Auri™ is the primary Member interface — text input, voice input through the Auri™ Voice Layer, and the Pre-Submit Intelligence Layer containing Query Preview™ and Prompt Assist™. Status: LIVE for text input. Voice Layer and Pre-Submit Intelligence Layer: PLANNED.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Orchestration Layer</strong> — The Auri™ Orchestration Layer classifies every query, retrieves relevant memory from Custos Aurum™, assembles the context window, routes to Partner AIs, synthesizes responses, and writes every session to Real-Time Session Storage™. Status: LIVE for core routing and synthesis. Real-Time Session Storage™: IN PROGRESS — Priority Build Item number one.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Memory Layer</strong> — Custos Aurum™ — the cooperative Memory Entity Infrastructure — is the primary production instance. 99.999% uptime. Encrypted. Member-owned cooperative infrastructure. The local backup instance maintains a complete synchronized copy on the Member's machine for speed when at home and redundancy always.<br><br>Within Custos Aurum™: the L1 Hot Tier of curated promoted memory records is built and always searched. The L2 Warm Tier of semi-curated project summaries is planned. The L3 Cold Tier of the complete raw corpus is stored and preserved intact, not yet fully searchable by meaning. FTS5 keyword search is built. ChromaDB vector search, hybrid search, and re-ranking are planned. The Ingestion Pipeline — parsing, chunking, candidate extraction, Member review, and promotion — is built. The MQI™ and Auri™ Tool Interface are built.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Partner AI Layer</strong> — The current development and testing stack: OpenAI GPT-5, Anthropic Claude, Google Gemini, xAI Grok, Perplexity Sonar. These were selected for accessibility and capability during the build phase — not as a result of structured evaluation. Final Partner AI selection will follow rigorous assessment. IBT Mode™ basic routing is in progress. Full IBT Mode™ adjudication is planned.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Agent Layer</strong> — The Update Agent is live — the backbone of Self-Build. The Health Agent, KTM Telemetry and Intelligence System, CIIM™, and Dorada Agent are planned. PAIPy™ interface, Auri Identity™ layer, and MQI™ Public Profile are planned.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Developer Tools</strong> — The Console — the developer interface — is built. The Fuel Gauge token budget display and Injection Visibility Panel are planned.</span></div>
+    </div>
+
+    <h2>11.3 Complete Data Flow — A Query from Start to Finish</h2>
+    <p>A single IBT Mode™ query, from Member keystroke to synthesized response:</p>
+    <p>The Member types a query into Ask Auri™. As the query forms, Query Preview™ classifies the query type and displays a routing suggestion in real time — before Enter is pressed. Prompt Assist™ simultaneously retrieves relevant memory from Custos Aurum™ and offers a substantively improved version of the query incorporating context the Member has not yet typed. The Member accepts, modifies, or dismisses both suggestions.</p>
+    <p>The Member presses Enter. The final query — with routing confirmed — is sent to the Auri™ Orchestration Layer. Auri™ assembles the context window: system prompt first, injected memory from Custos Aurum™ (typically 500–2,000 tokens of targeted personal context) positioned for maximum model attention, conversation history from the current session, and the query last.</p>
+    <p>In Single Mode, the assembled context is sent to one Partner AI. The response is returned, presented to the Member, and written to Custos Aurum™ Real-Time Session Storage™ as it arrives.</p>
+    <p>In IBT Mode™, Auri™ customizes the prompt for each active Partner AI and queries all of them in parallel. Each model receives the same memory context but a prompt tailored to its specific strengths. Responses return simultaneously. Auri™ adjudicates — identifying points of agreement as high-confidence findings, surfacing disagreements explicitly, identifying unique contributions from each model, and synthesizing a single coherent response with key claims attributed to their source models.</p>
+    <p>The synthesized response is presented to the Member. It is added to the context window. Follow-up questions build on it without rebuilding context. Every turn — query and response — is written to Custos Aurum™ Real-Time Session Storage™ as it happens. The session is permanent. The conversation builds on all previous conversations. The chatbot problem is solved.</p>
+
+    <h2>11.4 Build Status</h2>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>LIVE:</strong> Ask Auri™ text interface, Auri™ Orchestration Layer core routing, L1 Hot Tier, FTS5 keyword search, Ingestion Pipeline, MQI™ core functions, Auri™ Tool Interface, Update Agent, Console, basic IBT Mode™ routing.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>IN PROGRESS:</strong> Real-Time Session Storage™ — Priority Build Item number one. IBT Mode™ basic adjudication.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>PLANNED — Phase 1:</strong> ChromaDB vector search, Prompt Assist™, Query Preview™, Re-ranking layer, Hybrid Search (FTS5 + ChromaDB merged).</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>PLANNED — Phase 2:</strong> Full IBT Mode™ adjudication, Auri™ Voice Layer, Fuel Gauge, Injection Visibility Panel, L2 Warm Tier.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>PLANNED — Phase 3:</strong> Health Agent, KTM Telemetry and Intelligence System, CIIM™, Dorada Agent, Medical Imaging layer, PAIPy™ interface, Auri Identity™ layer, MQI™ Public Profile.</span></div>
+    </div>
+
+    <h2>11.5 Build Roadmap — Priority Order</h2>
+    <p>The priority sequence is determined by one criterion: what produces the most value for Members in the least time, in the right order so that each build item enables the next.</p>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-item-marker">1</span><span class="feature-item-text"><strong>Real-Time Session Storage™</strong> — Every query and response written to Custos Aurum™ as it happens. This is the chatbot killer — the feature that permanently ends session loss. Everything else builds on persistent memory. Estimated: 40–60 lines of code. Highest return on the entire list.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">2</span><span class="feature-item-text"><strong>Injection Visibility Panel</strong> — Shows the Member exactly what memory context was injected into each query. Transparency that builds trust and helps Members understand how their memory is being used.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">3</span><span class="feature-item-text"><strong>Query Classifier</strong> — The IRT classification engine that powers Query Preview™. Classifies query type in real time as the Member types.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">4</span><span class="feature-item-text"><strong>Fuel Gauge</strong> — Token budget display showing the Member how much context window remains in the current session.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">5</span><span class="feature-item-text"><strong>Project Schema</strong> — Database structure for project-scoped memory retrieval. Enables get_project_context() to return richer, more targeted context.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">6</span><span class="feature-item-text"><strong>ChromaDB + Embeddings</strong> — Approximately thirty cents one-time to embed the full corpus. Semantic search foundation. Unlocks retrieval by meaning rather than just by keyword.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">7</span><span class="feature-item-text"><strong>Tool-Use Retrieval</strong> — MQI™ function calling architecture. Partner AIs call memory functions rather than receiving injected context directly.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">8</span><span class="feature-item-text"><strong>Hybrid Search + Re-ranking</strong> — FTS5 and ChromaDB results merged using Reciprocal Rank Fusion. The full retrieval stack.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">9</span><span class="feature-item-text"><strong>Ingestion Question System</strong> — Structured prompting during ingestion to improve candidate extraction quality.</span></div>
+    </div></div>
+  <div class="chapter-nav-footer"><a href="/fd/ch10.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 10 — The Intelligence Superhighway™ and the AISP™ Model</span></a><a href="/fd/ch12.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 12 — The Business of AuriOS™</span></a></div>
   
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>
