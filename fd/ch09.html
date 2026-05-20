@@ -206,22 +206,70 @@
     <div class="hero-chapter-num">09</div>
     <p class="hero-part-label">Part Three — How It Works</p>
     <h1 class="hero-title">Chapter 9 — <em>Multimodal AI</em></h1>
-    <p class="hero-subtitle">Beyond text. How AI processes images, audio, video — and why multimodal memory changes everything about what Auri™ can know.</p>
+    <p class="hero-subtitle">Beyond text. How AI processes images, audio, and video — and why multimodal memory changes everything about what Auri™ can know.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <p>Full chapter content from the Founding Document. See PDF for complete text.</p>
-  </div>
-  <div class="chapter-nav-footer">
-    <a href="/fd/ch08.html" class="chapter-nav-btn prev">
-      <span class="direction">← Previous</span>
-      <span class="chapter-name">Chapter 8 — Agents</span>
-    </a>
-    <a href="/fd/ch10.html" class="chapter-nav-btn next">
-      <span class="direction">Next →</span>
-      <span class="chapter-name">Chapter 10 — The Intelligence Superhighway™ and the AISP™ Model</span>
-    </a>
-  </div>
+    <h2>9A — Multimodal AI: Beyond Text</h2>
+    <h3>What Multimodal Actually Means</h3>
+    <p>The LLMs described in Chapters 3 through 8 process text. They are extraordinarily capable within that domain — but the world is not made of text. Your life is photographs and videos and voice recordings and medical scans and handwritten notes and audio conversations. A memory system that can only process text is, by definition, incomplete.</p>
+    <p>Multimodal AI extends the capability of language models to process multiple types of input — text, images, audio, and video — within a single model and a single context window. Not as separate systems that hand off between each other, but as a unified architecture that understands the relationships between modalities.</p>
+    <div class="pull-quote"><p>A text-only memory system captures perhaps thirty percent of what actually constitutes a human life. Multimodal AI closes that gap.</p></div>
+
+    <h3>The Key Technologies</h3>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>CLIP (Contrastive Language-Image Pretraining)</strong> — An open source model that places text and images in the same embedding space. An image of a dog and the text "dog" are placed near each other in the same space, even though one is pixels and the other is words. This enables natural language image search — "show me the last photo I took with my father" finds the photograph without a matching filename, tag, or description. CLIP searches by what the image contains, not by what it was labeled.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Whisper</strong> — An open source speech-to-text model from OpenAI. Transcribes audio to text locally, at no API cost, with strong accuracy across accents, background noise, and technical vocabulary. Every audio recording — voice notes, meeting recordings, video audio tracks — becomes searchable text once processed by Whisper.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Gemini</strong> — Google's frontier multimodal model processes text, images, audio, and video natively — not as an add-on capability but as a core architectural feature. With a context window of up to one million tokens, Gemini can process long-form video and extract meaning from complex visual content. For AuriOS™, Gemini is the primary engine for video understanding — including the VHS tape digitization workflow.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Medical Imaging Models — BioViL-T and MedCLIP</strong> — Trained specifically on clinical image-text pairs — radiology reports paired with the imaging they describe, pathology images paired with clinical notes. They place medical images and clinical language in the same embedding space with the domain accuracy that medical use requires. General-purpose models like CLIP understand photographs of everyday objects with high accuracy. They do not understand chest X-rays, MRI sequences, or histology slides.</span>
+      </div>
+    </div>
+
+    <h2>9B — AuriOS™ Visual Memory</h2>
+    <h3>Your Visual Life</h3>
+    <p>Photographs from decades-old trips on drives that no longer power on. Home movies from childhood on formats no current device can play. Medical imaging scattered across facilities that may no longer exist. VHS tapes in boxes in closets, containing moments that exist nowhere else. None of this is queryable. None of it can inform the AI that is supposed to be helping you today.</p>
+
+    <h3>How Visual Ingestion Works</h3>
+    <p>Every photograph ingested into AuriOS™ is processed by CLIP at ingestion time. CLIP generates an embedding that describes what the photograph contains: the faces, the objects, the scene, the apparent context. That embedding is stored in ChromaDB alongside the original image.</p>
+    <p>At query time, your natural language query is embedded using the same CLIP model. The system searches ChromaDB for stored image embeddings whose coordinates are closest to your query. The photograph surfaces — not because it was tagged with your father's name, but because CLIP understands that the image contains a person matching the face it has learned to associate with your father across all the photographs where he appears.</p>
+
+    <h3>The VHS Tape Problem — Solved</h3>
+    <p>AuriOS™ approaches VHS digitization as a four-step pipeline:</p>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-item-marker">1</span><span class="feature-item-text"><strong>Digitize</strong> — Convert the tape to a digital video file.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">2</span><span class="feature-item-text"><strong>Process through Gemini</strong> — Gemini watches the video and generates a description of what it contains: who appears, what is happening, what is being said, what the setting is, what the approximate date appears to be.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">3</span><span class="feature-item-text"><strong>Extract key frame embeddings</strong> — CLIP captures the visual content of significant moments as searchable image embeddings.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">4</span><span class="feature-item-text"><strong>Index everything</strong> — The description, the embeddings, and the original digital file stored in Custos Aurum™ and searchable through the same interface you use for everything else.</span></div>
+    </div>
+    <p>The tape becomes queryable. "Show me videos of my children before they started school" retrieves the relevant tapes from the description and embeddings Gemini extracted.</p>
+
+    <h3>Medical Imaging — The Personal Health Case</h3>
+    <p>Your medical imaging history is one of the most valuable and most fragmented datasets that exists about you. MRI from a facility you no longer use. CT scan from an emergency visit three years ago. Baseline imaging from a practice that has since closed. No healthcare system currently provides a complete, chronological, AI-queryable imaging history in a single place.</p>
+    <p>With AuriOS™'s medical imaging layer, the complete history is ingested into Custos Aurum™ and processed by BioViL-T or MedCLIP — models trained on clinical image-text pairs with the domain knowledge to interpret what they see accurately. The question your current doctor cannot answer — because they have never seen your full imaging history — becomes answerable.</p>
+
+    <h3>Audio Memory — Your Voice Archive</h3>
+    <p>Every voice note, every recorded meeting, every audio message, every voicemail you have ever saved contains information that currently exists only in a format you have to listen to in real time to retrieve. Whisper changes this. Every audio file ingested into AuriOS™ is transcribed locally — no API cost, no data leaving your machine — and the transcript is indexed alongside everything else in your memory store.</p>
+    <div class="dark-callout">
+      <p><strong>The voice note you left yourself in the car becomes searchable text.</strong> The meeting recording from six months ago becomes a queryable document. Your voice archive becomes memory.</p>
+    </div>
+
+    <div style="margin-top:48px;padding:24px;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.25);">
+      <p style="font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">A Note on Parts Four Through Six</p>
+      <p style="font-size:0.9rem;color:var(--darkgray);line-height:1.8;margin-bottom:12px;">Parts One through Three of this document are complete. The technical foundation — the history, the philosophy, the architecture, the memory system, the agents, the multimodal layer — is written, edited, and represents the current state of AuriOS™ as of the Founding Edition.</p>
+      <p style="font-size:0.9rem;color:var(--darkgray);line-height:1.8;margin-bottom:0;">Parts Four through Six — The Vision, The Business, and Governance and People — are in active development. Founding Circle members are receiving this document in its working state by design. You are not reading a finished product. You are reading a living document at the moment it is being built — which is precisely the moment we are inviting you to join.</p>
+    </div></div>
+  <div class="chapter-nav-footer"><a href="/fd/ch08.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 8 — Agents</span></a><a href="/fd/ch10.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 10 — The Intelligence Superhighway™ and the AISP™ Model</span></a></div>
   
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>

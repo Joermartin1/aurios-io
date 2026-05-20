@@ -211,10 +211,126 @@
   </div>
   <div class="content-body">
     
-    <p>Full chapter content from the Founding Document. See PDF for complete text.</p>
+    <p>The field of AI is not one thing. It is an ecosystem of overlapping categories, each with distinct architectures, capabilities, and use cases. This chapter establishes the foundational taxonomy — and shows precisely where AuriOS™ sits within it.</p>
+
+    <h2>The Three Nested Circles</h2>
+    <p>Picture three nested circles. The outermost is <strong>artificial intelligence</strong> — any system performing tasks normally requiring human intelligence. Spam filters, recommendation engines, navigation systems — all AI. Inside that circle is <strong>machine learning</strong>: systems that learn from data rather than following rules. Inside that circle is <strong>deep learning</strong> — machine learning using neural networks with many layers. Every major AI system you will encounter in this document lives in that innermost circle.</p>
+
+    <h2>What Artificial Intelligence Actually Is</h2>
+    <p>Artificial intelligence is not a single technology. It is a category — a label for any system that performs tasks normally requiring human intelligence. Navigation software that finds the fastest route is AI. A spam filter that sorts your inbox is AI. A recommendation engine that knows you will like a film before you have heard of it is AI. None of these systems thinks. None of them understands anything. They perform specific tasks in ways that, if a human did them, we would call intelligent.</p>
+    <p>What has changed is not the category — it is the capability of what sits inside it.</p>
+
+    <h2>What Machine Learning Actually Does</h2>
+    <p>The shift from rules to learning is the most important concept in modern AI. Consider recognizing a cat in a photograph. Writing rules fails on a Sphynx cat, a cat from above, a cat in dim light. A machine learning system trained on a million labeled photographs learns the actual distinguishing patterns and generalizes. The breakthrough of machine learning was not making computers faster at following rules. It was replacing rules with the ability to find patterns no human programmer could have written down.</p>
+
+    <h2>What Deep Learning Actually Does</h2>
+    <p>Deep learning is machine learning with depth — neural networks that stack many layers of pattern recognition on top of each other. Where a shallow network might learn to detect edges in a photograph, a deep network stacks that capability: edges become shapes, shapes become features, features become objects, objects become meaning. The word "deep" refers to the number of layers, not to any philosophical quality of the system.</p>
+
+    <h2>What an LLM Is — and Is Not</h2>
+    <p>A large language model is a machine learning system trained on a very large amount of text. The training objective: predict the next token. To do this well across billions of examples, the model develops internal representations of concepts, facts, styles, and reasoning patterns.</p>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Not a database</strong> — generates the most statistically likely continuation, does not look things up</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Not omniscient</strong> — has gaps, inconsistencies, and errors baked in. Can be confidently wrong.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Not reasoning in the human sense</strong> — produces sequences that look like reasoning because it trained on human reasoning</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Not conscious</strong> — no subjective experience. Outputs feel human because they were trained on human text.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Not equipped with memory</strong> — without an explicit memory system, every session starts from zero. This is the problem this document exists to solve.</span>
+      </div>
+    </div>
+
+    <div class="nerds-box">
+      <p class="nerds-label">For the technically curious — Tokens</p>
+      <p>A token is the smallest unit of text an LLM processes — roughly 0.75 words. 100 tokens is approximately one short paragraph. Context window limits and API costs are both measured in tokens. Claude: 200,000 tokens. GPT-5: 128,000. Gemini: 1,000,000.</p>
+    </div>
+
+    <h2>The AI Landscape — 2026</h2>
+    <p>The diagram below maps the complete AI ecosystem as it stands in 2026. Understanding where each category sits — and where they overlap — is essential context for understanding where AuriOS™ fits.</p>
+
+    <div class="graphic-block">
+      <img src="https://aurios.io/images/ai-landscape-2026.png" alt="The AI Landscape 2026" loading="lazy" />
+      <p class="graphic-caption">The AI Landscape — 2026. Categories overlap by design — many products span multiple zones.</p>
+    </div>
+
     <div class="graphic-block">
       <img src="https://aurios.io/images/aurios-ai-landscape.png" alt="AuriOS in the AI Landscape" loading="lazy" />
-      <p class="graphic-caption">AuriOS™ in the AI Landscape. Your memory and identity — connected to every layer of the ecosystem.</p>
+      <p class="graphic-caption">AuriOS™ in the AI Landscape. The gold spokes describe actual architectural relationships — not aspirational ones.</p>
+    </div>
+
+    <h2>The Model Families — An API for Each</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>OpenAI (GPT family)</strong> — Most widely deployed. GPT-5 flagship. Most mature function calling and tool use.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Anthropic (Claude family)</strong> — Constitutional AI training. 200,000 token context window. Preferred for safety-sensitive and ethically complex queries.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Google (Gemini family)</strong> — Built by the Transformer team. Native video and audio processing. Best for visual and multimodal queries.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>xAI (Grok)</strong> — Real-time web access. Primary value: web-current information.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Perplexity (Sonar)</strong> — Automatic web search on every response. Primary value: current, sourced, cited information.</span>
+      </div>
+    </div>
+
+    <h2>3B — AuriOS™: The Big Picture</h2>
+    <div class="graphic-block">
+      <img src="https://aurios.io/images/aurios-complete-picture.png" alt="AuriOS — The Complete Picture" loading="lazy" />
+      <p class="graphic-caption">AuriOS™ — The Complete Picture. Auri™ is who you talk to. AuriOS™ is what makes that possible.</p>
+    </div>
+
+    <h2>Auri™ and AuriOS™ — The Distinction That Matters</h2>
+    <p><strong>AuriOS™</strong> is the operating system — the complete platform. The database, the memory infrastructure, the ingestion pipeline, the orchestration layer, the agent framework, and the governance architecture. You do not interact with AuriOS™ directly, any more than you interact with iOS when you make a call on your iPhone.</p>
+    <p><strong>Auri™</strong> is what you experience. The AI identity and voice that lives within AuriOS™. The librarian who knows where everything is, the conductor who coordinates the Partner AIs, the gatekeeper who ensures your memory is used on your behalf and no one else's. The analogy is precise: Siri is to iOS what Auri™ is to AuriOS™.</p>
+
+    <h2>What Makes AuriOS™ Different</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Memory you own.</strong> Your complete raw corpus is stored in Custos Aurum™ infrastructure. Your data does not belong to AuriOS™. It belongs to you, with the same completeness that your home belongs to you.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Every model. Simultaneously.</strong> IBT Mode™ queries all active Partner AIs in parallel. Auri™ adjudicates — identifying where the models agree, where they differ — and synthesizes a single response no individual model could produce alone.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Provider-agnostic by design.</strong> When a better model appears, it joins the stack. Your memory and identity travel with you regardless of which models are in the stack at any given time.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Democratic governance.</strong> Custos Aurum™ — the non-profit cooperative that owns the infrastructure — enforces the standards that protect your ownership. AuriOS™ is the hired manager, not the owner.</span>
+      </div>
+    </div>
+
+    <h2>IBT Mode™ — Intelligence Building Tool</h2>
+    <p>IBT Mode™ queries all active Partner AIs simultaneously. Each returns a response. Auri™ adjudicates across those responses — identifying agreement, surfacing disagreement, synthesizing a single coherent answer that no individual model could produce alone. The Partner AI stack will grow and evolve. IBT Mode™ is designed to exploit whatever is in it.</p>
+
+    <h2>MQI™ — Memory Query Interface</h2>
+    <p>The MQI™ is the standardized interface through which any authorized caller queries the AuriOS™ memory store. The design is deliberate: the AI can ask for information but cannot modify, delete, or exfiltrate data without explicit Member authorization. The MQI™ is the boundary between capability and control — and control belongs to you.</p>
+    <div class="nerds-box">
+      <p class="nerds-label">IP Notice</p>
+      <p>MQI™ as a named open standard is being evaluated for IP protection. Route questions to Pete Patterson.</p>
     </div>
   </div>
   <div class="chapter-nav-footer">

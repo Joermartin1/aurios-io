@@ -210,28 +210,89 @@
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    
     <p>The context window is everything the AI can see at the moment it generates a response. Everything written on the whiteboard is immediately available. Everything not on the whiteboard does not exist, as far as the model is concerned.</p>
+    <p>Modern context windows are large. Claude: 200,000 tokens — roughly 150,000 words or about 500 pages. GPT-5: 128,000 tokens. Gemini: 1,000,000 tokens — nearly 750,000 words, the equivalent of six or seven full-length novels. These are enormous whiteboards. But they share one critical property: when the session ends, the whiteboard is erased. The AI that helped you work through a complex problem on Monday has no idea on Tuesday that Monday happened.</p>
+
     <div class="graphic-block">
       <img src="https://aurios.io/images/context-window-standard.png" alt="The Context Window — Industry Standard" loading="lazy" />
-      <p class="graphic-caption">Figure 4.1 — The Context Window. The four content layers assembled before the model generates a response.</p>
+      <p class="graphic-caption">Figure 4.1 — The Context Window. Four content layers assembled before the model generates a response. When the session ends, the whiteboard is erased.</p>
     </div>
+
+    <h2>4A — The Industry Standard Context Window</h2>
+    <h3>The Four Layers</h3>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>System prompt</strong> — The standing instructions that define how the AI behaves in this context. Written by the developer or platform, not the user. It tells the model who it is, what it can and cannot do, what tone to take, and what its purpose is in this session. The user never sees it. It is always loaded first and always commands the highest attention.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Retrieved context</strong> — Information pulled into the conversation to ground the AI's response. Documents you upload, memory records retrieved from your history, reference material you inject, or facts the system surfaces based on your query. Unlike the system prompt, retrieved context is driven by you and your data — it is what makes the response relevant to your specific situation rather than generic.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Conversation history</strong> — Prior turns in the current session. Middle position in the context window — lower attention weight than beginning or end.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Your question</strong> — Always last. At the position of maximum model attention.</span>
+      </div>
+    </div>
+
+    <div class="nerds-box">
+      <p class="nerds-label">For the technically curious — Lost in the Middle</p>
+      <p>Research published in 2023: LLM attention is strongest at the beginning and end of the context window and weakest in the middle. Content buried mid-context performs worse. This is why context assembly order is a design decision, not an afterthought — and why AuriOS™ places your memory injection near the end of the context window, where model attention is strongest.</p>
+    </div>
+
+    <h2>4B — The AuriOS™ Context Window</h2>
+    <p>AuriOS™ does not change how context windows work. It changes what goes on the whiteboard before every query — and what happens to the whiteboard contents after every session.</p>
+
     <div class="graphic-block">
       <img src="https://aurios.io/images/context-window-aurios.png" alt="The AuriOS Context Window — Step by Step" loading="lazy" />
-      <p class="graphic-caption">Figure 4.2 — The AuriOS Context Window, step by step. Memory injected at step 2. Chatbot problem solved at step 8.</p>
+      <p class="graphic-caption">Figure 4.2 — The AuriOS™ Context Window, step by step. Eight steps from session open to real-time session storage.</p>
     </div>
-    <p>Full chapter content from the Founding Document. See PDF for complete text of sections 4.1 through 4.x.</p>
-  </div>
-  <div class="chapter-nav-footer">
-    <a href="/fd/ch03.html" class="chapter-nav-btn prev">
-      <span class="direction">← Previous</span>
-      <span class="chapter-name">Chapter 3 — The AI Big Picture</span>
-    </a>
-    <a href="/fd/ch05.html" class="chapter-nav-btn next">
-      <span class="direction">Next →</span>
-      <span class="chapter-name">Chapter 5 — Large Language Models</span>
-    </a>
-  </div>
+
+    <h3>Step 1 — Context Window Opens</h3>
+    <p>Before you type a single word, AuriOS is already working. The moment you open Ask Auri, the context window initializes — the system prompt is loaded, establishing Auri's identity, capabilities, and behavioral guidelines. Simultaneously, Custos Aurum is queried for your Member profile: your active projects, recent sessions, and standing preferences. The whiteboard is prepared before you arrive at it.</p>
+
+    <h3>Step 2 — Memory Injection</h3>
+    <p>AuriOS retrieves relevant memory and places it on the whiteboard. This is not a generic context — it is your context. Project summaries, prior decisions, relevant specifications, open questions from previous sessions. Typically 500 to 2,000 tokens of precisely targeted personal memory, positioned near the end of the context window where model attention is strongest. The AI that responds to your query already knows you before you say a word.</p>
+
+    <h3>Step 3 — You Enter Your Query</h3>
+    <p>You type your question or instruction into the Ask Auri input field — or speak it through the Auri Voice Layer. As your query forms, AuriOS is already observing it. Steps 4a and 4b happen in real time as you type — before you press Enter.</p>
+
+    <h3>Steps 4a & 4b — The Pre-Submit Intelligence Layer</h3>
+    <p>This is where AuriOS diverges most sharply from every other AI interface. Two things happen simultaneously, in real time, while your query is still forming.</p>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Prompt Assist™ [IP-02]</strong> retrieves relevant memory in real time and offers a substantively improved version of your query — incorporating context you have not yet typed. You type "KTM wiring." Auri offers: "Based on my KTM 1190 ESP32 dashboard build, what is the current status of the CAN bus wiring..." Three layers: a substantive redraft from memory context, routing optimization, and grammar and spelling as a byproduct. Accept, modify, or dismiss.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Query Preview™ [IP-01]</strong> displays a routing suggestion in real time. "KTM project query detected — routing to KTM memory, Claude for technical reasoning, Perplexity for current parts." Accept with Enter or override with a single tap. Pre-submit routing transparency with user control — this does not exist in any other product.</span>
+      </div>
+    </div>
+
+    <div class="nerds-box">
+      <p class="nerds-label">IP Notice</p>
+      <p>Prompt Assist™ (IP-02) is the highest-novelty IP item in the AuriOS™ portfolio. Query Preview™ (IP-01) is closely related. Both are pending provisional patent application review. Route to Pete Patterson.</p>
+    </div>
+
+    <h3>Step 5 — You Press Enter</h3>
+    <p>Your finalized query is submitted to the Auri Orchestration Layer. At this moment you also confirm the routing: Single Mode for a direct query to one Partner AI, or IBT Mode to query all active Partner AIs simultaneously.</p>
+
+    <h3>Step 6 — Single Mode or IBT Mode™</h3>
+    <p>In <strong>Single Mode</strong>, the assembled context window is sent to one Partner AI. Fast, efficient, appropriate for straightforward queries.</p>
+    <p>In <strong>IBT Mode™ (Intelligent Blended Thinking™)</strong>, Auri customizes the prompt for each active Partner AI and queries all of them in parallel. Each model receives the same memory context but a prompt tailored to its specific strengths. Responses stream back simultaneously.</p>
+
+    <h3>Step 7 — Auri Adjudicates</h3>
+    <p>In IBT Mode, Auri does not simply present all responses side by side. It synthesizes them. Points of agreement across models are identified as high-confidence findings. Points of disagreement are surfaced explicitly — flagged, not hidden. Unique contributions from each model are identified and attributed. The result is a single coherent response that no individual model could have produced alone.</p>
+
+    <h3>Step 8 — Response Delivered and Session Stored</h3>
+    <p>The synthesized response is presented to you and immediately added to the context window. And critically: every query and every response is written to Custos Aurum in real time as it happens. Not summarized. Not extracted into a short declarative statement. The full exchange, preserved intact, available for retrieval in every future session.</p>
+    <div class="pull-quote"><p>This is Real-Time Session Storage™ — the feature that permanently ends the chatbot problem. Your AI no longer forgets you when you close the window.</p></div></div>
+  <div class="chapter-nav-footer"><a href="/fd/ch03.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 3 — The AI Big Picture</span></a><a href="/fd/ch05.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 5 — Large Language Models</span></a></div>
   
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>

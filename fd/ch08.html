@@ -206,22 +206,77 @@
     <div class="hero-chapter-num">08</div>
     <p class="hero-part-label">Part Three — How It Works</p>
     <h1 class="hero-title">Chapter 8 — <em>Agents</em></h1>
-    <p class="hero-subtitle">An AI that takes actions, not just answers questions. What agents are, how they work, and what Auri™ does as your agent.</p>
+    <p class="hero-subtitle">An AI that does things — continuously, on a schedule, without being explicitly invoked each time. The shift from answering to acting.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <p>Full chapter content from the Founding Document. See PDF for complete text.</p>
-  </div>
-  <div class="chapter-nav-footer">
-    <a href="/fd/ch07.html" class="chapter-nav-btn prev">
-      <span class="direction">← Previous</span>
-      <span class="chapter-name">Chapter 7 — Semantic Search and Retrieval</span>
-    </a>
-    <a href="/fd/ch09.html" class="chapter-nav-btn next">
-      <span class="direction">Next →</span>
-      <span class="chapter-name">Chapter 9 — Multimodal AI</span>
-    </a>
-  </div>
+    <h2>8A — AI Agents: The Reasoning Loop</h2>
+    <h3>The Difference Between Answering and Acting</h3>
+    <p>Every AI interaction you have had before AuriOS™ follows one pattern: you ask, it answers, the session ends. The AI is an oracle. You consult it. It responds. Nothing happens between sessions. Nothing happens unless you initiate it.</p>
+    <p>Agents are fundamentally different. An agent operates through a continuous loop — observe, reason, act, observe again — and takes actions without being explicitly invoked for each one. It queries databases, calls APIs, sends notifications, monitors telemetry, executes code, browses the web, and interacts with external systems. It does this on a schedule, in response to triggers, or continuously in the background. You do not have to ask. It is already working.</p>
+    <div class="pull-quote"><p>An LLM that can only respond to direct queries is a powerful tool. An agent that can act continuously on your behalf — with memory, with context, with judgment — is something closer to a capable colleague.</p></div>
+
+    <h3>The Four Steps of the Reasoning Loop</h3>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Observe</strong> — The agent receives input. A scheduled trigger, a system event, a sensor reading, a file appearing in a monitored directory. Along with the trigger, the agent reads context from memory and external sources — retrieving the relevant history, project state, and standing instructions.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Reason</strong> — The agent uses an LLM to think through what the input means and what action is appropriate. This is not generating a response for a user — it is generating a plan. What does this trigger indicate? Which response best serves the Member's stated goals? The quality of this reasoning step is what separates a useful agent from a dangerous one.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Act</strong> — The agent executes the plan. Tool calls. API calls. Notifications sent. Records updated. Files moved. Each result is incorporated back into the agent's working context. The action is not the end of the loop — it is input for the next observation.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Observe Again</strong> — With the results of the action incorporated, the agent reasons about whether the task is complete or whether more steps are needed. Should the Member be notified? Should the agent stop and wait for human review? The loop continues until the task is complete or a decision point requires human authorization.</span>
+      </div>
+    </div>
+
+    <div class="nerds-box">
+      <p class="nerds-label">For the technically curious — The ReAct Pattern</p>
+      <p>The dominant architecture for production agents is the ReAct pattern — Reasoning + Acting — published in 2022. In the ReAct loop, the agent generates a thought, takes an action, receives an observation, and repeats. Interleaving reasoning and tool calls — thinking before acting, then thinking again after observing the result — significantly improves agent performance on complex multi-step tasks. This pattern underlies most production agent implementations, including AuriOS™.</p>
+    </div>
+
+    <h3>Why Governance Matters</h3>
+    <p>The same property that makes agents powerful also makes them potentially dangerous: they act without being asked each time. AuriOS™ takes the opposite approach from the industry: governance as foundation, autonomy as capability built within it. <strong>Agents prepare, surface, and propose. Members review and authorize.</strong> The human stays in the decision chain for anything consequential.</p>
+
+    <h2>8B — AuriOS™ Agents: The Taxonomy and Showcase</h2>
+    <h3>System Agents</h3>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Update Agent (Live)</strong> — The only currently live AuriOS™ agent. Monitors the incoming updates directory, validates new code packages, applies them, and restarts AuriOS™. The backbone of Self-Build — the capability through which Auri™ modifies its own codebase in response to Member instruction.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Ingestion Agent (Planned)</strong> — Will auto-process incoming data exports from connected sources — email archives, health records, document libraries — and route them through the ingestion pipeline without requiring manual initiation for each source.</span>
+      </div>
+    </div>
+
+    <h3>Member Showcase Agents</h3>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>KTM Telemetry and Intelligence System</strong> — Project scope. During build: tracks every component, decision, and open question. At completion: documents the final bill of materials and confirmed configuration. Ongoing: monitors dashboard telemetry, logs ride data, flags anomalies against baseline patterns. The motorcycle becomes a data source that Auri™ actively interprets rather than a machine that only reports problems when they become failures.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Career Industry Intelligence Monitor (CIIM™)</strong> — Domain scope. Monitors announcements, company movements, regulatory changes, hiring patterns, and investment flows across a chosen industry vertical. Surfaces what is relevant to the specific Member — filtered through what it knows about your expertise, your goals, and your professional history. Google Alerts on steroids is the shorthand. The reality is considerably more capable.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Personal Health Intelligence Agent</strong> — Project scope. Monitors wearable telemetry continuously and builds a baseline over time. Before appointments, prepares a summary of recent trends and flags questions worth raising. After appointments, logs new findings and schedules follow-up reminders. Long-term value: a complete, chronological, AI-queryable health history that no healthcare system currently provides.</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-item-marker">—</span>
+        <span class="feature-item-text"><strong>Dorada Resort and Renewable Infrastructure Agent</strong> — Project scope. Manages the development and long-term intelligence of a regenerative resort and renewable energy ecosystem — tracking permitting status, infrastructure milestones, investor relations, and energy systems deployment. Investment intelligence and operational intelligence converging in a single agent that understands both the financial model and the physical system.</span>
+      </div>
+    </div></div>
+  <div class="chapter-nav-footer"><a href="/fd/ch07.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 7 — Semantic Search and Retrieval</span></a><a href="/fd/ch09.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 9 — Multimodal AI</span></a></div>
   
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>
