@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Illustrations Index — The Intelligence Superhighway™ Founding Document</title>
+  <link rel="icon" type="image/png" href="/auri-logo-small.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F5C; --gold: #F5A623; --warmwhite: #FAFAF7;
+      --steel: #4F78B8; --bluemist: #D6E4F0; --darkgray: #4B5563;
+      --midgray: #6B7280; --gridgray: #D9E1EA; --white: #FFFFFF;
+      --sidebar-width: 280px; --nav-height: 56px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--warmwhite); color: var(--navy); overflow-x: hidden; }
+    #gate { position: fixed; inset: 0; z-index: 2000; background: var(--warmwhite); display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+    #gate::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(13,31,92,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(13,31,92,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+    .gate-card { position: relative; background: var(--white); border-top: 3px solid var(--gold); max-width: 440px; width: 100%; padding: 48px 40px; box-shadow: 0 2px 24px rgba(13,31,92,0.07); text-align: center; }
+    .gate-spinner { width: 36px; height: 36px; border: 2px solid var(--gridgray); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 24px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gate-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--navy); margin-bottom: 8px; }
+    .gate-sub { font-size: 0.88rem; color: var(--midgray); line-height: 1.6; }
+    .gate-btn { display: inline-block; margin-top: 24px; background: var(--navy); color: white; padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; }
+    #top-nav { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--nav-height); background: rgba(13,31,92,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(245,166,35,0.2); align-items: center; padding: 0 24px; gap: 16px; }
+    .nav-toggle { background: none; border: none; cursor: pointer; color: var(--gold); padding: 8px; display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
+    .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--gold); transition: all 0.3s; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 28px; width: auto; }
+    .nav-doc-title { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(214,228,240,0.5); margin-left: 16px; padding-left: 16px; border-left: 1px solid rgba(245,166,35,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-chapter-title { font-size: 0.8rem; color: rgba(214,228,240,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; margin-left: 8px; }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .nav-badge { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--midgray); background: rgba(79,120,184,0.2); padding: 4px 10px; }
+    .nav-pdf-btn { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.3); padding: 5px 14px; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
+    .nav-pdf-btn:hover { background: rgba(245,166,35,0.2); }
+    #sidebar { display: none; position: fixed; top: var(--nav-height); left: 0; bottom: 0; width: var(--sidebar-width); background: var(--navy); border-right: 1px solid rgba(245,166,35,0.15); overflow-y: auto; z-index: 900; transform: translateX(0); transition: transform 0.3s ease; }
+    #sidebar.collapsed { transform: translateX(calc(-1 * var(--sidebar-width))); }
+    .sidebar-inner { padding: 24px 0 60px; }
+    .sidebar-section { margin-bottom: 8px; }
+    .sidebar-part { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); padding: 16px 20px 6px; border-top: 1px solid rgba(245,166,35,0.12); }
+    .sidebar-part:first-child { border-top: none; padding-top: 8px; }
+    .sidebar-link { display: block; padding: 7px 20px 7px 28px; font-size: 0.82rem; font-weight: 300; color: rgba(214,228,240,0.75); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; transition: all 0.15s; }
+    .sidebar-link:hover { color: var(--white); background: rgba(79,120,184,0.1); border-left-color: rgba(245,166,35,0.4); }
+    .sidebar-link.active { color: var(--white); background: rgba(79,120,184,0.15); border-left-color: var(--gold); font-weight: 400; }
+    .sidebar-link.exhibit { font-size: 0.78rem; color: rgba(214,228,240,0.55); }
+    .sidebar-link.exhibit:hover { color: rgba(214,228,240,0.85); }
+    #main { display: none; padding-top: var(--nav-height); margin-left: var(--sidebar-width); min-height: 100vh; transition: margin-left 0.3s ease; }
+    #main.sidebar-collapsed { margin-left: 0; }
+    .chapter-hero { background: var(--navy); padding: 80px 80px 64px; position: relative; overflow: hidden; }
+    .chapter-hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(79,120,184,0.18) 0%, transparent 65%); pointer-events: none; }
+    .chapter-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(245,166,35,0.4), transparent); }
+    .hero-part-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .hero-chapter-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 8vw, 7rem); font-weight: 300; color: rgba(214,228,240,0.08); line-height: 1; position: absolute; top: 40px; right: 80px; pointer-events: none; user-select: none; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.4rem, 4vw, 3.8rem); color: var(--white); line-height: 1.1; max-width: 700px; }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: rgba(214,228,240,0.6); margin-top: 16px; max-width: 600px; line-height: 1.5; }
+    .hero-meta { margin-top: 28px; font-size: 0.75rem; font-weight: 300; letter-spacing: 0.1em; color: rgba(214,228,240,0.3); }
+    .content-body { max-width: 760px; margin: 0 auto; padding: 64px 80px 100px; }
+    .content-body h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.6rem, 2.5vw, 2.2rem); color: var(--navy); line-height: 1.2; margin: 56px 0 24px; padding-bottom: 12px; border-bottom: 1px solid var(--gridgray); }
+    .content-body h3 { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 40px 0 16px; }
+    .content-body p { font-size: 1rem; font-weight: 300; color: var(--darkgray); line-height: 1.95; margin-bottom: 22px; }
+    .content-body p strong { color: var(--navy); font-weight: 500; }
+    .content-body p em { font-style: italic; color: var(--navy); }
+    .pull-quote { border-left: 3px solid var(--gold); padding: 20px 28px; margin: 36px 0; background: var(--white); }
+    .pull-quote p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.35rem; color: var(--navy); line-height: 1.6; margin-bottom: 0; }
+    .dark-callout { background: var(--navy); padding: 36px 40px; margin: 40px 0; position: relative; overflow: hidden; }
+    .dark-callout::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(79,120,184,0.15) 0%, transparent 60%); }
+    .dark-callout p { color: var(--bluemist); position: relative; margin-bottom: 0; }
+    .dark-callout p strong { color: var(--white); }
+    .graphic-block { margin: 44px 0; }
+    .graphic-block img { max-width: 100%; height: auto; border: 1px solid var(--gridgray); display: block; }
+    .graphic-caption { font-size: 0.78rem; color: var(--midgray); margin-top: 10px; font-style: italic; line-height: 1.5; }
+    .nerds-box { background: var(--warmwhite); border: 1px solid var(--gridgray); border-left: 3px solid var(--steel); padding: 20px 24px; margin: 28px 0; }
+    .nerds-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--steel); margin-bottom: 10px; }
+    .nerds-box p { font-size: 0.88rem; color: var(--darkgray); margin-bottom: 0; }
+    .feature-list { margin: 28px 0; display: flex; flex-direction: column; gap: 12px; }
+    .feature-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; background: var(--white); border-left: 3px solid var(--bluemist); }
+    .feature-item-marker { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); flex-shrink: 0; line-height: 1.6; }
+    .feature-item-text { font-size: 0.92rem; color: var(--darkgray); line-height: 1.75; }
+    .feature-item-text strong { color: var(--navy); font-weight: 500; }
+    .draft-notice { background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.3); padding: 16px 20px; margin-bottom: 32px; }
+    .draft-notice p { font-size: 0.82rem; color: var(--midgray); margin-bottom: 0; }
+    .draft-notice strong { color: var(--gold); }
+    .chapter-nav-footer { border-top: 1px solid var(--gridgray); padding: 40px 80px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .chapter-nav-btn { display: flex; flex-direction: column; gap: 4px; text-decoration: none; max-width: 280px; }
+    .chapter-nav-btn .direction { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--midgray); }
+    .chapter-nav-btn .chapter-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--navy); line-height: 1.3; }
+    .chapter-nav-btn:hover .chapter-name { color: var(--steel); }
+    .chapter-nav-btn.next { text-align: right; }
+    #sidebar-overlay { display: none; position: fixed; inset: 0; z-index: 850; background: rgba(13,31,92,0.5); }
+    .doc-footer { background: var(--navy); padding: 20px 80px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .doc-footer-copy { font-size: 0.7rem; font-weight: 300; color: rgba(214,228,240,0.35); letter-spacing: 0.04em; }
+    .doc-footer-marks { font-size: 0.68rem; font-weight: 300; color: rgba(214,228,240,0.2); letter-spacing: 0.06em; }
+    @media print { body { display: none !important; } }
+    @media (max-width: 900px) {
+      #sidebar { transform: translateX(calc(-1 * var(--sidebar-width))); }
+      #sidebar.mobile-open { transform: translateX(0); }
+      #sidebar-overlay { display: block; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+      #sidebar-overlay.active { opacity: 1; pointer-events: all; }
+      #main { margin-left: 0 !important; }
+      .chapter-hero { padding: 60px 28px 48px; }
+      .hero-chapter-num { display: none; }
+      .content-body { padding: 48px 28px 80px; }
+      .chapter-nav-footer { padding: 32px 28px; }
+      .doc-footer { padding: 20px 28px; flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .chapter-nav-footer { flex-direction: column; }
+      .chapter-nav-btn.next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<div id="gate">
+  <div class="gate-card" id="gate-checking">
+    <div class="gate-spinner"></div>
+    <p class="gate-title">Verifying access…</p>
+    <p class="gate-sub">Just a moment.</p>
+  </div>
+  <div class="gate-card" id="gate-denied" style="display:none;">
+    <p class="gate-title">Access required.</p>
+    <p class="gate-sub">This page is protected. You need a valid access link.<br><br>If you have signed an NDA, check your email for your access link.</p>
+    <a href="https://aurios.io/signin.html" class="gate-btn">Sign In →</a>
+  </div>
+</div>
+<nav id="top-nav">
+  <button class="nav-toggle" id="sidebar-toggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="https://aurios.io" class="nav-logo">
+    <img src="https://aurios.io/auri-logo-primary.png" alt="Auri by AuriOS™" />
+  </a>
+  <span class="nav-doc-title">Founding Document</span>
+  <span class="nav-chapter-title" id="nav-chapter-title"></span>
+  <div class="nav-right">
+    <span class="nav-badge">NDA Confidential</span>
+    <a href="https://aurios.io/fd/founding-document.pdf" class="nav-pdf-btn">↓ PDF</a>
+  </div>
+</nav>
+<div id="sidebar-overlay"></div>
+<aside id="sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-section">
+      <div class="sidebar-part">Document</div>
+      <a href="/fd/index.html" class="sidebar-link" data-page="index">Cover &amp; Table of Contents</a>
+      <a href="/fd/intro.html" class="sidebar-link" data-page="intro">Introduction</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Part One — Where We Came From</div>
+      <a href="/fd/ch01.html" class="sidebar-link" data-page="ch01">Chapter 1 — The History of AI</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Part Two — What It Means</div>
+      <a href="/fd/ch02.html" class="sidebar-link" data-page="ch02">Chapter 2 — Your AI Is YOU</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Part Three — How It Works</div>
+      <a href="/fd/ch03.html" class="sidebar-link" data-page="ch03">Chapter 3 — The AI Big Picture</a>
+      <a href="/fd/ch04.html" class="sidebar-link" data-page="ch04">Chapter 4 — The Context Window</a>
+      <a href="/fd/ch05.html" class="sidebar-link" data-page="ch05">Chapter 5 — Large Language Models</a>
+      <a href="/fd/ch06.html" class="sidebar-link" data-page="ch06">Chapter 6 — Memory</a>
+      <a href="/fd/ch07.html" class="sidebar-link" data-page="ch07">Chapter 7 — Semantic Search and Retrieval</a>
+      <a href="/fd/ch08.html" class="sidebar-link" data-page="ch08">Chapter 8 — Agents</a>
+      <a href="/fd/ch09.html" class="sidebar-link" data-page="ch09">Chapter 9 — Multimodal AI</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Part Four — The Vision</div>
+      <a href="/fd/ch10.html" class="sidebar-link" data-page="ch10">Chapter 10 — The Intelligence Superhighway™ and the AISP™ Model</a>
+      <a href="/fd/ch11.html" class="sidebar-link" data-page="ch11">Chapter 11 — AuriOS: The Complete System</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Part Five — The Business</div>
+      <a href="/fd/ch12.html" class="sidebar-link" data-page="ch12">Chapter 12 — The Business of AuriOS™</a>
+      <a href="/fd/ch13.html" class="sidebar-link" data-page="ch13">Chapter 13 — Competitive Landscape and Moat</a>
+      <a href="/fd/ch14.html" class="sidebar-link" data-page="ch14">Chapter 14 — AI Regulation and Law</a>
+      <a href="/fd/ch15.html" class="sidebar-link" data-page="ch15">Chapter 15 — AI Safety and Alignment</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Part Six — Governance and People</div>
+      <a href="/fd/ch16.html" class="sidebar-link" data-page="ch16">Chapter 16 — The Memory Entity</a>
+      <a href="/fd/ch17.html" class="sidebar-link" data-page="ch17">Chapter 17 — The Founding Circle</a>
+      <a href="/fd/ch18.html" class="sidebar-link" data-page="ch18">Chapter 18 — Auri's Maker Lab</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-part">Exhibits &amp; Supporting Documents</div>
+      <a href="/fd/exhibit-a.html" class="sidebar-link exhibit" data-page="exhibit-a">Exhibit A — Founding Circle NDA</a>
+      <a href="/fd/exhibit-b.html" class="sidebar-link exhibit" data-page="exhibit-b">Exhibit B — Full Technical Memory Architecture</a>
+      <a href="/fd/exhibit-c.html" class="sidebar-link exhibit" data-page="exhibit-c">Exhibit C — IO and Feedback Devices</a>
+      <a href="/fd/exhibit-d.html" class="sidebar-link exhibit" data-page="exhibit-d">Exhibit D — Names and Entities Register</a>
+      <a href="/fd/exhibit-e.html" class="sidebar-link exhibit" data-page="exhibit-e">Exhibit E — Nomenclature Library v4.0</a>
+      <a href="/fd/exhibit-f.html" class="sidebar-link exhibit" data-page="exhibit-f">Exhibit F — IP Concepts &amp; Disclosures</a>
+      <a href="/fd/exhibit-g.html" class="sidebar-link exhibit" data-page="exhibit-g">Exhibit G — The AI Landscape Reference</a>
+      <a href="/fd/exhibit-h.html" class="sidebar-link exhibit" data-page="exhibit-h">Exhibit H — Auri's Maker Lab Equipment Catalog</a>
+      <a href="/fd/illustrations.html" class="sidebar-link active exhibit" data-page="illustrations">Illustrations Index</a>
+      <a href="/fd/index-doc.html" class="sidebar-link exhibit" data-page="index-doc">Index</a>
+    </div>
+  </div>
+</aside>
+
+<main id="main">
+  <div class="chapter-hero">
+    
+    <p class="hero-part-label">Exhibits & Supporting Documents</p>
+    <h1 class="hero-title"><em>Illustrations Index</em></h1>
+    <p class="hero-subtitle">A complete index of all figures, diagrams, and graphics in the Founding Document.</p>
+    <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
+  </div>
+  <div class="content-body">
+    <p>Full illustrations index from the Founding Document. See PDF page 174 for complete text.</p>
+  </div>
+  <div class="chapter-nav-footer">
+    <a href="/fd/exhibit-h.html" class="chapter-nav-btn prev">
+      <span class="direction">← Previous</span>
+      <span class="chapter-name">Exhibit H — Auri's Maker Lab Equipment Catalog</span>
+    </a>
+    <a href="/fd/index-doc.html" class="chapter-nav-btn next">
+      <span class="direction">Next →</span>
+      <span class="chapter-name">Index</span>
+    </a>
+  </div>
+  
+  <footer class="doc-footer">
+    <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>
+    <span class="doc-footer-marks">AuriOS™ · Auri™ · Custos Aurum™ · The Intelligence Superhighway™ · Your AI Is YOU™</span>
+  </footer>
+</main>
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  async function checkSession() {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('session');
+    const stored = sessionStorage.getItem('aurios_session');
+    if (!token && !stored) { showDenied(); return; }
+    const checkToken = token || stored;
+    try {
+      const r = await fetch('https://aurios-auth.joe-a3a.workers.dev/auth/check-session?token=' + encodeURIComponent(checkToken));
+      const d = await r.json();
+      if (d.valid) {
+        if (token) { sessionStorage.setItem('aurios_session', token); window.history.replaceState({}, '', window.location.pathname); }
+        showDoc();
+      } else {
+        if (stored) sessionStorage.removeItem('aurios_session');
+        showDenied();
+      }
+    } catch(e) { if (stored) showDoc(); else showDenied(); }
+  }
+
+  function showDoc() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('top-nav').style.display = 'flex';
+    document.getElementById('sidebar').style.display = 'block';
+    document.getElementById('main').style.display = 'block';
+    initSidebar();
+  }
+
+  function showDenied() {
+    document.getElementById('gate-checking').style.display = 'none';
+    document.getElementById('gate-denied').style.display = 'block';
+  }
+
+  function initSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const overlay = document.getElementById('sidebar-overlay');
+    const toggle = document.getElementById('sidebar-toggle');
+    const isMobile = () => window.innerWidth <= 900;
+    const currentPage = window.location.pathname.split('/').pop().replace('.html','');
+    document.querySelectorAll('.sidebar-link').forEach(l => { if (l.dataset.page === currentPage) l.classList.add('active'); });
+    const activeLink = document.querySelector('.sidebar-link.active');
+    if (activeLink) {
+      const navTitle = document.getElementById('nav-chapter-title');
+      if (navTitle) navTitle.textContent = activeLink.textContent.trim();
+      setTimeout(() => activeLink.scrollIntoView({ block: 'center', behavior: 'smooth' }), 300);
+    }
+    let sidebarOpen = !isMobile();
+    function openSidebar() {
+      if (isMobile()) { sidebar.classList.add('mobile-open'); overlay.classList.add('active'); }
+      else { sidebar.classList.remove('collapsed'); main.classList.remove('sidebar-collapsed'); }
+    }
+    function closeSidebar() {
+      if (isMobile()) { sidebar.classList.remove('mobile-open'); overlay.classList.remove('active'); }
+      else { sidebar.classList.add('collapsed'); main.classList.add('sidebar-collapsed'); }
+    }
+    toggle.addEventListener('click', () => { sidebarOpen = !sidebarOpen; sidebarOpen ? openSidebar() : closeSidebar(); });
+    overlay.addEventListener('click', () => { sidebarOpen = false; closeSidebar(); });
+    window.addEventListener('resize', () => { if (!isMobile() && sidebarOpen) { sidebar.classList.remove('mobile-open','collapsed'); main.classList.remove('sidebar-collapsed'); overlay.classList.remove('active'); } });
+  }
+
+  checkSession();
+</script>
+</body>
+</html>
