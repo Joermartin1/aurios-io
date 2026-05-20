@@ -134,7 +134,10 @@
   <a href="https://aurios.io" class="nav-logo">
     <img src="https://aurios.io/auri-logo-primary.png" alt="Auri by AuriOS™" />
   </a>
-  <span class="nav-doc-title">Founding Document</span>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:16px;">
+    <a href="https://aurios.io/brief.html" style="font-size:0.72rem;font-weight:500;color:rgba(245,166,35,0.7);text-decoration:none;padding:4px 10px;border:1px solid rgba(245,166,35,0.25);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Concept Brief</a>
+    <a href="/fd/index.html" style="font-size:0.72rem;font-weight:600;color:var(--white);text-decoration:none;padding:4px 10px;background:rgba(79,120,184,0.3);border:1px solid rgba(79,120,184,0.55);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Cover &amp; ToC</a>
+  </div>
   <span class="nav-chapter-title" id="nav-chapter-title"></span>
   <div class="nav-right">
     <span class="nav-badge">NDA Confidential</span>
@@ -204,24 +207,25 @@
 <main id="main">
   <div class="chapter-hero">
     <div class="hero-chapter-num">B</div>
-    <p class="hero-part-label">Exhibits & Supporting Documents</p>
+    <p class="hero-part-label">Exhibits &amp; Supporting Documents</p>
     <h1 class="hero-title">Exhibit B — <em>Full Technical Memory Architecture</em></h1>
-    <p class="hero-subtitle">The three-tier memory system, MEIL infrastructure, retrieval architecture, and complete technical specification.</p>
+    <p class="hero-subtitle">A practical guide for AuriOS™. Written for technical Founding Circle members and developers. Non-technical members may read the Memory Overview in Chapter 6 instead.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <p>Full exhibit content from the Founding Document. See PDF pages 92–107 for complete text.</p>
-  </div>
-  <div class="chapter-nav-footer">
-    <a href="/fd/exhibit-a.html" class="chapter-nav-btn prev">
-      <span class="direction">← Previous</span>
-      <span class="chapter-name">Exhibit A — Founding Circle NDA</span>
-    </a>
-    <a href="/fd/exhibit-c.html" class="chapter-nav-btn next">
-      <span class="direction">Next →</span>
-      <span class="chapter-name">Exhibit C — IO and Feedback Devices</span>
-    </a>
-  </div>
+    <div class="dark-callout"><p>This exhibit is the technical deep-dive referenced throughout the Founding Document as "Exhibit for Nerds: The Complete Memory Architecture." It is written for technical Founding Circle members and developers. Non-technical members may read Chapter 6 — Memory instead.</p></div>
+    <div class="draft-notice"><p><strong>Under Construction — Full text conversion in progress.</strong> The complete Exhibit B runs approximately 16 pages covering: Part 1 — How AI Memory Actually Works, Part 2 — The Four Layers of a Real Memory System, Part 3 — Memory Tiering, Part 4 — How the Industry Does It, Part 5 — What the Research Actually Says, Part 6 — AuriOS™ Current State, and Part 7 — The AuriOS™ Architecture Decision. See the PDF (pages 92–107) for the complete text.</p></div>
+    <h2>Part 1 — How AI Memory Actually Works</h2>
+    <h3>1.1 What an LLM Actually Knows</h3>
+    <p>When you talk to Claude, ChatGPT, or any large language model, you are talking to something that knows an enormous amount and remembers nothing. An LLM's knowledge is baked in during training. It read a significant fraction of the written internet, millions of books, research papers, and code repositories. That knowledge is frozen at the training cutoff. It cannot be updated without retraining the model.</p>
+    <p>But knowing things and remembering things are completely different operations. When you start a conversation with an AI, it does not know who you are, what you discussed yesterday, what projects you are working on, or what resistor you specced for your KTM CAN bus circuit last November. It knows what a KTM is. It knows what a CAN bus is. But it has no idea what you decided, because you are not in its training data. This is the foundational problem that memory systems exist to solve.</p>
+    <h3>1.2 Why Context Windows Are Not Memory</h3>
+    <p>Every LLM operates within a context window — the block of text it can see at any given moment. Think of it as a whiteboard. Everything written on the whiteboard is immediately available to the model. Everything not on the whiteboard does not exist, as far as the model is concerned. Modern context windows are large — Claude's is 200,000 tokens, roughly 500 pages. But they share three critical limitations: they are temporary (erased when the conversation ends), finite (your full history will not fit on one whiteboard), and expensive (stuffing 500 pages into every prompt would cost dollars per query). A bigger whiteboard is still a whiteboard that gets erased.</p>
+    <h3>1.3 The Illusion of ChatGPT Memory</h3>
+    <p>ChatGPT memory extracts short declarative statements from conversations and prepends them to future sessions. The file is small — a few thousand words. ChatGPT memory might remember that you have a KTM project. It will not remember the ESP32 pin mapping, the CAN bus resistor spec, the AWG of the cable runs, or the specific OBD PIDs you were reading. That level of detail was never extracted. This is not a criticism of ChatGPT. It is an honest description of what memory means in current consumer AI products — and precisely why AuriOS™ exists.</p>
+    <h2>Part 2 — The Four Layers of a Real Memory System</h2>
+    <p>A memory system is a pipeline — a sequence of operations that takes raw information in at one end and delivers the right piece of that information back to the AI at the moment it is needed. Every serious memory architecture is built from four fundamental layers: Ingestion, Storage, Retrieval, and Injection. See PDF pages 92–107 for the complete technical specification of each layer and the AuriOS™ implementation.</p></div>
+  <div class="chapter-nav-footer"><a href="/fd/exhibit-a.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Exhibit A — Founding Circle NDA</span></a><a href="/fd/exhibit-c.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Exhibit C — IO and Feedback Devices</span></a></div>
   
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>
