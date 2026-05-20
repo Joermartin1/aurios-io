@@ -134,7 +134,10 @@
   <a href="https://aurios.io" class="nav-logo">
     <img src="https://aurios.io/auri-logo-primary.png" alt="Auri by AuriOS™" />
   </a>
-  <span class="nav-doc-title">Founding Document</span>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:16px;">
+    <a href="https://aurios.io/brief.html" style="font-size:0.72rem;font-weight:500;color:rgba(245,166,35,0.7);text-decoration:none;padding:4px 10px;border:1px solid rgba(245,166,35,0.25);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Concept Brief</a>
+    <a href="/fd/index.html" style="font-size:0.72rem;font-weight:600;color:var(--white);text-decoration:none;padding:4px 10px;background:rgba(79,120,184,0.3);border:1px solid rgba(79,120,184,0.55);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Cover &amp; ToC</a>
+  </div>
   <span class="nav-chapter-title" id="nav-chapter-title"></span>
   <div class="nav-right">
     <span class="nav-badge">NDA Confidential</span>
@@ -206,22 +209,49 @@
     <div class="hero-chapter-num">15</div>
     <p class="hero-part-label">Part Five — The Business</p>
     <h1 class="hero-title">Chapter 15 — <em>AI Safety and Alignment</em></h1>
-    <p class="hero-subtitle">The safety posture of AuriOS™ — and why the governance architecture is itself a safety mechanism.</p>
+    <p class="hero-subtitle">AI safety is not a constraint on what AuriOS™ is building. It is a design principle that shapes how AuriOS™ is built.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <div class="draft-notice"><p><strong>Draft status:</strong> Full prose development pending.</p></div><p>Full chapter content from the Founding Document. See PDF for complete text.</p>
-  </div>
-  <div class="chapter-nav-footer">
-    <a href="/fd/ch14.html" class="chapter-nav-btn prev">
-      <span class="direction">← Previous</span>
-      <span class="chapter-name">Chapter 14 — AI Regulation and Law</span>
-    </a>
-    <a href="/fd/ch16.html" class="chapter-nav-btn next">
-      <span class="direction">Next →</span>
-      <span class="chapter-name">Chapter 16 — The Memory Entity</span>
-    </a>
-  </div>
+    <div class="draft-notice"><p><strong>Under Construction — Pending Author Review.</strong> Full prose development pending. Content drawn from founding notes.</p></div>
+    <p>AI safety is not a constraint on what AuriOS™ is building. It is a design principle that shapes how AuriOS™ is built. The difference matters. A system that adds safety features as constraints after the architecture is fixed is always in tension with its own safety measures. A system designed from the beginning around safety principles builds those principles into the architecture itself.</p>
+
+    <h2>15.1 What AI Safety Means</h2>
+    <p>AI safety encompasses two related but distinct concerns. Near-term safety addresses the harms that current AI systems can cause today: bias in outputs, generation of misinformation, facilitation of manipulation, erosion of privacy, and economic disruption to people whose work AI replaces. These are real, present, and addressable with thoughtful design.</p>
+    <p>Long-term safety addresses the possibility that as AI systems become more capable, their goals may diverge from human values in ways that become increasingly difficult to correct. This is the alignment problem — ensuring that AI systems remain oriented toward human interests even as their capabilities grow beyond human ability to directly supervise.</p>
+    <p>The distinction matters because the solutions are different. Near-term safety is primarily a design and governance problem. Long-term alignment is primarily a research problem. AuriOS™ addresses the design and governance problems directly. It benefits from the alignment research that Anthropic and others are conducting through its use of models trained with safety as a design principle.</p>
+
+    <h2>15.2 The Hallucination Problem</h2>
+    <p>Large language models generate the most statistically likely continuation of a prompt — not verified facts. Confidence and accuracy are independent variables. A model can be completely certain about something that is completely wrong. This is not a bug that will be fixed in the next version. It is a structural consequence of how LLMs work — and it will remain a characteristic of any system that generates language statistically rather than retrieving verified records.</p>
+    <p>AuriOS™ addresses hallucination through three architectural mechanisms. First, memory-backed responses: when Auri™ answers a question about your health history, your project status, or your personal decisions, it is drawing on records in your memory store rather than generating statistically likely text. The answer is grounded in what you actually said and did. Second, IBT Mode™ cross-validation: hallucinations that appear in one model's response are frequently caught by disagreement from other models in the parallel query. A confident wrong answer from one model is flagged when three others disagree. Third, trained uncertainty acknowledgment: Auri™ is trained to say it does not know rather than to confabulate a plausible-sounding answer.</p>
+
+    <h2>15.3 The Autonomy Problem — Agents and Oversight</h2>
+    <p>The AI industry is currently deploying agent autonomy at high speed and working out governance afterward. The consequences are beginning to appear — agents that take irreversible actions, agents that misinterpret ambiguous instructions, agents that behave correctly in controlled testing and incorrectly in production.</p>
+    <p>AuriOS™ takes the opposite sequencing: governance as the foundation, autonomy as capability built within it. No AuriOS™ agent executes consequential actions without Member review and authorization. Agents prepare, surface, and propose. The Member decides. The audit log is complete and permanent.</p>
+    <p>The specific actions that require explicit Member authorization: sending messages on the Member's behalf, making purchases or financial commitments, modifying records in external systems, and contacting external parties. These are the actions that cannot be easily undone. They require human judgment, not just AI capability.</p>
+
+    <h2>15.4 The Privacy Problem</h2>
+    <p>AI and privacy are in structural tension. AI systems improve with more data. Privacy requires limiting data. The standard resolution — collect everything, use it to improve the product, give users a privacy settings page — resolves the tension in favor of the platform.</p>
+    <p>AuriOS™ resolves it differently. The data is yours. The improvement accrues to you. When your AI gets better at helping you because it knows more about you, the beneficiary is you — not a platform that uses that knowledge to sell you things or to improve a model that serves other customers.</p>
+    <p>AuriOS™ does not train models on Member data. It does not share Member data across Members. It does not sell Member data. The Memory Entity contract makes these prohibitions structural rather than policy-based. A future AuriOS™ leadership team cannot decide to monetize Member data — the governance architecture prevents it.</p>
+
+    <h2>15.5 AuriOS™ Safety Posture — Summary</h2>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Memory-backed grounding</strong> reduces hallucination on personal queries by replacing statistical generation with retrieval from verified personal records.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Provider diversity</strong> across multiple Partner AIs ensures that no single model's failure modes dominate the system's outputs.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Constitutional AI routing</strong> sends safety-sensitive and ethically complex queries to Claude, which is trained to handle them most reliably.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Memory Entity governance</strong> makes data misuse structurally impossible rather than merely prohibited.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Agent oversight</strong> through propose-before-execute and Member authorization keeps consequential actions in human hands.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Injection Visibility Panel</strong> gives Members full transparency into what context was used to generate every response.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Trained uncertainty acknowledgment</strong> — Auri™ is trained to say "I don't know" rather than generate a confident wrong answer.</span></div>
+    </div>
+    <div class="pull-quote"><p>Safety is not a feature list. It is the shape of the system.</p></div>
+
+    <div style="margin-top:48px;padding:24px 28px;background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);">
+      <p style="font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">A Note on Part Six</p>
+      <p style="font-size:0.95rem;color:var(--darkgray);line-height:1.85;margin-bottom:0;">Part Six is the most personal section of this document. It introduces the governance structure that makes AuriOS™ trustworthy, the people who are building it, and the invitation to join them. The Memory Entity chapter and the Founding Circle chapter are written for the people who are evaluating whether to be in the room — lawyers assessing governance structures, professionals considering a founding role, and anyone who wants to understand who is behind this and why.</p>
+    </div></div>
+  <div class="chapter-nav-footer"><a href="/fd/ch14.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 14 — AI Regulation and Law</span></a><a href="/fd/ch16.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 16 — The Memory Entity</span></a></div>
   
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>
