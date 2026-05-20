@@ -206,25 +206,18 @@
     <div class="hero-chapter-num">05</div>
     <p class="hero-part-label">Part Three — How It Works</p>
     <h1 class="hero-title">Chapter 5 — <em>Large Language Models</em></h1>
-    <p class="hero-subtitle">Training in three phases, emergent capabilities, reasoning models, and why multiple models beat one.</p>
+    <p class="hero-subtitle">Chapter 3 established what LLMs are. This chapter goes deeper on the mechanics — training, emergent capability, reasoning models — and the specific differences between Partner AIs that inform AuriOS™ routing decisions.</p>
     <p class="hero-meta">CONFIDENTIAL · NDA-Gated · Founding Circle Edition · Joe R Martin · 2026</p>
   </div>
   <div class="content-body">
-    <h2>5A — How LLMs Are Built</h2>
+    <h2>5A — The Transformer Architecture</h2>
+    <p>Before 2017, language AI processed text sequentially. The Transformer solved this with self-attention: processing all tokens simultaneously and computing a weighted relationship between every token and every other. Consider: 'The motorcycle I bought in 1991, which was the same year I founded CyberSim, is still in my garage.' The verb 'is' must connect to 'motorcycle.' Self-attention learns that connection across the intervening clause regardless of distance. Three consequences: it scaled, it parallelized (mapping efficiently to GPU computation), and it generalized to images, audio, and video.</p>
+
     <h3>Training in Three Phases</h3>
     <div class="feature-list">
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Pre-training</strong> — The model starts with random weights and is trained on hundreds of billions to trillions of words — predicting the next token across an enormous corpus drawn from books, websites, code, and human conversation. Frontier models require tens of thousands of GPUs, months of continuous training, and hundreds of millions of dollars. This is where the model's foundational knowledge and capability are established.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Fine-tuning</strong> — The pre-trained model is trained further on curated conversations and instructions — teaching it how to behave as an assistant rather than simply how to predict text. Fine-tuning costs a fraction of pre-training — thousands of dollars rather than hundreds of millions — but it shapes the personality the user actually experiences.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>RLHF (Reinforcement Learning from Human Feedback)</strong> — Human raters evaluate pairs of model responses and indicate which is better. A reward model learns to predict those preferences, and the main model is trained to score well against it. This is why AI assistants are polished and helpful — and also sometimes over-agreeable or falsely confident. The model has been rewarded for responses humans prefer, which is not always the same as responses that are accurate.</span>
-      </div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Pre-training</strong> — The model starts with random weights and is trained on hundreds of billions to trillions of words — predicting the next token across an enormous corpus of text drawn from books, websites, code, and human conversation. Frontier models require tens of thousands of GPUs, months of continuous training, and hundreds of millions of dollars. The barrier to entry is capital and logistics, not intellect. This is where the model's foundational knowledge and capability are established.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Fine-tuning</strong> — The pre-trained model is trained further on curated conversations and instructions — teaching it how to behave as an assistant rather than simply how to predict text. This is where practical character is established: how the model responds to questions, how it handles ambiguity, what it declines to do. Fine-tuning costs a fraction of pre-training — thousands of dollars rather than hundreds of millions — but it shapes the personality the user actually experiences.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>RLHF (Reinforcement Learning from Human Feedback)</strong> — In this phase, human raters evaluate pairs of model responses and indicate which is better. A separate reward model learns to predict those preferences, and the main model is then trained to score well against it. This is why AI assistants are polished and helpful — and also sometimes over-agreeable or falsely confident. The model has been rewarded for responses humans prefer, which is not always the same as responses that are accurate.</span></div>
     </div>
 
     <h3>Constitutional AI — What Makes Claude Different</h3>
@@ -237,41 +230,27 @@
     <h3>Reasoning Models</h3>
     <p>OpenAI's o1 and o3 series generate a chain of reasoning — intermediate steps, self-corrections — before arriving at a conclusion. Better for multi-step logic, mathematical proof, complex planning. Slower and more expensive — the chain of thought consumes many tokens. For simple direct questions, a standard LLM responds faster at equivalent quality.</p>
 
-    <h2>5B — How AuriOS™ Uses LLMs</h2>
+    <h2>5B — How AuriOS™ Uses LLMs — Partner Selection and the Pre-Submit Layer</h2>
+
     <h3>Why Multiple Models Beat One</h3>
-    <p>Every large language model has genuine strengths and genuine failure modes — and those differences are the direct result of different training methodologies, different data, and different design priorities.</p>
+    <p>Every large language model has genuine strengths and genuine failure modes — and those differences are not random. They are the direct result of different training methodologies, different data, and different design priorities.</p>
     <div class="feature-list">
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Claude</strong> — Constitutional AI training makes it the most reliable Partner AI for nuanced reasoning, ethically complex queries, and situations where accuracy matters more than confident-sounding output. Acknowledges uncertainty more consistently than other models.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Gemini</strong> — Native multimodal architecture built by the original Transformer team. The strongest Partner AI for queries involving images, video, and audio.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Grok</strong> — Real-time web access. The right Partner AI for anything that happened recently — news, market movements, current events, product releases.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>Perplexity</strong> — Search-augmented architecture. Every response cites its sources. When accuracy and verifiability matter more than synthesis, Perplexity leads.</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-item-marker">—</span>
-        <span class="feature-item-text"><strong>GPT-5</strong> — Function calling maturity and broad deployment make it the most capable Partner AI for tool use, structured output, and tasks requiring interaction with external systems.</span>
-      </div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Claude's</strong> Constitutional AI training makes it the most reliable Partner AI for nuanced reasoning, ethically complex queries, and situations where accuracy matters more than confident-sounding output. It acknowledges uncertainty more consistently than other models and is less susceptible to manipulation.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Gemini's</strong> native multimodal architecture — built by the original Transformer team — makes it the strongest Partner AI for queries involving images, video, and audio. When you ask Auri to analyze a photograph, process a video, or work with medical imaging, Gemini is the right engine.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Grok's</strong> real-time web access makes it the right Partner AI for anything that happened recently — news, market movements, current events, product releases. It does not rely on training data that may be months or years old.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Perplexity's</strong> search-augmented architecture makes it the right Partner AI for sourced factual queries. Every response cites its sources. When accuracy and verifiability matter more than synthesis, Perplexity leads.</span></div>
+      <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>GPT-5's</strong> function calling maturity and broad deployment make it the most capable Partner AI for tool use, structured output, and tasks requiring interaction with external systems.</span></div>
     </div>
-    <p>IBT Mode™ exploits these differences rather than averaging them. A single query goes to all active Partner AIs simultaneously. Each model receives the same memory context but a prompt tailored to its specific strengths. Auri™ adjudicates — finding where the models agree, surfacing where they disagree, identifying what each uniquely contributes — and synthesizes a single response that reflects the best of what the entire Partner AI stack can produce.</p>
+    <p><strong>IBT Mode™ — Intelligence Building Tool™</strong> — exploits these differences rather than averaging them. A single query goes to all active Partner AIs simultaneously. Each model receives the same memory context but a prompt tailored to its specific strengths. The responses come back in parallel. Auri™ adjudicates — finding where the models agree, surfacing where they disagree, identifying what each uniquely contributes — and synthesizes a single response that reflects the best of what the entire Partner AI stack can produce. No single model alone produces that result.</p>
+    <p>The Partner AI stack is not fixed. As better models emerge, they join the stack. As models decline in capability or relevance relative to alternatives, they exit. Your memory and identity — stored in Custos Aurum™ and governed by the Memory Entity — travel with you regardless of which models are in the stack at any given time. You are never locked to a provider. The intelligence is portable. The memory is yours.</p>
 
     <h3>Routing Intelligence</h3>
-    <p>Ask Auri™ classifies every query before routing it. The classification happens in real time as part of Query Preview™ — the Member sees the suggested routing before pressing Enter and can override it with a single tap. The routing logic draws on the content and intent of the query, the active project context, the specific strengths of each Partner AI, and whether memory injection is relevant to the query type.</p>
-    <div class="dark-callout">
-      <p><strong>Routing transparency with user override</strong> is one of the foundational design principles of Ask Auri™. The Member sees exactly where the query is going and why — and the control is theirs. This does not exist in any other AI product.</p>
-    </div>
+    <p>Ask Auri™ classifies every query before routing it. The classification happens in real time as part of Query Preview™ — the Member sees the suggested routing before pressing Enter and can override it with a single tap.</p>
+    <p>The routing logic draws on several signals simultaneously: the content and intent of the query, the active project context retrieved from Custos Aurum™, the specific strengths of each Partner AI described above, and whether memory injection is relevant to the query type. A technical question about a specific project routes differently than a request for current news, which routes differently than a query requiring multi-step logical reasoning.</p>
+    <div class="pull-quote"><p>This is not a black box. The intelligence is visible — the Member sees exactly where the query is going and why — and the control is theirs. Routing transparency with user override is one of the foundational design principles of Ask Auri™. It does not exist in any other AI product.</p></div>
 
-    <h3>The Pre-Submit Layer in Context</h3>
-    <p>Prompt Assist™ and Query Preview™ are only possible because of the memory architecture described in Chapter 6. Prompt Assist™ cannot offer a substantively improved query unless it has something to draw on — a deep, searchable, personally relevant memory store retrievable in the fraction of a second before you press Enter. The LLM capability and the memory architecture are not separate features. They are one system.</p></div>
+    <h3>The Pre-Submit Layer in 5B Context</h3>
+    <p>Prompt Assist™ [IP-02] and Query Preview™ [IP-01] are covered in detail in Chapter 4B. In the context of Chapter 5, the important point is this: the pre-submit intelligence layer is only possible because of the memory architecture described in Chapter 6. Prompt Assist™ cannot offer a substantively improved query unless it has something to draw on — a deep, searchable, personally relevant memory store that can be retrieved in the fraction of a second before you press Enter. The LLM capability and the memory architecture are not separate features. They are one system.</p></div>
   <div class="chapter-nav-footer"><a href="/fd/ch04.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Chapter 4 — The Context Window</span></a><a href="/fd/ch06.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 6 — Memory</span></a></div>
   
   <footer class="doc-footer">
