@@ -211,6 +211,7 @@
   </div>
   <div class="content-body">
     <p>Chapter 3 established what LLMs are. This chapter goes deeper on the mechanics — training, emergent capability, reasoning models — and the specific differences between Partner AIs that inform AuriOS™ routing decisions.</p>
+
     <h2>5A — The Transformer Architecture</h2>
     <p>Before 2017, language AI processed text sequentially. The Transformer solved this with self-attention: processing all tokens simultaneously and computing a weighted relationship between every token and every other. Consider: 'The motorcycle I bought in 1991, which was the same year I founded CyberSim, is still in my garage.' The verb 'is' must connect to 'motorcycle.' Self-attention learns that connection across the intervening clause regardless of distance. Three consequences: it scaled, it parallelized (mapping efficiently to GPU computation), and it generalized to images, audio, and video.</p>
 
@@ -219,6 +220,11 @@
       <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Pre-training</strong> — The model starts with random weights and is trained on hundreds of billions to trillions of words — predicting the next token across an enormous corpus of text drawn from books, websites, code, and human conversation. Frontier models require tens of thousands of GPUs, months of continuous training, and hundreds of millions of dollars. The barrier to entry is capital and logistics, not intellect. This is where the model's foundational knowledge and capability are established.</span></div>
       <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>Fine-tuning</strong> — The pre-trained model is trained further on curated conversations and instructions — teaching it how to behave as an assistant rather than simply how to predict text. This is where practical character is established: how the model responds to questions, how it handles ambiguity, what it declines to do. Fine-tuning costs a fraction of pre-training — thousands of dollars rather than hundreds of millions — but it shapes the personality the user actually experiences.</span></div>
       <div class="feature-item"><span class="feature-item-marker">—</span><span class="feature-item-text"><strong>RLHF (Reinforcement Learning from Human Feedback)</strong> — In this phase, human raters evaluate pairs of model responses and indicate which is better. A separate reward model learns to predict those preferences, and the main model is then trained to score well against it. This is why AI assistants are polished and helpful — and also sometimes over-agreeable or falsely confident. The model has been rewarded for responses humans prefer, which is not always the same as responses that are accurate.</span></div>
+    </div>
+
+    <div class="graphic-block">
+      <img src="https://aurios.io/images/ch05-training-three-phases.png" alt="Training in Three Phases — How a large language model goes from random weights to conversational AI" loading="lazy" style="max-width:100%;width:100%;height:auto;display:block;" />
+      <p class="graphic-caption">Training in Three Phases. Each phase builds on the last. Pre-training establishes capability. Fine-tuning shapes behavior. RLHF refines the experience — with tradeoffs.</p>
     </div>
 
     <h3>Constitutional AI — What Makes Claude Different</h3>
