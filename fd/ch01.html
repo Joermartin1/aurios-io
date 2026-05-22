@@ -10,12 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy: #0D1F5C; --gold: #F5A623; --warmwhite: #FAFAF7;
-      --steel: #4F78B8; --bluemist: #D6E4F0; --darkgray: #4B5563;
-      --midgray: #6B7280; --gridgray: #D9E1EA; --white: #FFFFFF;
-      --sidebar-width: 280px; --nav-height: 56px;
-    }
+    :root { --navy: #0D1F5C; --gold: #F5A623; --warmwhite: #FAFAF7; --steel: #4F78B8; --bluemist: #D6E4F0; --darkgray: #4B5563; --midgray: #6B7280; --gridgray: #D9E1EA; --white: #FFFFFF; --sidebar-width: 280px; --nav-height: 56px; }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--warmwhite); color: var(--navy); overflow-x: hidden; }
     #gate { position: fixed; inset: 0; z-index: 2000; background: var(--warmwhite); display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
@@ -31,7 +26,6 @@
     .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--gold); transition: all 0.3s; }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
     .nav-logo img { height: 28px; width: auto; }
-    .nav-doc-title { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(214,228,240,0.5); margin-left: 16px; padding-left: 16px; border-left: 1px solid rgba(245,166,35,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .nav-chapter-title { font-size: 0.8rem; color: rgba(214,228,240,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; margin-left: 8px; }
     .nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     .nav-badge { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--midgray); background: rgba(79,120,184,0.2); padding: 4px 10px; }
@@ -112,6 +106,9 @@
       .chapter-nav-footer { flex-direction: column; }
       .chapter-nav-btn.next { text-align: left; }
     }
+    @media (max-width: 900px) {
+      .full-bleed { margin-left: 0 !important; margin-right: 0 !important; }
+    }
   </style>
 </head>
 <body>
@@ -134,7 +131,10 @@
   <a href="https://aurios.io" class="nav-logo">
     <img src="https://aurios.io/auri-logo-primary.png" alt="Auri by AuriOS™" />
   </a>
-  <span class="nav-doc-title">Founding Document</span>
+  <div style="display:flex;align-items:center;gap:8px;margin-left:16px;">
+    <a href="https://aurios.io/brief.html" style="font-size:0.72rem;font-weight:500;color:var(--navy);background:var(--gold);text-decoration:none;padding:5px 12px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;cursor:pointer;">Concept Brief</a>
+    <a href="/fd/index.html" style="font-size:0.72rem;font-weight:500;color:var(--white);background:transparent;border:1px solid rgba(255,255,255,0.4);text-decoration:none;padding:5px 12px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;cursor:pointer;">Cover &amp; ToC</a>
+  </div>
   <span class="nav-chapter-title" id="nav-chapter-title"></span>
   <div class="nav-right">
     <span class="nav-badge">NDA Confidential</span>
@@ -183,7 +183,7 @@
       <div class="sidebar-part">Part Six — Governance and People</div>
       <a href="/fd/ch16.html" class="sidebar-link" data-page="ch16">Chapter 16 — The Memory Entity</a>
       <a href="/fd/ch17.html" class="sidebar-link" data-page="ch17">Chapter 17 — The Founding Circle</a>
-      <a href="/fd/ch18.html" class="sidebar-link" data-page="ch18">Chapter 18 — Auri's Maker Lab</a>
+      <a href="/fd/ch18.html" class="sidebar-link" data-page="ch18">Chapter 18 — Auri’s Maker Lab</a>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-part">Exhibits &amp; Supporting Documents</div>
@@ -194,7 +194,7 @@
       <a href="/fd/exhibit-e.html" class="sidebar-link exhibit" data-page="exhibit-e">Exhibit E — Nomenclature Library v4.0</a>
       <a href="/fd/exhibit-f.html" class="sidebar-link exhibit" data-page="exhibit-f">Exhibit F — IP Concepts &amp; Disclosures</a>
       <a href="/fd/exhibit-g.html" class="sidebar-link exhibit" data-page="exhibit-g">Exhibit G — The AI Landscape Reference</a>
-      <a href="/fd/exhibit-h.html" class="sidebar-link exhibit" data-page="exhibit-h">Exhibit H — Auri's Maker Lab Equipment Catalog</a>
+      <a href="/fd/exhibit-h.html" class="sidebar-link exhibit" data-page="exhibit-h">Exhibit H — Auri’s Maker Lab Equipment Catalog</a>
       <a href="/fd/illustrations.html" class="sidebar-link exhibit" data-page="illustrations">Illustrations Index</a>
       <a href="/fd/index-doc.html" class="sidebar-link exhibit" data-page="index-doc">Index</a>
     </div>
@@ -219,7 +219,7 @@
     <p>It was a bet on technology and timing. What started in 1994 with a handful of users grew to over 50,000 and the largest ISP in Houston by the end of 1996 (growth &gt;1000%) and one of the largest in Texas by 1998, when the company became public.</p>
     <p>That is happening again right now. With AI. Thirty years later, almost to the month.</p>
 
-    <div class="graphic-block" style="margin-left:-80px;margin-right:-80px;max-width:none;">
+    <div class="graphic-block full-bleed" style="margin-left:-80px;margin-right:-80px;max-width:none;">
       <img src="https://aurios.io/images/ch01-timeline-part1.png" style="max-width:100%;width:100%;height:auto;display:block;" alt="The Road to the Intelligence Superhighway — Part I: The Foundation Years" loading="lazy" />
       <p class="graphic-caption">The Road to the Intelligence Superhighway — Part I: The Foundation Years. ARPA · Artificial Intelligence · The Internet · Virtual Reality · Joe Martin.</p>
     </div>
@@ -265,7 +265,7 @@
     <p>The tools were extraordinary for their time and crude by any current standard. Head-mounted displays weighed eight pounds and tracked head movement at 30Hz — a latency enough to notice. Data gloves captured finger position through flex sensors and transmitted gesture data to drive virtual hands. Six-degree-of-freedom trackers followed every movement of the user's head and body in space. CAVE environments — Cave Automatic Virtual Environments — projected stereo imagery onto the walls, floor, and ceiling of a room, surrounding the user completely in rendered space. The audio was spatial — 3D sound that moved with the user, placed objects in specific locations in the virtual environment. When you reached for a virtual object, it sounded like it was where it appeared to be.</p>
 
     <div class="graphic-block">
-      <img src="https://aurios.io/images/ch01-zoom-compaq.jpg" style="max-width:400px;width:100%;height:auto;display:block;margin:0 auto;" alt="CyberSim's 'Zoom' Virtual Actor — A live 3D computer generated virtual character controlled in real-time via a real actor. A CyberSim production for Compaq." loading="lazy" />
+      <img src="https://aurios.io/images/ch01-zoom-compaq.jpg" style="max-width:400px;width:100%;height:auto;display:block;margin:0 auto;" alt="CyberSim's 'Zoom' Virtual Actor" loading="lazy" />
       <p class="graphic-caption">CyberSim's immersive "Time Traveler" created for Compaq's 1995 trade show displays.</p>
     </div>
 
@@ -275,10 +275,9 @@
 
     <h2>1.9B The Lessons That Carried Forward</h2>
     <p>VR taught lessons that did not become widely applicable until now. The first was about presence — the sense of actually being somewhere, not just observing it. Presence is not a feature. It is the goal. Every interface decision in a VR system was evaluated against one criterion: does this increase or decrease presence?</p>
-    <p>The second lesson was about FPS and image quality. In VR, the FPS, or "frames per second" is the seamlessness of live video that the computing engine could generate. Over 30 FPS and the user would not notice the "frames" as they changed from one to the next. Under 30 FPS and it was observable to the user and visually annoying. Image quality was directly related and a trade-off. The higher the visual reality – the lower the FPS. In 1995, what CyberSim did on Windows based Compaq PC computers was novel. Labs were using &gt;$1mm systems designed exactly for this use – but completely unaffordable to the commercial market. The applications developed using Compaq hardware in the early and mid-1990's were way ahead of their time.</p>
+    <p>The second lesson was about FPS and image quality. In VR, the FPS, or "frames per second" is the seamlessness of live video that the computing engine could generate. Over 30 FPS and the user would not notice the "frames" as they changed from one to the next. Under 30 FPS and it was observable to the user and visually annoying. Image quality was directly related and a trade-off. The higher the visual reality – the lower the FPS. In 1995, what CyberSim did on Windows based Compaq PC computers was novel.</p>
     <p>The third lesson was about input. The keyboard and mouse are adequate for navigating information. They are completely inadequate for navigating space. VR forced the development of new input paradigms — gesture, gaze, voice, position tracking — that are now the standard inputs of every spatial computing platform and many AI interfaces. When you speak to your AI, you are using an input paradigm that VR practitioners were testing in 1992.</p>
     <p>The fourth lesson was about output. A screen is a window. An head mounted display (HMD) is a world. The difference between a window and a world is not technical — it is cognitive. It changes how the brain processes information, how attention is allocated, how memory is formed. The immersive experiences that are now being built with AI — spatial computing, mixed reality, AI-generated environments — are built on foundations laid by people who learned what immersion actually means in labs and company offices in the early 1990s.</p>
-    <p>These were the things that defined "virtual" reality and now help expedite the maturity of AI.</p>
     <p>VR was swallowed by the internet not because VR failed but because the internet succeeded faster. The hardware was too expensive, the software was too fragile, the content was too thin. The internet was cheap, fast enough, and had a billion people contributing content simultaneously. VR could not compete on those terms in 1995.</p>
     <p>But the ideas did not die. They went dormant. And now — with AI as the intelligence layer, with spatial computing as the interface layer, with voice and gesture and gaze as the inputs — everything VR was trying to build in 1991 is being built again, properly, with the right tools. The pioneers with arrows in their backs in the 1990's are the ones who know what the arrows were for.</p>
 
@@ -286,42 +285,46 @@
     <p>A neural network is a computing architecture loosely inspired by the human brain. Instead of following explicit rules — if this, then that — a neural network learns by adjusting the strength of connections between layers of simple processing units. Feed it an input, it produces an output, compare that output to the correct answer, measure the error, and adjust the connection weights slightly in the direction that reduces it. Do this millions of times across millions of examples, and the network gradually learns to recognize patterns that no human programmer could have written down.</p>
     <p>The key mathematical insight that made deep networks trainable was backpropagation — a method for calculating how much each connection in the network contributed to the final error, and therefore how much each weight should change. In 1986, Geoffrey Hinton, David Rumelhart, and Ronald Williams published the paper that demonstrated backpropagation could train networks with multiple hidden layers. "Deep" learning — networks with many layers between input and output — became theoretically possible.</p>
     <p>Geoffrey Hinton, Yann LeCun, and Yoshua Bengio spent the next two decades refining these ideas while most of the AI research community ignored them. Expert systems were the fashion. Neural networks were considered too slow, too data-hungry, and too unpredictable to be practical. LeCun applied his convolutional neural network to reading handwritten ZIP codes for the US Postal Service in the early 1990s — the first commercially deployed deep learning system. It worked. The field largely shrugged.</p>
-    <p>The problem was compute and data. Training a deep network required processing enormous amounts of information through many layers of calculations, repeated millions of times. The hardware of the 1990s made this prohibitively slow. The datasets large enough to train on didn't yet exist. The three men were right about the architecture and wrong about the timeline. They would share the 2018 Turing Award — the Nobel Prize of computer science — for work that was largely dismissed for two decades before it changed everything.</p>
 
     <h2>1.11 ImageNet, GPUs, and the Avalanche</h2>
     <p>The problem with neural networks in the 1990s was not the theory. The theory was right. The problem was that training a deep network required two things that did not yet exist at the necessary scale: enough data, and enough computing power to process it.</p>
-    <p>Fei-Fei Li solved the first problem. A computer vision researcher at Stanford, Li spent three years assembling ImageNet — a dataset of fourteen million photographs, each labeled by human annotators with what it contained. A dog. A chair. A fire hydrant. 21,841 categories. The scale was unprecedented. When she presented it to the research community in 2009, many of her peers thought it was unnecessary. Models of that era did not need that much data. They were about to.</p>
-    <p>The computing problem was solved accidentally, by the video game industry. NVIDIA had spent decades building Graphics Processing Units — chips optimized for rendering the millions of simultaneous calculations required to display fast-moving 3D graphics on screen. It turned out that training a neural network required almost exactly the same kind of massively parallel arithmetic. GPUs were not designed for AI. They were simply the right tool, already built, already cheap, already in millions of computers.</p>
-    <p>In 2012, Geoffrey Hinton's team at the University of Toronto entered a neural network called AlexNet into the ImageNet Large Scale Visual Recognition Challenge — the annual competition to see which system could most accurately classify photographs. The previous best error rate was 26 percent. AlexNet scored 15.3 percent. The gap was so large that several judges assumed an error in the scoring. There was no error.</p>
-    <p>Within two years, every serious AI research lab in the world had pivoted to deep learning. The techniques that Hinton, LeCun, and Bengio had spent twenty years developing — largely ignored, chronically underfunded — became the foundation of every major AI system built since. The avalanche, once it started, did not stop.</p>
+    <p>Fei-Fei Li solved the first problem. A computer vision researcher at Stanford, Li spent three years assembling ImageNet — a dataset of fourteen million photographs, each labeled by human annotators with what it contained. The scale was unprecedented. When she presented it to the research community in 2009, many of her peers thought it was unnecessary.</p>
+    <p>The computing problem was solved accidentally, by the video game industry. NVIDIA had spent decades building Graphics Processing Units — chips optimized for rendering the millions of simultaneous calculations required to display fast-moving 3D graphics on screen. It turned out that training a neural network required almost exactly the same kind of massively parallel arithmetic.</p>
+    <p>In 2012, Geoffrey Hinton's team at the University of Toronto entered a neural network called AlexNet into the ImageNet Large Scale Visual Recognition Challenge. The previous best error rate was 26 percent. AlexNet scored 15.3 percent. The gap was so large that several judges assumed an error in the scoring. There was no error.</p>
+    <p>Within two years, every serious AI research lab in the world had pivoted to deep learning. The techniques that Hinton, LeCun, and Bengio had spent twenty years developing became the foundation of every major AI system built since.</p>
 
     <h2>1.12 The Transformer — AI's TCP/IP Moment</h2>
     <p>Every technology has a foundational specification — a document that defines the architecture everything else is built on. For the internet, it was TCP/IP, published by Kahn and Cerf in 1974. For modern AI, it was a paper published in 2017 by eight researchers at Google. Its title was modest for what it contained: "Attention Is All You Need."</p>
-    <p>Before 2017, the dominant approach to language AI was sequential. A neural network processed text one word at a time, left to right, carrying a compressed summary of what it had seen so far. The further back in a sentence a relevant word appeared, the harder it was for the network to connect it to the present. Long sentences were a problem. Long documents were worse. The architecture had a fundamental memory limitation built into its design.</p>
-    <p>The Transformer solved this with a mechanism called self-attention. Instead of processing tokens one at a time, a Transformer processes all tokens simultaneously — and for each one, calculates a weighted relationship to every other token in the context. Consider the sentence: "The motorcycle I bought in 1991, which was the same year I founded CyberSim, is still in my garage." The verb "is" must connect to "motorcycle" — not to "year" or "CyberSim," which sit much closer to it in the sentence. Self-attention learns that connection regardless of distance. Every word attends to every other word, and the network learns which relationships matter.</p>
+    <p>Before 2017, the dominant approach to language AI was sequential. A neural network processed text one word at a time, left to right, carrying a compressed summary of what it had seen so far. The Transformer solved this with a mechanism called self-attention. Instead of processing tokens one at a time, a Transformer processes all tokens simultaneously — and for each one, calculates a weighted relationship to every other token in the context.</p>
 
     <div class="graphic-block">
-      <img src="https://aurios.io/images/ch01-transformer-diagram.png" style="max-width:600px;width:100%;height:auto;display:block;margin:0 auto;" alt="An illustration of main components of the transformer model from the paper" loading="lazy" />
+      <img src="https://aurios.io/images/ch01-transformer-diagram.png" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto;" alt="An illustration of main components of the transformer model" loading="lazy" />
       <p class="graphic-caption">An illustration of main components of the transformer model from the paper "Attention Is All You Need," Google, 2017.</p>
     </div>
 
-    <p>Three consequences followed from this architecture. First, it scaled. Unlike its predecessors, the Transformer improved predictably as you added more data and more computing power — the more you fed it, the better it got, with no obvious ceiling. Second, it parallelized. Because all tokens were processed simultaneously rather than sequentially, training could be distributed across thousands of GPUs at once. Third, it generalized. The same architecture that learned language also learned images, audio, and video. The Transformer was not a language model. It was a general-purpose pattern recognizer that happened to be first applied to text.</p>
-    <p>ChatGPT, Claude, Gemini, Grok — every large language model in existence today is a descendant of that 2017 paper. The eight authors — Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan Gomez, Łukasz Kaiser, and Illia Polosukhin — are the Vint Cerf and Bob Kahn of modern AI. They published the specification. Everyone else built on top of it.</p>
+    <p>Three consequences followed from this architecture. First, it scaled. Unlike its predecessors, the Transformer improved predictably as you added more data and more computing power — the more you fed it, the better it got, with no obvious ceiling. Second, it parallelized. Third, it generalized. The same architecture that learned language also learned images, audio, and video.</p>
+    <p>ChatGPT, Claude, Gemini, Grok — every large language model in existence today is a descendant of that 2017 paper. The eight authors — Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan Gomez, Łukasz Kaiser, and Illia Polosukhin — are the Vint Cerf and Bob Kahn of modern AI.</p>
 
     <div class="dark-callout">
       <p>A large language model — LLM — is a deep learning system trained on vast amounts of text to predict and generate language. ChatGPT, Claude, Gemini, and Grok are all LLMs. Chapter 3 explains how they work in detail.</p>
     </div>
 
-    <div class="graphic-block" style="margin-left:-80px;margin-right:-80px;max-width:none;">
+    <div class="graphic-block full-bleed" style="margin-left:-80px;margin-right:-80px;max-width:none;">
       <img src="https://aurios.io/images/ch01-timeline-part2.png" style="max-width:100%;width:100%;height:auto;display:block;" alt="The Road to the Intelligence Superhighway — Part II: The Breakout Years" loading="lazy" />
       <p class="graphic-caption">Timeline Part II — 1996 to 2026: The Breakout Years. The thirty-year arc from the internet breakout to the AI breakout.</p>
     </div>
 
     <h2>1.13 2026 — The Thirty-Year Echo</h2>
     <p>ChatGPT launched November 30, 2022. One million users in five days. One hundred million in two months — the fastest consumer technology adoption in history. The reaction was the same as 1995: most people had heard of AI. Almost no one knew what it was. In 1996, that changed.</p>
-    <p>It is 2026. The breakout is happening. The window that opens once a generation is open again. The people in the room right now are the ones who will define what comes next.</p></div>
-  <div class="chapter-nav-footer"><a href="/fd/intro.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Introduction</span></a><a href="/fd/ch02.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 2 — Your AI Is YOU</span></a></div>
-  
+    <p>It is 2026. The breakout is happening. The window that opens once a generation is open again. The people in the room right now are the ones who will define what comes next.</p>
+    <div class="graphic-block" style="text-align:center;">
+      <img src="/images/again.png" alt="1996 · 2026 · Again." style="max-width:100%;width:100%;height:auto;display:block;border:1px solid var(--gridgray);" loading="lazy" />
+    </div>
+  </div>
+<div class="chapter-nav-footer">
+  <a href="/fd/intro.html" class="chapter-nav-btn prev"><span class="direction">← Previous</span><span class="chapter-name">Introduction</span></a>
+  <a href="/fd/ch02.html" class="chapter-nav-btn next"><span class="direction">Next →</span><span class="chapter-name">Chapter 2 — Your AI Is YOU</span></a>
+</div>
   <footer class="doc-footer">
     <span class="doc-footer-copy">© 2026 AuriOS.IO · Confidential · NDA-Gated · Founding Circle Edition · Not for external distribution</span>
     <span class="doc-footer-marks">AuriOS™ · Auri™ · Custos Aurum™ · The Intelligence Superhighway™ · Your AI Is YOU™</span>
@@ -329,7 +332,6 @@
 </main>
 <script>
   document.addEventListener('contextmenu', e => e.preventDefault());
-
   async function checkSession() {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('session');
@@ -348,7 +350,6 @@
       }
     } catch(e) { if (stored) showDoc(); else showDenied(); }
   }
-
   function showDoc() {
     document.getElementById('gate').style.display = 'none';
     document.getElementById('top-nav').style.display = 'flex';
@@ -356,12 +357,10 @@
     document.getElementById('main').style.display = 'block';
     initSidebar();
   }
-
   function showDenied() {
     document.getElementById('gate-checking').style.display = 'none';
     document.getElementById('gate-denied').style.display = 'block';
   }
-
   function initSidebar() {
     const sidebar = document.getElementById('sidebar');
     const main = document.getElementById('main');
@@ -389,7 +388,6 @@
     overlay.addEventListener('click', () => { sidebarOpen = false; closeSidebar(); });
     window.addEventListener('resize', () => { if (!isMobile() && sidebarOpen) { sidebar.classList.remove('mobile-open','collapsed'); main.classList.remove('sidebar-collapsed'); overlay.classList.remove('active'); } });
   }
-
   checkSession();
 </script>
 </body>
