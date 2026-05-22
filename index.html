@@ -270,7 +270,7 @@
     <p class="section-label reveal">Join the List</p>
     <div class="section-rule reveal"></div>
     <h2 class="signup-heading reveal">Request Access</h2>
-    <p class="signup-sub reveal">Leave your email and we'll send you the General Concept Brief.<br>Already have an NDA? <a href="/signin.html">Sign in for full document access →</a></p>
+    <p class="signup-sub reveal" id="signup-sub">Leave your email and we'll walk you through next steps.<br>Already have an NDA? <a href="/signin.html">Sign in for full document access →</a></p>
     <div class="signup-form reveal" id="signup-form">
       <input type="text" id="input-name" placeholder="Your name" />
       <input type="email" id="input-email" placeholder="your@email.com" />
@@ -325,6 +325,7 @@
       const data = await response.json();
       if (data.success) {
         document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('signup-sub').style.display = 'none';
         document.getElementById('signup-success').style.display = 'block';
       } else {
         throw new Error('Send failed');
