@@ -278,7 +278,7 @@
     </div>
     <p class="signup-success" id="signup-success">
       Thank you.<br>
-      <span style="font-size:1rem;font-style:normal;font-family:'DM Sans',sans-serif;color:var(--midgray);">Check your inbox — the General Concept Brief is on its way.</span>
+      <span style="font-size:1rem;font-style:normal;font-family:'DM Sans',sans-serif;color:var(--midgray);">Check your inbox to confirm your email address. We'll take it from there.</span>
     </p>
     <p class="signup-error" id="signup-error">Something went wrong. Please try again or email joe@aurios.io directly.</p>
   </div>
@@ -317,13 +317,13 @@
     errorEl.style.display = 'none';
 
     try {
-      const response = await fetch('https://aurios-mailer.joe-a3a.workers.dev/send', {
+      const response = await fetch('https://aurios-auth.joe-a3a.workers.dev/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email })
       });
       const data = await response.json();
-      if (data.ok) {
+      if (data.success) {
         document.getElementById('signup-form').style.display = 'none';
         document.getElementById('signup-success').style.display = 'block';
       } else {
