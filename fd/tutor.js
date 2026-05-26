@@ -10,8 +10,7 @@
 (function () {
 
   // ─── CONFIG ────────────────────────────────────────────────────────────────
-  const API_KEY = 'IBT_v086_new
-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'; // swap for Worker proxy endpoint in production
+  const API_KEY = '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'; // swap for Worker proxy endpoint in production
   const MODEL   = 'claude-sonnet-4-20250514';
   const MAX_TOKENS = 600;
 
