@@ -1,1 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkaGrass — The Birth of a Genre</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#0D1F5C;
+--gold:#F5A623;
+--steel:#4F78B8;
+--mist:#D6E4F0;
+--off:#F7F6F2;
+--dark:#1a1a1a;
+--mid:#555;
+--light:#999;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--dark);min-height:100vh}
 
+/* LOCK SCREEN */
+#lock{
+position:fixed;inset:0;background:var(--navy);
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+z-index:1000;padding:40px;
+}
+.lock-mark{
+font-family:'Playfair Display',serif;font-size:4rem;color:var(--gold);
+letter-spacing:0.15em;margin-bottom:8px;
+}
+.lock-sub{font-size:0.8rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--steel);margin-bottom:48px}
+.lock-label{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mist);margin-bottom:12px;align-self:flex-start;max-width:320px;width:100%}
+.lock-input{
+width:100%;max-width:320px;padding:16px 20px;
+background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
+color:#fff;font-family:'DM Sans',sans-serif;font-size:1rem;letter-spacing:0.1em;
+outline:none;transition:border-color 0.2s;margin-bottom:16px;
+}
+.lock-input:focus{border-color:var(--gold)}
+.lock-input::placeholder{color:rgba(255,255,255,0.25);letter-spacing:0.05em}
+.lock-btn{
+width:100%;max-width:320px;padding:16px;background:var(--gold);
+color:var(--navy);font-family:'DM Sans',sans-serif;font-size:0.85rem;
+font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+border:none;cursor:pointer;transition:opacity 0.2s;
+}
+.lock-btn:hover{opacity:0.88}
+.lock-err{font-size:0.8rem;color:#ff6b6b;margin-top:8px;min-height:18px;text-align:center;max-width:320px;width:100%}
+.lock-note{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:32px;letter-spacing:0.08em;text-align:center}
+
+/* SITE */
+#site{display:none}
+
+/* NAV */
+nav{
+position:fixed;top:0;left:0;right:0;z-index:100;
+background:var(--navy);padding:0 48px;height:64px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:32px}
+.nav-link{
+font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;
+color:rgba(255,255,255,0.5);text-decoration:none;cursor:pointer;
+transition:color 0.2s;background:none;border:none;font-family:'DM Sans',sans-serif;
+}
+.nav-link:hover,.nav-link.active{color:var(--gold)}
+
+/* PAGES */
+.page{display:none;padding-top:64px;min-height:100vh}
+.page.active{display:block}
+
+/* ── PAGE 1: TEASE ── */
+#p1{background:var(--navy);color:#fff;min-height:100vh;display:none;flex-direction:column}
+#p1.active{display:flex}
+
+.hero{
+flex:1;display:flex;flex-direction:column;align-items:center;
+justify-content:center;text-align:center;padding:80px 40px 60px;
+position:relative;overflow:hidden;
+}
+.hero::before{
+content:'';position:absolute;top:50%;left:50%;
+transform:translate(-50%,-50%);
+width:600px;height:600px;
+border-radius:50%;border:1px solid rgba(245,166,35,0.08);
+}
+.hero::after{
+content:'';position:absolute;top:50%;left:50%;
+transform:translate(-50%,-50%);
+width:900px;height:900px;
+border-radius:50%;border:1px solid rgba(245,166,35,0.04);
+}
+.hero-eyebrow{
+font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;
+color:var(--gold);margin-bottom:24px;opacity:0.8;
+}
+.hero-title{
+font-family:'Playfair Display',serif;font-size:clamp(3.5rem,8vw,7rem);
+font-weight:700;line-height:1;color:#fff;margin-bottom:8px;
+}
+.hero-title em{color:var(--gold);font-style:italic}
+.hero-rule{width:48px;height:2px;background:var(--gold);margin:28px auto}
+.hero-desc{
+font-size:clamp(1rem,2vw,1.3rem);font-weight:300;line-height:1.7;
+color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto 48px;
+}
+.hero-btn{
+display:inline-block;padding:18px 48px;background:transparent;
+border:1px solid var(--gold);color:var(--gold);
+font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:500;
+letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;
+transition:background 0.2s,color 0.2s;
+}
+.hero-btn:hover{background:var(--gold);color:var(--navy)}
+
+.tease-stats{
+display:flex;justify-content:center;gap:64px;
+padding:40px;border-top:1px solid rgba(255,255,255,0.08);
+}
+.stat-item{text-align:center}
+.stat-num{
+font-family:'Playfair Display',serif;font-size:2.2rem;
+color:var(--gold);line-height:1;margin-bottom:4px;
+}
+.stat-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+
+/* ── PAGE 2: CONCEPT BRIEF ── */
+#p2{background:var(--off)}
+
+.brief-hero{
+background:var(--navy);padding:100px 48px 80px;text-align:center;
+}
+.brief-eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.brief-title{
+font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);
+color:#fff;font-weight:400;line-height:1.2;max-width:700px;margin:0 auto 20px;
+}
+.brief-title em{color:var(--gold);font-style:italic}
+.brief-sub{font-size:0.95rem;font-weight:300;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto}
+
+.brief-body{max-width:800px;margin:0 auto;padding:80px 48px}
+
+.section-label{
+font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;
+color:var(--gold);margin-bottom:12px;
+}
+.section-title{
+font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;
+color:var(--navy);margin-bottom:20px;line-height:1.3;
+}
+.section-body{font-size:0.95rem;font-weight:300;line-height:1.85;color:var(--mid);margin-bottom:40px}
+.section-body strong{font-weight:500;color:var(--dark)}
+.section-divider{width:100%;height:1px;background:rgba(0,0,0,0.08);margin:56px 0}
+
+/* DECISION PATH */
+.decision-trail{margin:32px 0 40px}
+.decision{
+display:flex;gap:20px;margin-bottom:20px;align-items:flex-start;
+}
+.decision-num{
+flex-shrink:0;width:32px;height:32px;border:1px solid var(--gold);
+display:flex;align-items:center;justify-content:center;
+font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--gold);
+}
+.decision-text{padding-top:4px}
+.decision-q{font-size:0.82rem;font-weight:500;color:var(--navy);margin-bottom:4px;letter-spacing:0.03em}
+.decision-a{font-size:0.88rem;font-weight:300;color:var(--mid);line-height:1.6}
+.decision-a em{font-style:italic;color:var(--steel)}
+
+/* LINEUP */
+.lineup-grid{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:12px;margin:24px 0 40px;
+}
+.lineup-card{
+background:#fff;border:0.5px solid rgba(0,0,0,0.08);
+padding:20px 16px;text-align:center;
+}
+.lineup-instrument{
+font-family:'Playfair Display',serif;font-size:1rem;
+color:var(--navy);margin-bottom:4px;
+}
+.lineup-role{font-size:0.75rem;color:var(--light);letter-spacing:0.05em}
+
+/* ARRANGEMENT */
+.arr-section{
+background:#fff;border-left:3px solid var(--gold);
+padding:20px 24px;margin-bottom:12px;
+}
+.arr-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.arr-title{font-size:1rem;font-weight:500;color:var(--navy);margin-bottom:6px}
+.arr-desc{font-size:0.85rem;font-weight:300;color:var(--mid);line-height:1.65}
+
+/* QUOTE */
+.pull-quote{
+border-top:2px solid var(--gold);border-bottom:1px solid rgba(0,0,0,0.08);
+padding:32px 0;margin:48px 0;text-align:center;
+}
+.pull-quote p{
+font-family:'Playfair Display',serif;font-size:1.4rem;
+font-style:italic;color:var(--navy);line-height:1.6;max-width:580px;margin:0 auto;
+}
+
+/* NEXT STEPS */
+.step-list{margin:24px 0 40px}
+.step{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
+.step-dot{
+flex-shrink:0;width:8px;height:8px;border-radius:50%;
+background:var(--gold);margin-top:8px;
+}
+.step-text{font-size:0.9rem;font-weight:300;color:var(--mid);line-height:1.65}
+.step-text strong{font-weight:500;color:var(--dark)}
+
+/* THREAD PAGE */
+#p3{background:var(--navy);min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center}
+#p3.active{display:flex}
+.thread-eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.thread-title{
+font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);
+color:#fff;font-weight:400;line-height:1.3;max-width:600px;margin:0 auto 20px;
+}
+.thread-desc{font-size:0.95rem;font-weight:300;color:rgba(255,255,255,0.5);max-width:480px;margin:0 auto 48px;line-height:1.7}
+.thread-btn{
+display:inline-block;padding:20px 52px;background:var(--gold);
+color:var(--navy);font-family:'DM Sans',sans-serif;font-size:0.85rem;
+font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+text-decoration:none;border:none;cursor:pointer;transition:opacity 0.2s;
+}
+.thread-btn:hover{opacity:0.85}
+.thread-note{font-size:0.78rem;color:rgba(255,255,255,0.2);margin-top:24px;letter-spacing:0.06em}
+
+/* FOOTER */
+.site-footer{
+background:var(--navy);padding:32px 48px;
+display:flex;align-items:center;justify-content:space-between;
+border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer-mark{font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--gold);letter-spacing:0.08em}
+.footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.2);letter-spacing:0.06em}
+
+@media(max-width:600px){
+nav{padding:0 20px}
+.nav-links{gap:16px}
+.hero{padding:80px 24px 40px}
+.tease-stats{gap:32px;flex-wrap:wrap}
+.brief-body{padding:48px 24px}
+.site-footer{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lock">
+  <div class="lock-mark">SkaGrass</div>
+  <div class="lock-sub">Private Access</div>
+  <div class="lock-label">Password</div>
+  <input type="password" id="pw" class="lock-input" placeholder="Enter password" autocomplete="off">
+  <button class="lock-btn" onclick="unlock()">Enter</button>
+  <div class="lock-err" id="pw-err"></div>
+  <div class="lock-note">This document is private and confidential</div>
+</div>
+
+<!-- SITE -->
+<div id="site">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">SkaGrass™</div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('p1',this)">The Tease</button>
+      <button class="nav-link" onclick="showPage('p2',this)">Concept Brief</button>
+      <button class="nav-link" onclick="showPage('p3',this)">The Thread</button>
+    </div>
+  </nav>
+
+  <!-- PAGE 1: TEASE -->
+  <div id="p1" class="page active">
+    <div class="hero">
+      <div class="hero-eyebrow">Houston, Texas · June 2026</div>
+      <div class="hero-title">Ska<em>Grass</em></div>
+      <div class="hero-rule"></div>
+      <div class="hero-desc">
+        A new American genre. Born in one conversation. Built on the bones of Harlan County, the offbeat of Kingston, and the defiance of every working class music that ever refused to go quiet.
+      </div>
+      <button class="hero-btn" onclick="showPage('p2',document.querySelectorAll('.nav-link')[1]);return false;">Read the Brief</button>
+    </div>
+    <div class="tease-stats">
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Genres merged</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Players on stage</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Night to build it</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Songs to write</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: CONCEPT BRIEF -->
+  <div id="p2" class="page">
+    <div class="brief-hero">
+      <div class="brief-eyebrow">Concept Brief · June 2026</div>
+      <div class="brief-title">The Birth of <em>SkaGrass</em></div>
+      <div class="brief-sub">How a genre was invented, a band was built, and a song was reimagined in a single session</div>
+    </div>
+
+    <div class="brief-body">
+
+      <div class="section-label">Origin</div>
+      <div class="section-title">Why these genres belong together</div>
+      <div class="section-body">
+        Ska punk and bluegrass have no business being in the same room. That is exactly why they belong together. Both are fast. Both are working-class in origin. Both are built around ensemble interplay, not guitar hero worship. Both carry defiance in their DNA. The collision was not accidental — it was structural. When you replace a horn section with banjo, fiddle, and mandolin and let them answer the brass instead of being background, you do not lose either genre. You find a third thing that neither genre could become alone.
+        <br><br>
+        <strong>SkaGrass</strong> is that third thing. The offbeat skank of Kingston filtered through the hollers of Harlan County, carried by the urgency of punk, and delivered by eight players who have no business sharing a stage.
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">Decision Path</div>
+      <div class="section-title">How every choice was made</div>
+
+      <div class="decision-trail">
+        <div class="decision">
+          <div class="decision-num">1</div>
+          <div class="decision-text">
+            <div class="decision-q">What do we call it?</div>
+            <div class="decision-a">Five names were considered. <em>SkaGrass</em> won because it says everything in two syllables. Hillbilly Skank was funnier. SkaGrass was right.</div>
+          </div>
+        </div>
+        <div class="decision">
+          <div class="decision-num">2</div>
+          <div class="decision-text">
+            <div class="decision-q">Do we keep the brass?</div>
+            <div class="decision-a">Yes, but outnumbered. Two horns — trumpet and trombone — surrounded by acoustic string instruments. The fiddle becomes the new alto sax. The trombone keeps its personality because <em>the trombone always keeps its personality.</em></div>
+          </div>
+        </div>
+        <div class="decision">
+          <div class="decision-num">3</div>
+          <div class="decision-text">
+            <div class="decision-q">Do we flip the beat?</div>
+            <div class="decision-a">Partly. Verses roll forward in the original bluegrass momentum. Choruses flip to the ska upstroke. The contrast makes the arrangement say something the original does not — the verse is the weight of the life, the chorus is the moment of defiance.</div>
+          </div>
+        </div>
+        <div class="decision">
+          <div class="decision-num">4</div>
+          <div class="decision-text">
+            <div class="decision-q">Which song starts the genre?</div>
+            <div class="decision-a"><em>Harlan Man</em> by Steve Earle and the Del McCoury Band. Already fast, already defiant, already built on the waves that SkaGrass needs. The last time the founder saw Steve Earle was at Guy Clark's memorial at the Ryman. The instinct is he would approve.</div>
+          </div>
+        </div>
+        <div class="decision">
+          <div class="decision-num">5</div>
+          <div class="decision-text">
+            <div class="decision-q">Rewrite or arrange?</div>
+            <div class="decision-a">Arrange first, as a proof of concept. If the genre works on a song nobody touched, the arrangement proves itself. A rewrite comes after — and it will be ours to own.</div>
+          </div>
+        </div>
+        <div class="decision">
+          <div class="decision-num">6</div>
+          <div class="decision-text">
+            <div class="decision-q">Harmony?</div>
+            <div class="decision-a">Two-part on verses, three-part on the final chorus only. High lonesome enters once, at the moment of full surrender. You earn it.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">The Band</div>
+      <div class="section-title">Eight players. One stage. No rules.</div>
+      <div class="section-body">Like early English ska, there are a lot of people on stage because it is a party. That gives the genre room for every voice it needs.</div>
+
+      <div class="lineup-grid">
+        <div class="lineup-card"><div class="lineup-instrument">Banjo</div><div class="lineup-role">Lead melodic engine</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Fiddle</div><div class="lineup-role">The new alto sax</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Mandolin</div><div class="lineup-role">The ska skank</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Upright Bass</div><div class="lineup-role">Slapped hard</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Drums</div><div class="lineup-role">Boom-chuck to skank</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Trumpet</div><div class="lineup-role">High stabs</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Trombone</div><div class="lineup-role">Low swagger</div></div>
+        <div class="lineup-card"><div class="lineup-instrument">Vocals</div><div class="lineup-role">Weathered. Defiant.</div></div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">The Arrangement</div>
+      <div class="section-title">Harlan Man — SkaGrass map</div>
+
+      <div class="arr-section">
+        <div class="arr-label">Intro</div>
+        <div class="arr-title">Banjo alone. Two bars.</div>
+        <div class="arr-desc">Familiar. Safe. Mandolin chop enters bar 3 offbeat. Bass and drums bar 4, boom-chuck. Brass completely absent. Patient.</div>
+      </div>
+      <div class="arr-section">
+        <div class="arr-label">Verses</div>
+        <div class="arr-title">The Roll</div>
+        <div class="arr-desc">Boom-chuck drums honor the original. Mandolin chop buried underneath, not dominant. Bass walks forward, slightly slapped. Fiddle rides high. Steve's vocal sits undisturbed.</div>
+      </div>
+      <div class="arr-section">
+        <div class="arr-label">Choruses</div>
+        <div class="arr-title">The Flip</div>
+        <div class="arr-desc">Drums shift to full ska skank — that is the signal. Trombone enters first chorus alone, low and mean. Trumpet enters second chorus, call and response. Fiddle screams above everything.</div>
+      </div>
+      <div class="arr-section">
+        <div class="arr-label">Instrumental Break</div>
+        <div class="arr-title">Where the genre is born</div>
+        <div class="arr-desc">Banjo and fiddle trade pure bluegrass for four bars. Bar 5: ska skank drops underneath them without warning. Trombone solos two bars. Trumpet answers. Everything locks. One breath. Steve returns.</div>
+      </div>
+      <div class="arr-section">
+        <div class="arr-label">Outro</div>
+        <div class="arr-title">Banjo and trombone alone</div>
+        <div class="arr-desc">Two instruments that have no business together, playing the same phrase in unison. That is the thesis statement of SkaGrass. Hard stop.</div>
+      </div>
+
+      <div class="pull-quote">
+        <p>"Ending with banjo and trombone alone is the thesis statement of SkaGrass. Two instruments that have no business being together, finding out they were always compatible."</p>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">The Pitch</div>
+      <div class="section-title">What we are offering Steve Earle</div>
+      <div class="section-body">
+        In 1994, a Houston internet company bootstrapped itself by giving the internet away to radio stations — walking in with a first-draft website built on their IP and their domain already secured, and walking out with a partner. Those relationships lasted years. That is this playbook, thirty years smarter.
+        <br><br>
+        We are not offering Steve Earle a feature credit. We are not asking for a collaboration. We built something new. His song started it. We want him to <strong>own the genre.</strong>
+        <br><br>
+        His musicians or ours. His voice or the one we build. His catalog protected by a member-owned platform that has no algorithm, no advertising, and no label between the artist and the listener.
+        <br><br>
+        The ask is one sentence: <em>We built something new, it started with your song, and we want you to own it.</em>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">What's in the holster</div>
+      <div class="section-title">Track 2 and beyond</div>
+      <div class="section-body">
+        Mexican Radio. Warren Zevon absurdist energy meets norteño brass meets the SkaGrass rhythm engine. The border space has its own co-writer waiting. That is a second genre founding waiting for the right collaborator. The party on stage has room for every voice — Johnny Rotten, Bob Marley, Peter Tosh, Suggs, Dave Wakeling, Dale McCoury, Bradley Nowell. And a Gorillaz-style visual world to put them in.
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">Immediate next steps</div>
+      <div class="section-title">The build sequence</div>
+
+      <div class="step-list">
+        <div class="step"><div class="step-dot"></div><div class="step-text"><strong>Mechanical license</strong> — easysong.com, Harlan Man, ~$15. The IP wall removed legally and cleanly.</div></div>
+        <div class="step"><div class="step-dot"></div><div class="step-text"><strong>Suno generation</strong> — Harlan Man with full SkaGrass arrangement tags. Three versions minimum. Pick the bones.</div></div>
+        <div class="step"><div class="step-dot"></div><div class="step-text"><strong>ElevenLabs voices</strong> — SkaGrass has no single lead. It has a cast. Johnny Rotten, Bob Marley, Peter Tosh, Suggs, Dave Wakeling, Dale McCoury, Bradley Nowell, Steve Earle. Each voice built or cloned in ElevenLabs. The stage is full because it is a party.</div></div>
+        <div class="step"><div class="step-dot"></div><div class="step-text"><strong>Harlan Man demo reel</strong> — licensed cover, SkaGrass arrangement, ensemble voices, mixed in Audacity or BandLab.</div></div>
+        <div class="step"><div class="step-dot"></div><div class="step-text"><strong>The package</strong> — one page tease, concept brief, demo audio, sheet music, Founding Member offer. Walk in with gifts.</div></div>
+        <div class="step"><div class="step-dot"></div><div class="step-text"><strong>Wall of Voodoo energy</strong> — Track 2. That absurdist cinematic Wall of Voodoo spirit filtered through SkaGrass. Needs the right co-writer. Schedule it.</div></div>
+      </div>
+
+    </div>
+
+    <div class="site-footer">
+      <div class="footer-mark">SkaGrass™ · 2026</div>
+      <div class="footer-copy">Private & Confidential · Joe R Martin · AuriOS™</div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: THREAD -->
+  <div id="p3" class="page">
+    <div class="thread-eyebrow">The Full Record</div>
+    <div class="thread-title">The night SkaGrass was born — the complete conversation</div>
+    <div class="thread-desc">Every decision, every instinct, every argument. The unedited birth document of a genre. From the first question to the first Suno generation — in one thread.</div>
+    <a href="#" class="thread-btn" onclick="alert('Link to thread will be inserted here'); return false;">Read the Full Thread</a>
+    <div class="thread-note">Hosted privately · Access by invitation only</div>
+  </div>
+
+</div>
+
+<script>
+function unlock(){
+  var v=document.getElementById('pw').value;
+  var err=document.getElementById('pw-err');
+  if(v==='skagrass2026'){
+    document.getElementById('lock').style.display='none';
+    document.getElementById('site').style.display='block';
+    err.textContent='';
+  } else {
+    err.textContent='Incorrect password. Try again.';
+    document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
+  }
+}
+document.getElementById('pw').addEventListener('keydown',function(e){
+  if(e.key==='Enter') unlock();
+});
+
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(function(p){
+    p.classList.remove('active');
+    p.style.display='none';
+  });
+  var pg=document.getElementById(id);
+  if(id==='p1'){pg.style.display='flex';}
+  else if(id==='p3'){pg.style.display='flex';}
+  else{pg.style.display='block';}
+  pg.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(function(l){l.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+}
+
+document.getElementById('p1').style.display='flex';
+</script>
+</body>
+</html>
