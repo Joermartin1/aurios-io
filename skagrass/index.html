@@ -228,6 +228,12 @@ display:flex;align-items:center;justify-content:center;border-radius:4px;
 .yt-title{font-size:0.9rem;font-weight:500;color:var(--navy)}
 .yt-artist{font-size:0.78rem;color:var(--steel);letter-spacing:0.03em}
 .yt-why{font-size:0.78rem;font-weight:300;color:var(--light);line-height:1.5;margin-top:2px}
+/* IMAGES */
+.hero-img-wrap{width:100%;max-height:480px;overflow:hidden;line-height:0}
+.hero-img{width:100%;max-height:480px;object-fit:cover;object-position:center 30%;display:block}
+.vocalcast-wrap{width:100%;margin:24px 0 32px;line-height:0}
+.vocalcast-img{width:100%;display:block;border:0.5px solid rgba(0,0,0,0.08)}
+
 /* SONG PLAYER */
 .song-player{margin:24px 0 8px}
 .song-player-inner{background:var(--navy);padding:28px 32px}
@@ -326,6 +332,9 @@ nav{padding:0 20px}
       <div class="hero-btn-wrap">
         <span class="hero-btn" id="read-brief-btn">→ Read the Brief ↑</span>
       </div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="hero.png" alt="SkaGrass — banjo center stage, trombone and trumpet in the smoke" class="hero-img">
     </div>
     <div class="tease-stats">
       <div class="stat-item">
@@ -560,6 +569,9 @@ nav{padding:0 20px}
       <div class="section-label">The Band</div>
       <div class="section-title">Eight players. One stage. No rules.</div>
       <div class="section-body">Like early English ska, there are a lot of people on stage because it is a party. That gives the genre room for every voice it needs.</div>
+      <div class="vocalcast-wrap">
+        <img src="vocalcast.png" alt="The SkaGrass vocal cast" class="vocalcast-img">
+      </div>
 
       <div class="lineup-grid">
         <div class="lineup-card"><div class="lineup-instrument">Banjo</div><div class="lineup-role">Lead melodic engine</div></div>
