@@ -228,6 +228,12 @@ display:flex;align-items:center;justify-content:center;border-radius:4px;
 .yt-title{font-size:0.9rem;font-weight:500;color:var(--navy)}
 .yt-artist{font-size:0.78rem;color:var(--steel);letter-spacing:0.03em}
 .yt-why{font-size:0.78rem;font-weight:300;color:var(--light);line-height:1.5;margin-top:2px}
+/* SONG PLAYER */
+.song-player{margin:24px 0 8px}
+.song-player-inner{background:var(--navy);padding:28px 32px}
+.song-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--gold);margin-bottom:6px}
+.song-meta{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+
 .step-list{margin:24px 0 40px}
 .step{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
 .step-dot{
@@ -318,7 +324,7 @@ nav{padding:0 20px}
         A new American genre. Born in one conversation. Built on the bones of Harlan County, the offbeat of Kingston, and the defiance of every working class music that ever refused to go quiet.
       </div>
       <div class="hero-btn-wrap">
-        <span class="hero-btn" id="read-brief-btn">Read the Brief ↓</span>
+        <span class="hero-btn" id="read-brief-btn">→ Read the Brief ↑</span>
       </div>
     </div>
     <div class="tease-stats">
@@ -455,6 +461,48 @@ nav{padding:0 20px}
           </a>
         </div>
 
+        <div class="yt-group">
+          <div class="yt-group-label">The Female Voice — SkaGrass Cast</div>
+          <a class="yt-card" href="https://youtu.be/9x4rCPWtsRM?si=6oAb3-dkre3l0NlF" target="_blank">
+            <div class="yt-thumb-wrap"><div class="yt-play">▶</div></div>
+            <div class="yt-info">
+              <div class="yt-title">Crooked Tree</div>
+              <div class="yt-artist">Molly Tuttle</div>
+              <div class="yt-why">Grammy-winning flatpicker. The bluegrass female voice SkaGrass was missing.</div>
+            </div>
+          </a>
+          <a class="yt-card" href="https://youtu.be/kqqVbc2KLhI?si=-Gob47senVN5QPLd" target="_blank">
+            <div class="yt-thumb-wrap"><div class="yt-play">▶</div></div>
+            <div class="yt-info">
+              <div class="yt-title">Postman</div>
+              <div class="yt-artist">Hollie Cook</div>
+              <div class="yt-why">Daughter of Sex Pistols drummer Paul Cook. British reggae-ska lineage, currently touring with The Specials. The story writes itself.</div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-label">The First SkaGrass Recording</div>
+      <div class="section-title">Pocket Full of Rain</div>
+      <div class="section-body">
+        The first song ever recorded in the SkaGrass genre. Generated in a single session using <strong>Suno AI</strong> with a detailed arrangement prompt built from the SkaGrass architecture developed in this conversation — style tags specifying bluegrass, ska punk, banjo, fiddle, mandolin chop, slapped upright bass, trombone, trumpet, fast tempo, defiant, coal country, high lonesome, and weathered male vocal.<br><br>
+        No studio. No session musicians. No label. A genre was described in enough detail that an AI could hear it — and it did. This is what SkaGrass sounds like on night one.
+      </div>
+
+      <div class="song-player">
+        <div class="song-player-inner">
+          <div class="song-info">
+            <div class="song-title">Pocket Full of Rain</div>
+            <div class="song-meta">SkaGrass · First Recording · June 2026 · Generated with Suno AI</div>
+          </div>
+          <audio controls style="width:100%;margin-top:16px;accent-color:var(--gold)">
+            <source src="https://aurios.io/skagrass/Pocket_Full_of_Rain.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
       </div>
 
       <div class="section-divider"></div>
