@@ -31,14 +31,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0 24px;
   }
 
   #orb {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 36%, #F5A623 0%, #4F78B8 45%, #0D1F5C 100%);
-    margin-bottom: 40px;
+    margin-bottom: 36px;
+    flex-shrink: 0;
   }
 
   #orb.speaking {
@@ -54,52 +56,76 @@
   #wordmark {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
     letter-spacing: 0.18em;
     color: var(--gold);
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   #tagline {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--steel);
-    margin-bottom: 52px;
+    margin-bottom: 44px;
   }
 
+  /* Tour lines — shown one at a time */
   #words {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+    font-size: clamp(1.05rem, 2.8vw, 1.35rem);
     font-weight: 300;
-    line-height: 1.75;
+    line-height: 1.8;
     color: var(--mist);
     text-align: center;
-    width: min(560px, 86vw);
-    min-height: 3em;
+    width: min(580px, 90vw);
+    min-height: 4.5em;
     opacity: 0;
-    transition: opacity 0.7s;
+    transition: opacity 0.6s;
+    margin-bottom: 36px;
   }
 
   #words.show { opacity: 1; }
 
-  #tap {
-    margin-top: 44px;
+  /* Progress dots */
+  #dots {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    min-height: 8px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(79,120,184,0.3);
+    transition: background 0.3s;
+  }
+
+  .dot.active   { background: var(--gold); }
+  .dot.done     { background: rgba(245,166,35,0.35); }
+
+  /* Next / Replay button */
+  #cta {
     font-size: 0.68rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(79,120,184,0.5);
+    color: rgba(79,120,184,0.6);
     cursor: pointer;
-    transition: color 0.2s;
     border: none;
     background: none;
     outline: none;
+    padding: 8px 0;
+    transition: color 0.2s;
+    min-height: 28px;
   }
 
-  #tap:hover { color: var(--gold); }
-  #tap.hidden { opacity: 0; pointer-events: none; }
+  #cta:hover { color: var(--gold); }
+  #cta.gold  { color: var(--gold); }
+  #cta.hidden { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -108,74 +134,145 @@
   <div id="wordmark">Auri</div>
   <div id="tagline">The Intelligence Superhighway</div>
   <div id="words"></div>
-  <button id="tap">Tap to hear again</button>
+  <div id="dots"></div>
+  <button id="cta" class="hidden"></button>
 </div>
 
 <script>
-const GREETING = "Greetings, fellow traveler. Welcome to AuriOS. I'm Auri, your tour guide.";
+// ── TOUR SCRIPT ────────────────────────────────────────
+// Each stop is what Auri says. Pauses are natural silence between lines.
+const TOUR = [
+  "Greetings, fellow traveler. Welcome to AuriOS. I'm Auri, your tour guide.",
 
+  "Every AI you've ever used forgot you the moment you closed the window. We built what was missing.",
+
+  "A permanent memory that knows you completely — and that you own. Not a platform's version of you. Yours.",
+
+  "Because it knows you, it can draw on every major AI in the world simultaneously — without you needing to know which one to ask.",
+
+  "We call this the Intelligence Superhighway. Think of what the ISP did for the internet in 1996. AuriOS does that for intelligence — today.",
+
+  "Your AI is YOU. That is the founding principle. The architecture, the governance, the code — all of it flows from that one sentence.",
+
+  "This is AuriOS. I'm glad you found us."
+];
+
+// ── STATE ──────────────────────────────────────────────
+let current = 0;
+let speaking = false;
+const synth  = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+const hasTTS = !!synth;
+
+// ── DOM ────────────────────────────────────────────────
 const orb   = document.getElementById('orb');
 const words = document.getElementById('words');
-const tap   = document.getElementById('tap');
+const dots  = document.getElementById('dots');
+const cta   = document.getElementById('cta');
 
-tap.classList.add('hidden');
+// ── BUILD DOTS ─────────────────────────────────────────
+TOUR.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.id = 'dot-' + i;
+  dots.appendChild(d);
+});
 
-function speak(text) {
-  if (!('speechSynthesis' in window)) return;
+function updateDots(idx) {
+  TOUR.forEach((_, i) => {
+    const d = document.getElementById('dot-' + i);
+    d.className = 'dot' + (i === idx ? ' active' : i < idx ? ' done' : '');
+  });
+}
 
-  window.speechSynthesis.cancel();
+// ── SPEAK ──────────────────────────────────────────────
+function speakLine(text, onDone) {
+  if (!hasTTS) { if (onDone) onDone(); return; }
+
+  try { synth.cancel(); } catch(_) {}
 
   const utt = new SpeechSynthesisUtterance(text);
   utt.rate  = 0.82;
   utt.pitch = 1.0;
 
   try {
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = ['Google UK English Male', 'Daniel', 'Alex'];
-    for (const name of preferred) {
+    const voices = synth.getVoices();
+    const pick = ['Google UK English Male', 'Daniel', 'Alex'];
+    for (const name of pick) {
       const v = voices.find(v => v.name === name);
       if (v) { utt.voice = v; break; }
     }
   } catch(_) {}
 
-  words.textContent = text;
-  words.classList.add('show');
   orb.classList.add('speaking');
-  tap.classList.add('hidden');
-
   utt.onend = utt.onerror = () => {
     orb.classList.remove('speaking');
-    tap.classList.remove('hidden');
+    if (onDone) onDone();
   };
 
   try {
-    window.speechSynthesis.speak(utt);
+    synth.speak(utt);
   } catch(_) {
     orb.classList.remove('speaking');
-    tap.classList.remove('hidden');
+    if (onDone) onDone();
   }
 }
 
-tap.addEventListener('click', () => speak(GREETING));
+// ── SHOW STOP ──────────────────────────────────────────
+function showStop(idx) {
+  if (idx >= TOUR.length) { finish(); return; }
 
-// Auto-speak on load — voices need a moment on some browsers
-function go() {
-  words.textContent = GREETING;
-  words.classList.add('show');
-  speak(GREETING);
+  speaking = true;
+  current  = idx;
+  updateDots(idx);
+  cta.classList.add('hidden');
+
+  words.classList.remove('show');
+
+  setTimeout(() => {
+    words.textContent = TOUR[idx];
+    words.classList.add('show');
+
+    speakLine(TOUR[idx], () => {
+      speaking = false;
+      // Auto-advance after a natural pause, or show Next on last line
+      if (idx < TOUR.length - 1) {
+        cta.textContent = 'Continue';
+        cta.classList.remove('hidden', 'gold');
+      } else {
+        finish();
+      }
+    });
+  }, 200);
 }
 
-if ('speechSynthesis' in window) {
-  if (window.speechSynthesis.getVoices().length > 0) {
-    go();
+function finish() {
+  speaking = false;
+  updateDots(TOUR.length); // all done
+  cta.textContent = 'Hear again';
+  cta.classList.remove('hidden');
+  cta.classList.add('gold');
+}
+
+// ── CTA CLICK ──────────────────────────────────────────
+cta.addEventListener('click', () => {
+  if (speaking) return;
+  if (cta.textContent === 'Hear again') {
+    showStop(0);
   } else {
-    window.speechSynthesis.onvoiceschanged = go;
-    setTimeout(go, 600);
+    showStop(current + 1);
   }
+});
+
+// ── INIT ───────────────────────────────────────────────
+function start() { showStop(0); }
+
+if (hasTTS) {
+  try {
+    if (synth.getVoices().length > 0) { start(); }
+    else { synth.onvoiceschanged = start; setTimeout(start, 700); }
+  } catch(_) { start(); }
 } else {
-  words.textContent = GREETING;
-  words.classList.add('show');
-  tap.classList.remove('hidden');
+  start();
 }
 </script>
 </body>
