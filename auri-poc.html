@@ -25,16 +25,21 @@
     overflow: hidden;
   }
 
-  #stage {
-    height: 100vh;
+  .screen {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s;
   }
+  .screen.active { opacity: 1; pointer-events: auto; }
 
-  #orb {
+  .orb {
     width: 130px;
     height: 130px;
     border-radius: 50%;
@@ -42,18 +47,16 @@
     margin-bottom: 36px;
     flex-shrink: 0;
   }
+  .orb.speaking  { animation: pulse-speak 1.4s ease-in-out infinite; }
+  .orb.listening { box-shadow: 0 0 0 16px rgba(245,166,35,0.15), 0 0 0 32px rgba(245,166,35,0.05); }
 
-  #orb.speaking {
-    animation: pulse 1.4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
+  @keyframes pulse-speak {
     0%   { box-shadow: 0 0 0 0   rgba(245,166,35,0.6); }
     60%  { box-shadow: 0 0 0 30px rgba(245,166,35,0.0); }
     100% { box-shadow: 0 0 0 0   rgba(245,166,35,0.0); }
   }
 
-  #wordmark {
+  .wordmark {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
     font-size: clamp(2.2rem, 6vw, 3.2rem);
@@ -63,15 +66,58 @@
     margin-bottom: 6px;
   }
 
-  #tagline {
+  .tagline {
     font-size: 0.68rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--steel);
-    margin-bottom: 44px;
   }
 
-  /* Tour lines — shown one at a time */
+  /* ── BELL BUTTON ── */
+  #bell-btn {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+  }
+
+  #bell-icon {
+    width: 48px;
+    height: 48px;
+    opacity: 0.45;
+    transition: opacity 0.2s, transform 0.15s;
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  #bell-btn:hover #bell-icon,
+  #bell-btn:active #bell-icon {
+    opacity: 1;
+    animation: none;
+    transform: rotate(-12deg);
+  }
+
+  #bell-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(245,166,35,0.45);
+    transition: color 0.2s;
+  }
+
+  #bell-btn:hover #bell-label { color: var(--gold); }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.35; transform: rotate(0deg); }
+    50%       { opacity: 0.65; transform: rotate(6deg);  }
+  }
+
+  /* ── TOUR SCREEN ── */
   #words {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -81,199 +127,238 @@
     color: var(--mist);
     text-align: center;
     width: min(580px, 90vw);
-    min-height: 4.5em;
+    min-height: 3.6em;
+    margin-top: 36px;
+    margin-bottom: 24px;
     opacity: 0;
-    transition: opacity 0.6s;
-    margin-bottom: 36px;
+    transition: opacity 0.5s;
   }
-
   #words.show { opacity: 1; }
 
-  /* Progress dots */
-  #dots {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
-    min-height: 8px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(79,120,184,0.3);
-    transition: background 0.3s;
-  }
-
-  .dot.active   { background: var(--gold); }
-  .dot.done     { background: rgba(245,166,35,0.35); }
-
-  /* Next / Replay button */
-  #cta {
-    font-size: 0.68rem;
+  #status {
+    font-size: 0.67rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(79,120,184,0.6);
-    cursor: pointer;
-    border: none;
-    background: none;
-    outline: none;
-    padding: 8px 0;
-    transition: color 0.2s;
-    min-height: 28px;
+    color: rgba(79,120,184,0.5);
+    min-height: 1.2em;
+    margin-bottom: 22px;
+    transition: color 0.3s;
   }
+  #status.active { color: var(--gold); }
 
-  #cta:hover { color: var(--gold); }
-  #cta.gold  { color: var(--gold); }
-  #cta.hidden { opacity: 0; pointer-events: none; }
+  #mic-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(245,166,35,0.3);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s, border-color 0.2s, background 0.2s;
+  }
+  #mic-btn.visible { opacity: 1; pointer-events: auto; }
+  #mic-btn:hover   { border-color: var(--gold); background: rgba(245,166,35,0.07); }
+  #mic-btn.active  { border-color: var(--gold); background: rgba(245,166,35,0.14); }
+  #mic-btn svg { width: 20px; height: 20px; fill: var(--mist); transition: fill 0.2s; }
+  #mic-btn.active svg, #mic-btn:hover svg { fill: var(--gold); }
+
+  #text-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    width: min(380px, 88vw);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  #text-row.visible { opacity: 1; pointer-events: auto; }
+
+  #text-input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(79,120,184,0.3);
+    border-radius: 3px;
+    color: var(--mist);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 9px 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #text-input:focus { border-color: var(--gold); }
+  #text-input::placeholder { color: rgba(214,228,240,0.25); }
+
+  #send-btn {
+    background: transparent;
+    border: 1px solid rgba(245,166,35,0.35);
+    border-radius: 3px;
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #send-btn:hover { background: rgba(245,166,35,0.1); }
 </style>
 </head>
 <body>
-<div id="stage">
-  <div id="orb"></div>
-  <div id="wordmark">Auri</div>
-  <div id="tagline">The Intelligence Superhighway</div>
+
+<!-- SCREEN 1: Entry -->
+<div id="screen-entry" class="screen active">
+  <div class="orb"></div>
+  <div class="wordmark">Auri</div>
+  <div class="tagline">The Intelligence Superhighway</div>
+  <button id="bell-btn">
+    <svg id="bell-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2a7 7 0 0 0-7 7v4.17l-1.71 1.71A1 1 0 0 0 4 17h16a1 1 0 0 0 .71-1.71L19 13.17V9a7 7 0 0 0-7-7z" fill="#F5A623"/>
+      <path d="M10 19a2 2 0 0 0 4 0" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span id="bell-label">Ring bell for Auri</span>
+  </button>
+</div>
+
+<!-- SCREEN 2: Auri -->
+<div id="screen-tour" class="screen">
+  <div class="orb" id="orb"></div>
+  <div class="wordmark">Auri</div>
+  <div class="tagline">The Intelligence Superhighway</div>
   <div id="words"></div>
-  <div id="dots"></div>
-  <button id="cta" class="hidden"></button>
+  <div id="status"></div>
+  <button id="mic-btn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm6.364 9.364a.75.75 0 0 1 .75.75A7.114 7.114 0 0 1 12.75 18.2V21h2.25a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1 0-1.5H11.25v-2.8A7.114 7.114 0 0 1 4.886 11.114a.75.75 0 0 1 1.5 0A5.614 5.614 0 0 0 12 16.728a5.614 5.614 0 0 0 5.614-5.614.75.75 0 0 1 .75-.75z"/>
+    </svg>
+  </button>
+  <div id="text-row">
+    <input id="text-input" type="text" placeholder="Tell Auri…" autocomplete="off"/>
+    <button id="send-btn">Send</button>
+  </div>
 </div>
 
 <script>
-// ── TOUR SCRIPT ────────────────────────────────────────
-// Each stop is what Auri says. Pauses are natural silence between lines.
-const TOUR = [
-  "Greetings, fellow traveler. Welcome to AuriOS. I'm Auri, your tour guide.",
+const GREETING = "Welcome, fellow traveler. I'm Auri. How can I assist you today? You can always ask for a guided tour.";
 
-  "Every AI you've ever used forgot you the moment you closed the window. We built what was missing.",
+const orb       = document.getElementById('orb');
+const words     = document.getElementById('words');
+const statusEl  = document.getElementById('status');
+const micBtn    = document.getElementById('mic-btn');
+const textInput = document.getElementById('text-input');
+const sendBtn   = document.getElementById('send-btn');
+const textRow   = document.getElementById('text-row');
 
-  "A permanent memory that knows you completely — and that you own. Not a platform's version of you. Yours.",
-
-  "Because it knows you, it can draw on every major AI in the world simultaneously — without you needing to know which one to ask.",
-
-  "We call this the Intelligence Superhighway. Think of what the ISP did for the internet in 1996. AuriOS does that for intelligence — today.",
-
-  "Your AI is YOU. That is the founding principle. The architecture, the governance, the code — all of it flows from that one sentence.",
-
-  "This is AuriOS. I'm glad you found us."
-];
-
-// ── STATE ──────────────────────────────────────────────
-let current = 0;
-let speaking = false;
 const synth  = ('speechSynthesis' in window) ? window.speechSynthesis : null;
 const hasTTS = !!synth;
+let recognition = null;
+let isListening = false;
 
-// ── DOM ────────────────────────────────────────────────
-const orb   = document.getElementById('orb');
-const words = document.getElementById('words');
-const dots  = document.getElementById('dots');
-const cta   = document.getElementById('cta');
-
-// ── BUILD DOTS ─────────────────────────────────────────
-TOUR.forEach((_, i) => {
-  const d = document.createElement('div');
-  d.className = 'dot';
-  d.id = 'dot-' + i;
-  dots.appendChild(d);
-});
-
-function updateDots(idx) {
-  TOUR.forEach((_, i) => {
-    const d = document.getElementById('dot-' + i);
-    d.className = 'dot' + (i === idx ? ' active' : i < idx ? ' done' : '');
-  });
+function setStatus(msg, active) {
+  statusEl.textContent = msg;
+  statusEl.classList.toggle('active', !!active);
 }
 
-// ── SPEAK ──────────────────────────────────────────────
-function speakLine(text, onDone) {
-  if (!hasTTS) { if (onDone) onDone(); return; }
+function showWords(text) {
+  words.classList.remove('show');
+  setTimeout(() => { words.textContent = text; words.classList.add('show'); }, 150);
+}
 
+function speak(text, onDone) {
+  if (!hasTTS) { showWords(text); if (onDone) onDone(); return; }
   try { synth.cancel(); } catch(_) {}
-
   const utt = new SpeechSynthesisUtterance(text);
-  utt.rate  = 0.82;
-  utt.pitch = 1.0;
-
+  utt.rate = 0.82; utt.pitch = 1.0;
   try {
     const voices = synth.getVoices();
-    const pick = ['Google UK English Male', 'Daniel', 'Alex'];
-    for (const name of pick) {
+    for (const name of ['Google UK English Male', 'Daniel', 'Alex']) {
       const v = voices.find(v => v.name === name);
       if (v) { utt.voice = v; break; }
     }
   } catch(_) {}
+  showWords(text);
+  orb.classList.add('speaking'); orb.classList.remove('listening');
+  setStatus('Speaking…', true);
+  utt.onend = utt.onerror = () => { orb.classList.remove('speaking'); if (onDone) onDone(); };
+  try { synth.speak(utt); } catch(_) { orb.classList.remove('speaking'); if (onDone) onDone(); }
+}
 
-  orb.classList.add('speaking');
-  utt.onend = utt.onerror = () => {
-    orb.classList.remove('speaking');
-    if (onDone) onDone();
+function setupRecognition() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return false;
+  recognition = new SR();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.onresult = (e) => {
+    const said = e.results[0][0].transcript;
+    stopListening();
+    showWords('"' + said + '"');
+    setStatus('');
+    setTimeout(() => {
+      speak("I heard you. Full intelligence is coming soon — this is just a preview.", () => readyToListen());
+    }, 500);
   };
-
-  try {
-    synth.speak(utt);
-  } catch(_) {
-    orb.classList.remove('speaking');
-    if (onDone) onDone();
-  }
+  recognition.onerror = recognition.onend = () => { if (isListening) stopListening(); };
+  return true;
 }
 
-// ── SHOW STOP ──────────────────────────────────────────
-function showStop(idx) {
-  if (idx >= TOUR.length) { finish(); return; }
-
-  speaking = true;
-  current  = idx;
-  updateDots(idx);
-  cta.classList.add('hidden');
-
-  words.classList.remove('show');
-
-  setTimeout(() => {
-    words.textContent = TOUR[idx];
-    words.classList.add('show');
-
-    speakLine(TOUR[idx], () => {
-      speaking = false;
-      // Auto-advance after a natural pause, or show Next on last line
-      if (idx < TOUR.length - 1) {
-        cta.textContent = 'Continue';
-        cta.classList.remove('hidden', 'gold');
-      } else {
-        finish();
-      }
-    });
-  }, 200);
+function startListening() {
+  if (!recognition) return;
+  isListening = true;
+  orb.classList.add('listening'); orb.classList.remove('speaking');
+  micBtn.classList.add('active');
+  setStatus('Listening…', true);
+  try { recognition.start(); } catch(_) {}
 }
 
-function finish() {
-  speaking = false;
-  updateDots(TOUR.length); // all done
-  cta.textContent = 'Hear again';
-  cta.classList.remove('hidden');
-  cta.classList.add('gold');
+function stopListening() {
+  isListening = false;
+  orb.classList.remove('listening'); micBtn.classList.remove('active');
+  try { recognition.stop(); } catch(_) {}
 }
 
-// ── CTA CLICK ──────────────────────────────────────────
-cta.addEventListener('click', () => {
-  if (speaking) return;
-  if (cta.textContent === 'Hear again') {
-    showStop(0);
-  } else {
-    showStop(current + 1);
-  }
+function readyToListen() {
+  micBtn.classList.add('visible');
+  textRow.classList.add('visible');
+  setStatus('Tap to speak', false);
+}
+
+micBtn.addEventListener('click', () => {
+  if (isListening) { stopListening(); setStatus('Tap to speak', false); return; }
+  startListening();
 });
 
-// ── INIT ───────────────────────────────────────────────
-function start() { showStop(0); }
+sendBtn.addEventListener('click', sendText);
+textInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendText(); });
 
-if (hasTTS) {
-  try {
-    if (synth.getVoices().length > 0) { start(); }
-    else { synth.onvoiceschanged = start; setTimeout(start, 700); }
-  } catch(_) { start(); }
-} else {
-  start();
+function sendText() {
+  const val = textInput.value.trim();
+  if (!val) return;
+  textInput.value = '';
+  showWords('"' + val + '"');
+  setStatus('');
+  setTimeout(() => {
+    speak("I heard you. Full intelligence is coming soon — this is just a preview.", () => readyToListen());
+  }, 500);
 }
+
+// ── BELL RINGS — user gesture unlocks audio ──────────────
+document.getElementById('bell-btn').addEventListener('click', () => {
+  document.getElementById('screen-entry').classList.remove('active');
+  document.getElementById('screen-tour').classList.add('active');
+
+  const hasSTT = setupRecognition();
+
+  speak(GREETING, () => {
+    if (hasSTT) { startListening(); }
+    else        { readyToListen(); }
+    textRow.classList.add('visible');
+  });
+});
 </script>
 </body>
 </html>
