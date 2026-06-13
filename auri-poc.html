@@ -229,6 +229,7 @@
       <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm6.364 9.364a.75.75 0 0 1 .75.75A7.114 7.114 0 0 1 12.75 18.2V21h2.25a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1 0-1.5H11.25v-2.8A7.114 7.114 0 0 1 4.886 11.114a.75.75 0 0 1 1.5 0A5.614 5.614 0 0 0 12 16.728a5.614 5.614 0 0 0 5.614-5.614.75.75 0 0 1 .75-.75z"/>
     </svg>
   </button>
+  <div id="firefox-notice" style="display:none;margin-top:10px;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(79,120,184,0.5);">For voice, use Chrome</div>
   <div id="text-row">
     <input id="text-input" type="text" placeholder="Tell Auri…" autocomplete="off"/>
     <button id="send-btn">Send</button>
@@ -248,7 +249,7 @@ if ('speechSynthesis' in window) {
 
 // ── CONFIG ───────────────────────────────────────────────
 const WORKER_URL    = 'https://aurios-auth.joe-a3a.workers.dev';
-const GREETING      = "Welcome, fellow traveler. I'm Aw-ree. How can I assist you today? You can always ask for a guided tour.";
+const GREETING      = "Welcome, fellow traveler. I'm Aww-ree. How can I assist you today? You can always ask for a guided tour.";
 
 // ── STATE ────────────────────────────────────────────────
 const history = [];
@@ -354,6 +355,12 @@ async function askAuri(userText) {
 
 // ── STT ──────────────────────────────────────────────────
 function setupRecognition() {
+  const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+  if (isFirefox) {
+    const notice = document.getElementById('firefox-notice');
+    if (notice) notice.style.display = 'block';
+    return false;
+  }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) return false;
   recognition = new SR();
