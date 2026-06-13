@@ -227,17 +227,19 @@ if ('speechSynthesis' in window) {
 }
 
 // ── CONFIG ───────────────────────────────────────────────
-const WORKER_URL = 'https://aurios-auth.joe-a3a.workers.dev';
+const WORKER_URL  = 'https://aurios-auth.joe-a3a.workers.dev';
+const MUSIC_URL   = '/Pocket_Full_of_Rain.mp3';
+const MUSIC_VOL   = 0.18; // background level — present but not dominant
 
 // ── SCRIPTS ──────────────────────────────────────────────
-const STEP1_GREETING = "Welcome, fellow traveler. I'm R-E. How can I assist you today? You can always ask for a guided tour. Just press the microphone below.";
+const STEP1_GREETING = "Welcome, fellow traveler. I'm Auri. How can I assist you today? You can always ask for a guided tour. Just press the microphone below.";
 
 const STEP2_ONBOARDING = "Before we dive in, let me tell you something about how I work — because I'm a little different from anything you've talked to before. Right now we're in what I call walkie-talkie mode. You press the mic, you talk, I listen. Then I respond. Like passing notes, but faster and considerably more intelligent. But here's where it gets interesting. Press the mic one more time and we open up a real two-way conversation — the kind where you can just talk, and I just listen, and we go back and forth like you're on the phone with the most well-read person you've ever met. Who also never sleeps. And remembers everything. When you're ready — press the microphone icon.";
 
 // Silence arc — credited to Welcome Wilson Sr.
 const SILENCE_30 = "Hey… still there? No pressure. I talk to myself sometimes anyway. Occupational hazard.";
 
-const SILENCE_60_INTRO = "Ahem. Good evening. I'm R-E, and THIS… is the news.";
+const SILENCE_60_INTRO = "Ahem. Good evening. I'm Auri, and THIS… is the news.";
 // At 1:00, we fetch a live headline from GPT-4o and append it
 
 const SILENCE_90_INTRO = "Okay. The news segment clearly wasn't my calling. Let me try something else. [taps mic] Is this thing on?";
@@ -257,6 +259,8 @@ let inTwoWay = false;
 let onboardingDone = false;
 let micPressCount = 0;
 let visitorCity = null;
+let musicAudio  = null;
+let musicFading = false;
 
 // ── DOM ──────────────────────────────────────────────────
 const orb       = document.getElementById('orb');
@@ -352,6 +356,37 @@ async function askAuri(userText) {
   }
 }
 
+// ── MUSIC ────────────────────────────────────────────────
+function startMusic() {
+  if (musicAudio) return;
+  musicAudio = new Audio(MUSIC_URL);
+  musicAudio.loop  = true;
+  musicAudio.volume = 0;
+  musicAudio.play().catch(() => {});
+  // Fade in over 3 seconds
+  let vol = 0;
+  const fadeIn = setInterval(() => {
+    vol = Math.min(vol + 0.01, MUSIC_VOL);
+    if (musicAudio) musicAudio.volume = vol;
+    if (vol >= MUSIC_VOL) clearInterval(fadeIn);
+  }, 150);
+}
+
+function stopMusic() {
+  if (!musicAudio || musicFading) return;
+  musicFading = true;
+  const fadeOut = setInterval(() => {
+    if (!musicAudio) { clearInterval(fadeOut); return; }
+    musicAudio.volume = Math.max(0, musicAudio.volume - 0.02);
+    if (musicAudio.volume <= 0) {
+      clearInterval(fadeOut);
+      musicAudio.pause();
+      musicAudio = null;
+      musicFading = false;
+    }
+  }, 80);
+}
+
 // ── SILENCE ARC — Welcome Wilson Sr. ─────────────────────
 async function getWeather() {
   try {
@@ -422,8 +457,11 @@ function scheduleSilenceStage(stage) {
 
     } else if (stage === 2) {
       const headline = await getLiveContent('headline');
-      const full = SILENCE_60_INTRO + ' ' + headline + ' ...We now return you to your regularly scheduled silence.';
-      speak(full, () => scheduleSilenceStage(3));
+      const full = SILENCE_60_INTRO + ' ' + headline + ' ...We now return you to your regularly scheduled silence. And now — since you have left me alone up here — my band is going to play us out.';
+      speak(full, () => {
+        startMusic();
+        scheduleSilenceStage(3);
+      });
 
     } else if (stage === 3) {
       const joke = await getLiveContent('joke');
@@ -498,6 +536,7 @@ function readyToListen() {
 
 // ── MIC BUTTON ───────────────────────────────────────────
 micBtn.addEventListener('click', () => {
+  stopMusic();
   if (isListening) { stopListening(); setStatus('', false); return; }
 
   micPressCount++;
@@ -547,6 +586,7 @@ textInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendText(); 
 function sendText() {
   const val = textInput.value.trim();
   if (!val) return;
+  stopMusic();
   textInput.value = '';
   showWords('"' + val + '"');
   clearSilenceTimer();
