@@ -238,7 +238,7 @@
 <script>
 // ── CONFIG ───────────────────────────────────────────────
 const WORKER_URL    = 'https://aurios-auth.joe-a3a.workers.dev';
-const GREETING      = "Welcome, fellow traveler. I'm Auu-ree. How can I assist you today? You can always ask for a guided tour.";
+const GREETING      = "Welcome, fellow traveler. I'm Aw-ree. How can I assist you today? You can always ask for a guided tour.";
 
 // ── STATE ────────────────────────────────────────────────
 const history = [];
@@ -298,16 +298,12 @@ async function speakElevenLabs(text, onDone) {
 }
 
 function speakFallback(text, onDone) {
-  if (!('speechSynthesis' in window)) {
-    orb.classList.remove('speaking');
-    if (onDone) onDone();
-    return;
-  }
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.rate = 0.82;
-  utt.onend = utt.onerror = () => { orb.classList.remove('speaking'); if (onDone) onDone(); };
-  try { window.speechSynthesis.speak(utt); }
-  catch(_) { orb.classList.remove('speaking'); if (onDone) onDone(); }
+  // ElevenLabs is primary — fallback is silent fail, not Web Speech
+  // (prevents double-voice when both fire simultaneously)
+  console.warn('TTS fallback triggered — ElevenLabs unavailable');
+  orb.classList.remove('speaking');
+  setStatus('Voice unavailable — read above', false);
+  if (onDone) onDone();
 }
 
 function speak(text, onDone) {
@@ -407,6 +403,8 @@ function sendText() {
 
 // ── BELL ─────────────────────────────────────────────────
 document.getElementById('bell-btn').addEventListener('click', () => {
+  // Kill any Web Speech that may be running
+  if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch(_) {} }
   // Initialize AudioContext on user gesture (required by browsers)
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
