@@ -73,7 +73,7 @@
     color: var(--steel);
   }
 
-  /* ── BELL BUTTON ── */
+  /* Bell */
   #bell-btn {
     margin-top: 60px;
     display: flex;
@@ -86,7 +86,6 @@
     outline: none;
     padding: 0;
   }
-
   #bell-icon {
     width: 48px;
     height: 48px;
@@ -94,14 +93,9 @@
     transition: opacity 0.2s, transform 0.15s;
     animation: breathe 3s ease-in-out infinite;
   }
-
-  #bell-btn:hover #bell-icon,
-  #bell-btn:active #bell-icon {
-    opacity: 1;
-    animation: none;
-    transform: rotate(-12deg);
+  #bell-btn:hover #bell-icon, #bell-btn:active #bell-icon {
+    opacity: 1; animation: none; transform: rotate(-12deg);
   }
-
   #bell-label {
     font-size: 0.65rem;
     letter-spacing: 0.3em;
@@ -109,15 +103,14 @@
     color: rgba(245,166,35,0.45);
     transition: color 0.2s;
   }
-
   #bell-btn:hover #bell-label { color: var(--gold); }
 
   @keyframes breathe {
     0%, 100% { opacity: 0.35; transform: rotate(0deg); }
-    50%       { opacity: 0.65; transform: rotate(6deg);  }
+    50%       { opacity: 0.65; transform: rotate(6deg); }
   }
 
-  /* ── TOUR SCREEN ── */
+  /* Tour screen */
   #words {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -243,8 +236,12 @@
 </div>
 
 <script>
-const GREETING = "Welcome, fellow traveler. I'm Auri. How can I assist you today? You can always ask for a guided tour.";
+// ── CONFIG ───────────────────────────────────────────────
+const WORKER_URL    = 'https://aurios-auth.joe-a3a.workers.dev';
+const GREETING      = "Welcome, fellow traveler. I'm Auu-ree. How can I assist you today? You can always ask for a guided tour.";
 
+// ── STATE ────────────────────────────────────────────────
+const history = [];
 const orb       = document.getElementById('orb');
 const words     = document.getElementById('words');
 const statusEl  = document.getElementById('status');
@@ -253,11 +250,11 @@ const textInput = document.getElementById('text-input');
 const sendBtn   = document.getElementById('send-btn');
 const textRow   = document.getElementById('text-row');
 
-const synth  = ('speechSynthesis' in window) ? window.speechSynthesis : null;
-const hasTTS = !!synth;
 let recognition = null;
 let isListening = false;
+let audioCtx    = null;
 
+// ── HELPERS ──────────────────────────────────────────────
 function setStatus(msg, active) {
   statusEl.textContent = msg;
   statusEl.classList.toggle('active', !!active);
@@ -268,25 +265,90 @@ function showWords(text) {
   setTimeout(() => { words.textContent = text; words.classList.add('show'); }, 150);
 }
 
-function speak(text, onDone) {
-  if (!hasTTS) { showWords(text); if (onDone) onDone(); return; }
-  try { synth.cancel(); } catch(_) {}
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.rate = 0.82; utt.pitch = 1.0;
-  try {
-    const voices = synth.getVoices();
-    for (const name of ['Google UK English Male', 'Daniel', 'Alex']) {
-      const v = voices.find(v => v.name === name);
-      if (v) { utt.voice = v; break; }
-    }
-  } catch(_) {}
+// ── ELEVENLABS TTS ───────────────────────────────────────
+async function speakElevenLabs(text, onDone) {
   showWords(text);
-  orb.classList.add('speaking'); orb.classList.remove('listening');
+  orb.classList.add('speaking');
   setStatus('Speaking…', true);
-  utt.onend = utt.onerror = () => { orb.classList.remove('speaking'); if (onDone) onDone(); };
-  try { synth.speak(utt); } catch(_) { orb.classList.remove('speaking'); if (onDone) onDone(); }
+
+  try {
+    const res = await fetch(`${WORKER_URL}/tts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+
+    const arrayBuffer = await res.arrayBuffer();
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    const decoded = await audioCtx.decodeAudioData(arrayBuffer);
+    const source  = audioCtx.createBufferSource();
+    source.buffer = decoded;
+    source.connect(audioCtx.destination);
+    source.onended = () => {
+      orb.classList.remove('speaking');
+      if (onDone) onDone();
+    };
+    source.start(0);
+
+  } catch (err) {
+    console.warn('TTS failed, falling back to Web Speech', err);
+    speakFallback(text, onDone);
+  }
 }
 
+function speakFallback(text, onDone) {
+  if (!('speechSynthesis' in window)) {
+    orb.classList.remove('speaking');
+    if (onDone) onDone();
+    return;
+  }
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.rate = 0.82;
+  utt.onend = utt.onerror = () => { orb.classList.remove('speaking'); if (onDone) onDone(); };
+  try { window.speechSynthesis.speak(utt); }
+  catch(_) { orb.classList.remove('speaking'); if (onDone) onDone(); }
+}
+
+function speak(text, onDone) {
+  speakElevenLabs(text, onDone);
+}
+
+// ── GPT-4o VIA WORKER ────────────────────────────────────
+async function askAuri(userText) {
+  history.push({ role: 'user', content: userText });
+  setStatus('Thinking…', true);
+  micBtn.disabled = true;
+  sendBtn.disabled = true;
+
+  try {
+    const res = await fetch(`${WORKER_URL}/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
+    });
+
+    const data = await res.json();
+    const reply = data.reply || "I'm here. Tell me more.";
+    history.push({ role: 'assistant', content: reply });
+
+    speak(reply, () => {
+      micBtn.disabled = false;
+      sendBtn.disabled = false;
+      readyToListen();
+    });
+
+  } catch (err) {
+    const fallback = "Something interrupted us. I'm still here — speak again.";
+    speak(fallback, () => {
+      micBtn.disabled = false;
+      sendBtn.disabled = false;
+      readyToListen();
+    });
+  }
+}
+
+// ── STT ──────────────────────────────────────────────────
 function setupRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) return false;
@@ -298,9 +360,7 @@ function setupRecognition() {
     stopListening();
     showWords('"' + said + '"');
     setStatus('');
-    setTimeout(() => {
-      speak("I heard you. Full intelligence is coming soon — this is just a preview.", () => readyToListen());
-    }, 500);
+    askAuri(said);
   };
   recognition.onerror = recognition.onend = () => { if (isListening) stopListening(); };
   return true;
@@ -327,6 +387,7 @@ function readyToListen() {
   setStatus('Tap to speak', false);
 }
 
+// ── INPUT ────────────────────────────────────────────────
 micBtn.addEventListener('click', () => {
   if (isListening) { stopListening(); setStatus('Tap to speak', false); return; }
   startListening();
@@ -341,17 +402,19 @@ function sendText() {
   textInput.value = '';
   showWords('"' + val + '"');
   setStatus('');
-  setTimeout(() => {
-    speak("I heard you. Full intelligence is coming soon — this is just a preview.", () => readyToListen());
-  }, 500);
+  askAuri(val);
 }
 
-// ── BELL RINGS — user gesture unlocks audio ──────────────
+// ── BELL ─────────────────────────────────────────────────
 document.getElementById('bell-btn').addEventListener('click', () => {
+  // Initialize AudioContext on user gesture (required by browsers)
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
   document.getElementById('screen-entry').classList.remove('active');
   document.getElementById('screen-tour').classList.add('active');
 
   const hasSTT = setupRecognition();
+  history.push({ role: 'assistant', content: GREETING });
 
   speak(GREETING, () => {
     if (hasSTT) { startListening(); }
