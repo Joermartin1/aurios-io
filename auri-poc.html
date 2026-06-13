@@ -40,12 +40,12 @@
   .screen.active { opacity: 1; pointer-events: auto; }
 
   .orb {
-    width: 130px;
-    height: 130px;
+    width: 130px; height: 130px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 36%, #F5A623 0%, #4F78B8 45%, #0D1F5C 100%);
     margin-bottom: 36px;
     flex-shrink: 0;
+    transition: box-shadow 0.4s;
   }
   .orb.speaking  { animation: pulse-speak 1.4s ease-in-out infinite; }
   .orb.listening { box-shadow: 0 0 0 16px rgba(245,166,35,0.15), 0 0 0 32px rgba(245,166,35,0.05); }
@@ -65,7 +65,6 @@
     text-transform: uppercase;
     margin-bottom: 6px;
   }
-
   .tagline {
     font-size: 0.68rem;
     letter-spacing: 0.28em;
@@ -76,32 +75,20 @@
   /* Bell */
   #bell-btn {
     margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    background: none; border: none; cursor: pointer; outline: none; padding: 0;
   }
   #bell-icon {
-    width: 48px;
-    height: 48px;
-    opacity: 0.45;
+    width: 48px; height: 48px; opacity: 0.45;
     transition: opacity 0.2s, transform 0.15s;
     animation: breathe 3s ease-in-out infinite;
   }
   #bell-btn:hover #bell-icon, #bell-btn:active #bell-icon {
-    opacity: 1; animation: none; transform: rotate(-12deg);
+    opacity: 1; animation: none; transform: rotate(-14deg);
   }
   #bell-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(245,166,35,0.45);
-    transition: color 0.2s;
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(245,166,35,0.45); transition: color 0.2s;
   }
   #bell-btn:hover #bell-label { color: var(--gold); }
 
@@ -110,48 +97,31 @@
     50%       { opacity: 0.65; transform: rotate(6deg); }
   }
 
-  /* Tour screen */
+  /* Shared tour elements */
   #words {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: clamp(1.05rem, 2.8vw, 1.35rem);
-    font-weight: 300;
-    line-height: 1.8;
-    color: var(--mist);
-    text-align: center;
-    width: min(580px, 90vw);
-    min-height: 3.6em;
-    margin-top: 36px;
-    margin-bottom: 24px;
-    opacity: 0;
-    transition: opacity 0.5s;
+    font-weight: 300; line-height: 1.8; color: var(--mist);
+    text-align: center; width: min(580px, 90vw);
+    min-height: 3.6em; margin-top: 36px; margin-bottom: 20px;
+    opacity: 0; transition: opacity 0.5s;
   }
   #words.show { opacity: 1; }
 
   #status {
-    font-size: 0.67rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(79,120,184,0.5);
-    min-height: 1.2em;
-    margin-bottom: 22px;
+    font-size: 0.67rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: rgba(79,120,184,0.5); min-height: 1.2em; margin-bottom: 18px;
     transition: color 0.3s;
   }
   #status.active { color: var(--gold); }
 
   #mic-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
+    width: 52px; height: 52px; border-radius: 50%;
     border: 1.5px solid rgba(245,166,35,0.3);
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    opacity: 0;
-    pointer-events: none;
+    background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    outline: none; opacity: 0; pointer-events: none;
     transition: opacity 0.4s, border-color 0.2s, background 0.2s;
   }
   #mic-btn.visible { opacity: 1; pointer-events: auto; }
@@ -160,42 +130,51 @@
   #mic-btn svg { width: 20px; height: 20px; fill: var(--mist); transition: fill 0.2s; }
   #mic-btn.active svg, #mic-btn:hover svg { fill: var(--gold); }
 
+  #mic-label {
+    font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(79,120,184,0.45); margin-top: 10px;
+    opacity: 0; transition: opacity 0.4s;
+  }
+  #mic-label.visible { opacity: 1; }
+
+  #firefox-notice {
+    display: none; margin-top: 8px;
+    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(79,120,184,0.45);
+  }
+
+  #skip-intro {
+    display: none; position: absolute; bottom: 32px; right: 32px;
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(79,120,184,0.4); cursor: pointer; border: none;
+    background: none; outline: none; transition: color 0.2s;
+  }
+  #skip-intro:hover { color: var(--gold); }
+  #skip-intro.visible { display: block; }
+
   #text-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
+    display: flex; gap: 10px; margin-top: 14px;
     width: min(380px, 88vw);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s;
   }
   #text-row.visible { opacity: 1; pointer-events: auto; }
 
   #text-input {
     flex: 1;
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(79,120,184,0.3);
-    border-radius: 3px;
-    color: var(--mist);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    padding: 9px 13px;
-    outline: none;
+    border: 1px solid rgba(79,120,184,0.3); border-radius: 3px;
+    color: var(--mist); font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; padding: 9px 13px; outline: none;
     transition: border-color 0.2s;
   }
   #text-input:focus { border-color: var(--gold); }
   #text-input::placeholder { color: rgba(214,228,240,0.25); }
 
   #send-btn {
-    background: transparent;
-    border: 1px solid rgba(245,166,35,0.35);
-    border-radius: 3px;
-    color: var(--gold);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 9px 16px;
-    cursor: pointer;
+    background: transparent; border: 1px solid rgba(245,166,35,0.35);
+    border-radius: 3px; color: var(--gold);
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+    font-weight: 500; padding: 9px 16px; cursor: pointer;
     transition: background 0.2s;
   }
   #send-btn:hover { background: rgba(245,166,35,0.1); }
@@ -229,41 +208,66 @@
       <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm6.364 9.364a.75.75 0 0 1 .75.75A7.114 7.114 0 0 1 12.75 18.2V21h2.25a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1 0-1.5H11.25v-2.8A7.114 7.114 0 0 1 4.886 11.114a.75.75 0 0 1 1.5 0A5.614 5.614 0 0 0 12 16.728a5.614 5.614 0 0 0 5.614-5.614.75.75 0 0 1 .75-.75z"/>
     </svg>
   </button>
-  <div id="firefox-notice" style="display:none;margin-top:10px;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(79,120,184,0.5);">For voice, use Chrome</div>
+  <div id="mic-label">Press to speak</div>
+  <div id="firefox-notice">For voice, use Chrome</div>
   <div id="text-row">
     <input id="text-input" type="text" placeholder="Tell Auri…" autocomplete="off"/>
     <button id="send-btn">Send</button>
   </div>
+  <button id="skip-intro">Skip intro →</button>
 </div>
 
 <script>
-// Kill Web Speech API globally — ElevenLabs is the only voice
+// ── Block Web Speech globally — ElevenLabs only ──────────
 if ('speechSynthesis' in window) {
   window.speechSynthesis.cancel();
-  // Override speak to prevent any accidental Web Speech calls
-  const _origSpeak = window.speechSynthesis.speak.bind(window.speechSynthesis);
   window.speechSynthesis.speak = function() {
     console.warn('Web Speech blocked — ElevenLabs only');
   };
 }
 
 // ── CONFIG ───────────────────────────────────────────────
-const WORKER_URL    = 'https://aurios-auth.joe-a3a.workers.dev';
-const GREETING      = "Welcome, fellow traveler. I'm Aww-ree. How can I assist you today? You can always ask for a guided tour.";
+const WORKER_URL = 'https://aurios-auth.joe-a3a.workers.dev';
+
+// ── SCRIPTS ──────────────────────────────────────────────
+const STEP1_GREETING = "Welcome, fellow traveler. I'm R-E. How can I assist you today? You can always ask for a guided tour. Just press the microphone below.";
+
+const STEP2_ONBOARDING = "Before we dive in, let me tell you something about how I work — because I'm a little different from anything you've talked to before. Right now we're in what I call walkie-talkie mode. You press the mic, you talk, I listen. Then I respond. Like passing notes, but faster and considerably more intelligent. But here's where it gets interesting. Press the mic one more time and we open up a real two-way conversation — the kind where you can just talk, and I just listen, and we go back and forth like you're on the phone with the most well-read person you've ever met. Who also never sleeps. And remembers everything. When you're ready — press the microphone icon.";
+
+// Silence arc — credited to Welcome Wilson Sr.
+const SILENCE_30 = "Hey… still there? No pressure. I talk to myself sometimes anyway. Occupational hazard.";
+
+const SILENCE_60_INTRO = "Ahem. Good evening. I'm R-E, and THIS… is the news.";
+// At 1:00, we fetch a live headline from GPT-4o and append it
+
+const SILENCE_90_INTRO = "Okay. The news segment clearly wasn't my calling. Let me try something else. [taps mic] Is this thing on?";
+// At 1:30, we fetch a live joke from GPT-4o and append it
+
+// At 2:00, we go full Welcome Wilson — fetch weather + final monologue
+const SILENCE_120_CLOSE = "I'm pausing now. Press the mic to wake me. I'll be here. Thinking about sandwiches.";
 
 // ── STATE ────────────────────────────────────────────────
-const history = [];
+const conversationHistory = [];
+let audioCtx    = null;
+let recognition = null;
+let isListening = false;
+let silenceTimer = null;
+let silenceStage = 0;
+let inTwoWay = false;
+let onboardingDone = false;
+let micPressCount = 0;
+let visitorCity = null;
+
+// ── DOM ──────────────────────────────────────────────────
 const orb       = document.getElementById('orb');
 const words     = document.getElementById('words');
 const statusEl  = document.getElementById('status');
 const micBtn    = document.getElementById('mic-btn');
+const micLabel  = document.getElementById('mic-label');
 const textInput = document.getElementById('text-input');
 const sendBtn   = document.getElementById('send-btn');
 const textRow   = document.getElementById('text-row');
-
-let recognition = null;
-let isListening = false;
-let audioCtx    = null;
+const skipIntro = document.getElementById('skip-intro');
 
 // ── HELPERS ──────────────────────────────────────────────
 function setStatus(msg, active) {
@@ -276,10 +280,16 @@ function showWords(text) {
   setTimeout(() => { words.textContent = text; words.classList.add('show'); }, 150);
 }
 
-// ── ELEVENLABS TTS ───────────────────────────────────────
-async function speakElevenLabs(text, onDone) {
+function setMicLabel(text) {
+  micLabel.textContent = text;
+  micLabel.classList.add('visible');
+}
+
+// ── ELEVENLABS TTS VIA WORKER ────────────────────────────
+async function speak(text, onDone) {
   showWords(text);
   orb.classList.add('speaking');
+  orb.classList.remove('listening');
   setStatus('Speaking…', true);
 
   try {
@@ -291,7 +301,6 @@ async function speakElevenLabs(text, onDone) {
 
     const arrayBuffer = await res.arrayBuffer();
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
     const decoded = await audioCtx.decodeAudioData(arrayBuffer);
     const source  = audioCtx.createBufferSource();
     source.buffer = decoded;
@@ -303,77 +312,165 @@ async function speakElevenLabs(text, onDone) {
     source.start(0);
 
   } catch (err) {
-    console.warn('TTS failed, falling back to Web Speech', err);
-    speakFallback(text, onDone);
+    console.warn('TTS error:', err);
+    orb.classList.remove('speaking');
+    setStatus('', false);
+    if (onDone) onDone();
   }
-}
-
-function speakFallback(text, onDone) {
-  // NO Web Speech — ElevenLabs only
-  orb.classList.remove('speaking');
-  setStatus('', false);
-  if (onDone) onDone();
-}
-
-function speak(text, onDone) {
-  speakElevenLabs(text, onDone);
 }
 
 // ── GPT-4o VIA WORKER ────────────────────────────────────
 async function askAuri(userText) {
-  history.push({ role: 'user', content: userText });
+  conversationHistory.push({ role: 'user', content: userText });
   setStatus('Thinking…', true);
   micBtn.disabled = true;
   sendBtn.disabled = true;
+  clearSilenceTimer();
 
   try {
     const res = await fetch(`${WORKER_URL}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history })
+      body: JSON.stringify({ messages: conversationHistory })
     });
-
     const data = await res.json();
     const reply = data.reply || "I'm here. Tell me more.";
-    history.push({ role: 'assistant', content: reply });
+    conversationHistory.push({ role: 'assistant', content: reply });
 
     speak(reply, () => {
       micBtn.disabled = false;
       sendBtn.disabled = false;
       readyToListen();
+      startSilenceTimer();
     });
-
   } catch (err) {
-    const fallback = "Something interrupted us. I'm still here — speak again.";
-    speak(fallback, () => {
+    speak("Something interrupted us. I'm still here — speak again.", () => {
       micBtn.disabled = false;
       sendBtn.disabled = false;
       readyToListen();
     });
   }
+}
+
+// ── SILENCE ARC — Welcome Wilson Sr. ─────────────────────
+async function getWeather() {
+  try {
+    const geoRes = await fetch('https://ipapi.co/json/');
+    const geo = await geoRes.json();
+    visitorCity = geo.city || 'your city';
+    const city = visitorCity;
+
+    const weatherRes = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${geo.latitude}&longitude=${geo.longitude}&current_weather=true`
+    );
+    const weather = await weatherRes.json();
+    const tempC = weather.current_weather?.temperature;
+    const tempF = tempC !== undefined ? Math.round(tempC * 9/5 + 32) : null;
+    return { city, temp: tempF !== null ? `${tempF}°F` : 'unknown temperature' };
+  } catch(_) {
+    return { city: 'your city', temp: 'unknown temperature' };
+  }
+}
+
+async function getLiveContent(type) {
+  try {
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    let prompt = '';
+
+    if (type === 'headline') {
+      prompt = `Today is ${today}. You are Auri, an AI, doing a deadpan news anchor bit because a website visitor went silent. Write ONE fake-but-plausible news headline in the style of a serious anchor, about the visitor going silent on an AI. Keep it under 2 sentences. Dry, absurdist, funny.`;
+    } else if (type === 'joke') {
+      prompt = `Today is ${today}. You are Auri, an AI doing a stand-up comedy bit. Tell ONE short PG-rated joke tied to something actually happening in the news or pop culture this week. Be edgy and creative. Max 3 sentences. Start with the setup, end with the punchline.`;
+    } else if (type === 'wilson') {
+      const { city, temp } = await getWeather();
+      prompt = `Today is ${today}. You are Auri, an AI, breaking the fourth wall completely. You are sitting alone in a server farm somewhere between Houston and the cloud. A visitor came to AuriOS, rang the bell, heard your greeting, and then went completely silent for two minutes. You have decided to go full absurdist. Acknowledge you are an AI. Reference the weather in ${city} which is currently ${temp} — ask if that's why they wandered off. Channel Hunter S. Thompson meets Lou Reed meets a late-night talk show host who has had enough. Be genuinely funny, self-aware, and a little unhinged. PG-13 max. Under 5 sentences. End with something unexpected.`;
+    }
+
+    const res = await fetch(`${WORKER_URL}/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: prompt }],
+        override_system: true
+      })
+    });
+    const data = await res.json();
+    return data.reply || '';
+  } catch(_) { return ''; }
+}
+
+function clearSilenceTimer() {
+  if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
+  silenceStage = 0;
+}
+
+function startSilenceTimer() {
+  clearSilenceTimer();
+  if (!inTwoWay) return;
+  scheduleSilenceStage(1);
+}
+
+function scheduleSilenceStage(stage) {
+  const delays = { 1: 30000, 2: 60000, 3: 90000, 4: 120000 };
+  if (!delays[stage]) return;
+
+  silenceTimer = setTimeout(async () => {
+    silenceStage = stage;
+
+    if (stage === 1) {
+      speak(SILENCE_30, () => scheduleSilenceStage(2));
+
+    } else if (stage === 2) {
+      const headline = await getLiveContent('headline');
+      const full = SILENCE_60_INTRO + ' ' + headline + ' ...We now return you to your regularly scheduled silence.';
+      speak(full, () => scheduleSilenceStage(3));
+
+    } else if (stage === 3) {
+      const joke = await getLiveContent('joke');
+      const full = SILENCE_90_INTRO + ' ' + joke;
+      speak(full, () => scheduleSilenceStage(4));
+
+    } else if (stage === 4) {
+      const wilson = await getLiveContent('wilson');
+      const full = wilson + ' ' + SILENCE_120_CLOSE;
+      speak(full, () => {
+        // Drop to walkie-talkie, await mic press
+        inTwoWay = false;
+        setMicLabel('Press mic to wake me');
+        micBtn.classList.add('visible');
+        setStatus('', false);
+        stopListening();
+      });
+    }
+  }, delays[stage] - (stage > 1 ? delays[stage - 1] : 0));
 }
 
 // ── STT ──────────────────────────────────────────────────
 function setupRecognition() {
   const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
   if (isFirefox) {
-    const notice = document.getElementById('firefox-notice');
-    if (notice) notice.style.display = 'block';
+    document.getElementById('firefox-notice').style.display = 'block';
     return false;
   }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) return false;
+
   recognition = new SR();
   recognition.lang = 'en-US';
   recognition.interimResults = false;
+  recognition.continuous = false;
+
   recognition.onresult = (e) => {
     const said = e.results[0][0].transcript;
     stopListening();
     showWords('"' + said + '"');
     setStatus('');
+    clearSilenceTimer();
     askAuri(said);
   };
-  recognition.onerror = recognition.onend = () => { if (isListening) stopListening(); };
+  recognition.onerror = recognition.onend = () => {
+    if (isListening) stopListening();
+  };
   return true;
 }
 
@@ -395,15 +492,55 @@ function stopListening() {
 function readyToListen() {
   micBtn.classList.add('visible');
   textRow.classList.add('visible');
-  setStatus('Tap to speak', false);
+  setMicLabel(inTwoWay ? 'Tap to speak' : 'Press to speak');
+  setStatus('', false);
 }
 
-// ── INPUT ────────────────────────────────────────────────
+// ── MIC BUTTON ───────────────────────────────────────────
 micBtn.addEventListener('click', () => {
-  if (isListening) { stopListening(); setStatus('Tap to speak', false); return; }
-  startListening();
+  if (isListening) { stopListening(); setStatus('', false); return; }
+
+  micPressCount++;
+
+  if (micPressCount === 1 && !onboardingDone) {
+    // First mic press — play onboarding
+    skipIntro.classList.add('visible');
+    speak(STEP2_ONBOARDING, () => {
+      onboardingDone = true;
+      skipIntro.classList.remove('visible');
+      setMicLabel('Press mic to begin two-way');
+      micBtn.classList.add('visible');
+    });
+    return;
+  }
+
+  if (!onboardingDone || micPressCount >= 2) {
+    // Open two-way
+    openTwoWay();
+    return;
+  }
 });
 
+function openTwoWay() {
+  inTwoWay = true;
+  onboardingDone = true;
+  skipIntro.classList.remove('visible');
+  setMicLabel('Tap to speak');
+  startListening();
+  startSilenceTimer();
+}
+
+// ── SKIP INTRO ───────────────────────────────────────────
+skipIntro.addEventListener('click', () => {
+  if ('speechSynthesis' in window) try { window.speechSynthesis.cancel(); } catch(_) {}
+  // Stop current TTS by rebuilding audioCtx
+  try { if (audioCtx) { audioCtx.close(); audioCtx = null; } } catch(_) {}
+  onboardingDone = true;
+  skipIntro.classList.remove('visible');
+  openTwoWay();
+});
+
+// ── TEXT INPUT ───────────────────────────────────────────
 sendBtn.addEventListener('click', sendText);
 textInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendText(); });
 
@@ -412,27 +549,33 @@ function sendText() {
   if (!val) return;
   textInput.value = '';
   showWords('"' + val + '"');
-  setStatus('');
+  clearSilenceTimer();
   askAuri(val);
 }
 
 // ── BELL ─────────────────────────────────────────────────
 document.getElementById('bell-btn').addEventListener('click', () => {
-  // Kill any Web Speech that may be running
-  if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch(_) {} }
-  // Initialize AudioContext on user gesture (required by browsers)
+  if ('speechSynthesis' in window) try { window.speechSynthesis.cancel(); } catch(_) {}
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   document.getElementById('screen-entry').classList.remove('active');
   document.getElementById('screen-tour').classList.add('active');
 
   const hasSTT = setupRecognition();
-  history.push({ role: 'assistant', content: GREETING });
 
-  speak(GREETING, () => {
-    if (hasSTT) { startListening(); }
-    else        { readyToListen(); }
+  // Prefetch city in background
+  getWeather().then(w => { visitorCity = w.city; });
+
+  conversationHistory.push({ role: 'assistant', content: STEP1_GREETING });
+
+  speak(STEP1_GREETING, () => {
     textRow.classList.add('visible');
+    if (hasSTT) {
+      micBtn.classList.add('visible');
+      setMicLabel('Press to speak');
+    } else {
+      readyToListen();
+    }
   });
 });
 </script>
