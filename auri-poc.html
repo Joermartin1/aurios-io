@@ -236,6 +236,16 @@
 </div>
 
 <script>
+// Kill Web Speech API globally — ElevenLabs is the only voice
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.cancel();
+  // Override speak to prevent any accidental Web Speech calls
+  const _origSpeak = window.speechSynthesis.speak.bind(window.speechSynthesis);
+  window.speechSynthesis.speak = function() {
+    console.warn('Web Speech blocked — ElevenLabs only');
+  };
+}
+
 // ── CONFIG ───────────────────────────────────────────────
 const WORKER_URL    = 'https://aurios-auth.joe-a3a.workers.dev';
 const GREETING      = "Welcome, fellow traveler. I'm Aw-ree. How can I assist you today? You can always ask for a guided tour.";
@@ -298,11 +308,9 @@ async function speakElevenLabs(text, onDone) {
 }
 
 function speakFallback(text, onDone) {
-  // ElevenLabs is primary — fallback is silent fail, not Web Speech
-  // (prevents double-voice when both fire simultaneously)
-  console.warn('TTS fallback triggered — ElevenLabs unavailable');
+  // NO Web Speech — ElevenLabs only
   orb.classList.remove('speaking');
-  setStatus('Voice unavailable — read above', false);
+  setStatus('', false);
   if (onDone) onDone();
 }
 
